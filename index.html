@@ -1,90 +1,326 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GRAND BATTLE</title>
+
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{
+ margin:0;
+ padding:0;
+ box-sizing:border-box;
+}
+
 body{
-background:#090611;color:white;
-font-family:Arial,sans-serif;
+ font-family:Arial,sans-serif;
+ background:#080511;
+ color:white;
+ min-height:100vh;
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ padding:20px;
 }
-header{
-padding:22px;background:#160c25;
-border-bottom:2px solid #8b35ff;
-text-align:center;
+
+.container{
+ width:100%;
+ max-width:420px;
+ background:#140d22;
+ border:1px solid #49256d;
+ border-radius:20px;
+ padding:28px 22px;
+ box-shadow:0 0 30px #7b2cff25;
 }
-header h1{color:#b66aff}
-.container{padding:20px}
-.card{
-background:#1b1029;
-padding:20px;margin:15px 0;
-border:1px solid #7131a9;
-border-radius:14px;
+
+.logo{
+ text-align:center;
+ font-size:30px;
+ font-weight:900;
+ color:#b66aff;
+ letter-spacing:2px;
 }
-button{
-background:#8b35ff;color:white;
-border:0;padding:13px 20px;
-border-radius:9px;font-weight:bold;
-width:100%;margin-top:12px;
+
+.subtitle{
+ text-align:center;
+ color:#aaa;
+ font-size:13px;
+ margin-top:8px;
+ margin-bottom:28px;
 }
-h2{color:#c28aff;margin-bottom:12px}
-nav{
-position:fixed;bottom:0;width:100%;
-background:#160c25;padding:16px;
-display:flex;justify-content:space-around;
-border-top:1px solid #8b35ff;
+
+.tabs{
+ display:flex;
+ background:#090611;
+ padding:5px;
+ border-radius:10px;
+ margin-bottom:25px;
 }
-nav a{color:white;text-decoration:none}
+
+.tabs button{
+ width:50%;
+ padding:12px;
+ border:0;
+ background:transparent;
+ color:#aaa;
+ font-size:15px;
+ font-weight:bold;
+ border-radius:8px;
+ cursor:pointer;
+}
+
+.tabs button.active{
+ background:#922fff;
+ color:white;
+}
+
+h2{
+ font-size:23px;
+ margin-bottom:8px;
+}
+
+.description{
+ color:#aaa;
+ font-size:13px;
+ margin-bottom:22px;
+}
+
+label{
+ display:block;
+ font-size:13px;
+ margin-bottom:8px;
+ color:#ddd;
+}
+
+input{
+ width:100%;
+ padding:14px;
+ margin-bottom:17px;
+ background:#090611;
+ border:1px solid #40304e;
+ border-radius:9px;
+ color:white;
+ outline:none;
+ font-size:14px;
+}
+
+input:focus{
+ border-color:#a64cff;
+}
+
+.main-btn{
+ width:100%;
+ padding:15px;
+ border:none;
+ border-radius:9px;
+ background:linear-gradient(90deg,#7624dc,#b12cff);
+ color:white;
+ font-size:16px;
+ font-weight:bold;
+ cursor:pointer;
+ margin-top:5px;
+}
+
+.google-btn{
+ width:100%;
+ padding:14px;
+ border:1px solid #62506f;
+ background:#21162e;
+ color:white;
+ border-radius:9px;
+ font-size:14px;
+ margin-top:14px;
+ cursor:pointer;
+}
+
+.divider{
+ text-align:center;
+ color:#888;
+ margin:20px 0;
+ font-size:12px;
+}
+
+.footer{
+ text-align:center;
+ color:#888;
+ font-size:12px;
+ margin-top:25px;
+}
+
+.footer span{
+ color:#b66aff;
+}
+
+.hidden{
+ display:none;
+}
+
+.message{
+ color:#ff7777;
+ font-size:13px;
+ margin-top:12px;
+ text-align:center;
+}
+
 </style>
 </head>
-<body>
 
-<header>
-<h1>GRAND BATTLE</h1>
-<p>Welcome to the Ultimate Esports Arena</p>
-</header>
+<body>
 
 <div class="container">
 
-<div class="card">
-<h2>Welcome Player!</h2>
-<p>Join tournaments and prove your skills.</p>
-<button onclick="alert('Google Login setup required')">
-Google Login
-</button>
+ <div class="logo">GRAND BATTLE</div>
+
+ <div class="subtitle">
+ Welcome to the Ultimate Esports Arena
+ </div>
+
+ <div class="tabs">
+  <button id="loginTab" class="active"
+  onclick="showLogin()">LOGIN</button>
+
+  <button id="registerTab"
+  onclick="showRegister()">REGISTER</button>
+ </div>
+
+ <div id="loginForm">
+
+  <h2>Welcome Back!</h2>
+  <p class="description">
+  Login to continue your gaming journey.
+  </p>
+
+  <form onsubmit="login(event)">
+
+   <label>Email Address</label>
+   <input type="email" id="loginEmail"
+   placeholder="Enter your email" required>
+
+   <label>Password</label>
+   <input type="password" id="loginPassword"
+   placeholder="Enter your password" required>
+
+   <button class="main-btn" type="submit">
+   LOGIN NOW
+   </button>
+
+  </form>
+
+  <div class="divider">OR</div>
+
+  <button class="google-btn"
+  onclick="googleLogin()">
+  🌐 Continue with Google
+  </button>
+
+ </div>
+
+ <div id="registerForm" class="hidden">
+
+  <h2>Create Account</h2>
+  <p class="description">
+  Join GRAND BATTLE and play tournaments.
+  </p>
+
+  <form onsubmit="register(event)">
+
+   <label>Player Name</label>
+   <input type="text" id="playerName"
+   placeholder="Enter your name" required>
+
+   <label>Email Address</label>
+   <input type="email" id="registerEmail"
+   placeholder="Enter your email" required>
+
+   <label>Create Password</label>
+   <input type="password" id="registerPassword"
+   placeholder="Minimum 6 characters"
+   minlength="6" required>
+
+   <label>Confirm Password</label>
+   <input type="password" id="confirmPassword"
+   placeholder="Confirm your password" required>
+
+   <button class="main-btn" type="submit">
+   CREATE ACCOUNT
+   </button>
+
+  </form>
+
+  <div class="divider">OR</div>
+
+  <button class="google-btn"
+  onclick="googleLogin()">
+  🌐 Register with Google
+  </button>
+
+ </div>
+
+ <div id="message" class="message"></div>
+
+ <div class="footer">
+ By continuing, you agree to our
+ <span>Terms & Privacy Policy</span>.
+ <br><br>
+ © 2026 GRAND BATTLE
+ </div>
+
 </div>
 
-<div class="card">
-<h2>Latest Announcements</h2>
-<p>Stay updated with GRAND BATTLE tournaments.</p>
-</div>
+<script>
 
-<div class="card">
-<h2>My Matches</h2>
-<p>No matches joined yet.</p>
-</div>
+function showLogin(){
+ document.getElementById("loginForm").classList.remove("hidden");
+ document.getElementById("registerForm").classList.add("hidden");
 
-<div class="card">
-<h2>Free Fire Tournaments</h2>
-<p>Free Tournament</p>
-<button>View Matches</button>
-</div>
+ document.getElementById("loginTab").classList.add("active");
+ document.getElementById("registerTab").classList.remove("active");
 
-<div class="card">
-<h2>Customer Support</h2>
-<p>Need help? Contact our support team.</p>
-<button onclick="alert('Support coming soon')">Contact Support</button>
-</div>
+ document.getElementById("message").innerText="";
+}
 
-</div>
+function showRegister(){
+ document.getElementById("registerForm").classList.remove("hidden");
+ document.getElementById("loginForm").classList.add("hidden");
 
-<nav>
-<a href="#">Earn</a>
-<a href="#">Play</a>
-<a href="#">Account</a>
-</nav>
+ document.getElementById("registerTab").classList.add("active");
+ document.getElementById("loginTab").classList.remove("active");
+
+ document.getElementById("message").innerText="";
+}
+
+function register(event){
+ event.preventDefault();
+
+ let name=document.getElementById("playerName").value;
+ let email=document.getElementById("registerEmail").value;
+ let password=document.getElementById("registerPassword").value;
+ let confirm=document.getElementById("confirmPassword").value;
+
+ if(password!==confirm){
+  document.getElementById("message").innerText="Passwords do not match!";
+  return;
+ }
+
+ document.getElementById("message").innerText=
+ "Registration UI ready! Firebase authentication needs to be connected.";
+
+}
+
+function login(event){
+ event.preventDefault();
+
+ document.getElementById("message").innerText=
+ "Login UI ready! Connect Firebase Authentication to enable real login.";
+}
+
+function googleLogin(){
+ document.getElementById("message").innerText=
+ "Google login will work after Firebase setup.";
+}
+
+</script>
 
 </body>
 </html>
