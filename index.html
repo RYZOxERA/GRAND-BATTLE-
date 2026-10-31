@@ -4,259 +4,260 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090914">
 <title>GRAND BATTLE</title>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{
- background:#090611;color:white;
  font-family:Arial,sans-serif;
+ background:#090914;
+ color:white;
  min-height:100vh;
 }
-button,input{font:inherit}
-button{cursor:pointer}
+button{cursor:pointer;font:inherit}
 .hidden{display:none!important}
-#authScreen{
- min-height:100vh;display:flex;
- align-items:center;justify-content:center;
- padding:22px;
- background:radial-gradient(circle at top,#301052,#090611 65%);
+
+.login-screen{
+ min-height:100vh;
+ display:grid;
+ place-items:center;
+ padding:20px;
 }
-.auth-card{
- width:100%;max-width:390px;
- background:#160e23;border:1px solid #553078;
- border-radius:22px;padding:28px 22px;
- box-shadow:0 15px 50px #0009;
+.login-card{
+ width:100%;
+ max-width:400px;
+ background:#171629;
+ border:1px solid #49356e;
+ border-radius:20px;
+ padding:28px;
+ text-align:center;
 }
-.logo{text-align:center;margin-bottom:25px}
-.logo h1{font-size:30px;color:#c77aff;letter-spacing:2px}
-.logo p{color:#aaa;font-size:13px;margin-top:7px}
-.auth-tabs{display:flex;gap:10px;margin-bottom:20px}
-.auth-tabs button{
- flex:1;padding:12px;border:1px solid #51316e;
- border-radius:10px;background:#21152e;color:#bbb;
+.login-card h1{margin:12px 0;font-size:25px}
+.login-card p{color:#aaa;font-size:13px;line-height:1.6;margin-bottom:22px}
+.google-btn{
+ width:100%;
+ padding:14px;
+ border:0;
+ border-radius:10px;
+ background:white;
+ color:#222;
+ font-weight:bold;
 }
-.auth-tabs button.active{background:#873bd0;color:white}
-.field{margin-bottom:14px}
-.field label{display:block;font-size:13px;color:#ccc;margin-bottom:7px}
-.field input{
- width:100%;padding:14px;border-radius:10px;
- border:1px solid #49305c;background:#0c0912;
- color:white;outline:none;
+.error{color:#ff9999;font-size:12px;margin-top:12px}
+
+.wrap{
+ max-width:760px;
+ margin:auto;
+ padding:18px 15px 90px;
 }
-.field input:focus{border-color:#b35cff}
-.primary,.google-btn{
- width:100%;padding:14px;border:0;
- border-radius:10px;font-weight:bold;margin-top:8px;
+.top{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ margin-bottom:25px;
 }
-.primary{background:linear-gradient(90deg,#7b2cbf,#bd55ff);color:white}
-.google-btn{background:white;color:#222}
-.forgot{text-align:right;color:#c77aff;font-size:13px;margin:10px 0;cursor:pointer}
-.divider{text-align:center;color:#777;font-size:12px;margin:17px}
-.message{font-size:13px;text-align:center;margin-top:13px;color:#ff9b9b}
-#app{padding-bottom:85px;max-width:650px;margin:auto}
-header{
- display:flex;align-items:center;justify-content:space-between;
- padding:17px;background:#150d20;border-bottom:1px solid #38204b;
+.brand{display:flex;align-items:center;gap:10px}
+.logo{
+ background:linear-gradient(135deg,#a78bfa,#5b21b6);
+ padding:12px;
+ border-radius:12px;
+ font-size:22px;
 }
-header h2{font-size:19px;color:#c77aff}
-.coins{background:#2c1b3c;padding:9px 12px;border-radius:20px;color:#ffd45c;font-size:13px}
-main{padding:16px}
-.welcome{
- padding:20px;border-radius:16px;
- background:linear-gradient(120deg,#57228a,#211333);
- margin-bottom:18px;
+.brand h1{font-size:17px}
+.brand small{font-size:10px;color:#aaa}
+.coins{
+ background:#211b35;
+ border:1px solid #49356e;
+ padding:10px;
+ border-radius:12px;
 }
-.welcome h2{font-size:21px;margin-bottom:7px}
-.welcome p{font-size:13px;color:#ddd}
-.section{margin:22px 0}
-.section-title{font-size:17px;margin-bottom:12px}
+.welcome h2{font-size:23px;margin-bottom:5px}
+.welcome p{font-size:13px;color:#aaa}
+
 .banner{
- padding:17px;border-radius:14px;
- background:linear-gradient(120deg,#34204b,#171020);
- border:1px solid #49305c;
+ margin:20px 0;
+ background:linear-gradient(110deg,#38206b,#17152d);
+ padding:18px;
+ border-radius:17px;
+ border:1px solid #54358b;
 }
-.banner p,.match p,.game p{font-size:12px;color:#bbb;margin-top:7px}
-.match-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
-.match{
- background:#1a1125;border:1px solid #49305c;
- border-radius:12px;padding:13px 7px;text-align:center;
-}
-.match strong{font-size:13px}
-.game-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.game{
- padding:18px 12px;border-radius:14px;
- background:linear-gradient(140deg,#28133d,#15101d);
- border:1px solid #553078;
-}
-.game h3{font-size:15px}
-.game button{
- margin-top:13px;padding:9px 13px;border:0;
- border-radius:8px;background:#8e42c7;color:white;
+.banner p,.support p{
  font-size:12px;
+ color:#d3c9ed;
+ margin-top:7px;
+ line-height:1.5;
 }
+.section-head{
+ display:flex;
+ justify-content:space-between;
+ margin:22px 0 12px;
+}
+.section-head span{font-size:10px;color:#aaa}
+
+.stats,.games{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:10px;
+}
+.stat,.tile{
+ background:#171629;
+ border:1px solid #292842;
+ border-radius:14px;
+ padding:14px;
+}
+.stat b{display:block;font-size:21px;margin-bottom:5px}
+.stat span,.tile small{font-size:11px;color:#aaa}
+
+.games{grid-template-columns:repeat(2,1fr)}
+.tile{
+ min-height:110px;
+ display:flex;
+ flex-direction:column;
+ justify-content:space-between;
+}
+.tile .emoji{font-size:25px}
+.tile b{font-size:14px}
+
 .support{
- background:#21142f;border:1px solid #59377b;
- padding:17px;border-radius:14px;
+ margin-top:18px;
+ padding:16px;
+ background:#211b35;
+ border-radius:15px;
 }
-.support button{
- margin-top:12px;padding:10px 15px;
- border:0;border-radius:8px;background:#a34de0;color:white;
+.signout{
+ padding:9px 13px;
+ background:#302044;
+ color:white;
+ border:1px solid #60418b;
+ border-radius:10px;
 }
-.bottom-nav{
- position:fixed;bottom:0;left:0;right:0;
- max-width:650px;margin:auto;
- background:#150d20;border-top:1px solid #49305c;
- display:flex;justify-content:space-around;
- padding:12px 5px;
+.bottom{
+ position:fixed;
+ bottom:0;
+ left:0;
+ right:0;
+ background:#11101f;
+ border-top:1px solid #292842;
 }
-.bottom-nav button{
- background:none;border:0;color:#aaa;font-size:12px;
+.bottom-inner{
+ max-width:760px;
+ margin:auto;
+ display:flex;
+ justify-content:space-around;
+ padding:13px;
 }
-.bottom-nav button.active{color:#d18aff}
-#accountPanel,#earnPanel{
- background:#1a1125;padding:18px;border-radius:15px;
- margin-top:16px;border:1px solid #49305c;
-}
-#accountPanel p,#earnPanel p{color:#bbb;font-size:13px;margin:10px 0}
-.logout{
- background:#b52d48;color:white;border:0;
- border-radius:9px;padding:12px 18px;margin-top:12px;
-}
-.status{color:#b7f5c5;font-size:13px;margin-top:10px}
+.nav{text-align:center;color:#aaa;font-size:11px}
+.nav b{display:block;font-size:18px;margin-bottom:3px}
+.active{color:#c4a7ff}
 </style>
 </head>
 
 <body>
 
-<section id="authScreen">
- <div class="auth-card">
-  <div class="logo">
-   <h1>GRAND BATTLE</h1>
-   <p>WELCOME TO THE ULTIMATE ESPORTS ARENA</p>
+<!-- GOOGLE LOGIN -->
+<main id="loginScreen" class="login-screen">
+ <section class="login-card">
+  <div style="font-size:42px">⚔️</div>
+  <h1>GRAND BATTLE</h1>
+  <p>Sign in with Google to access tournaments, match updates and your player profile.</p>
+  <button id="googleLogin" class="google-btn">
+   Continue with Google
+  </button>
+  <div id="loginError" class="error"></div>
+ </section>
+</main>
+
+<!-- HOME DASHBOARD -->
+<main id="appScreen" class="wrap hidden">
+
+ <header class="top">
+  <div class="brand">
+   <div class="logo">⚔</div>
+   <div>
+    <h1>GRAND BATTLE</h1>
+    <small>FREE FIRE ESPORTS</small>
+   </div>
   </div>
-
-  <div class="auth-tabs">
-   <button id="loginTab" class="active" onclick="showMode('login')">LOGIN</button>
-   <button id="registerTab" onclick="showMode('register')">REGISTER</button>
-  </div>
-
-  <form id="authForm">
-   <div class="field hidden" id="nameField">
-    <label>Player Name</label>
-    <input id="playerName" type="text" placeholder="Enter your name">
-   </div>
-   <div class="field">
-    <label>Email Address</label>
-    <input id="email" type="email" placeholder="Enter email" required>
-   </div>
-   <div class="field">
-    <label>Password</label>
-    <input id="password" type="password" placeholder="Enter password" minlength="6" required>
-   </div>
-   <div class="forgot" id="forgotBtn" onclick="forgotPassword()">Forgot Password?</div>
-   <button class="primary" id="submitBtn" type="submit">LOGIN</button>
-  </form>
-
-  <div class="divider">OR CONTINUE WITH</div>
-  <button class="google-btn" id="googleBtn" onclick="googleLogin()">🌐 Continue with Google</button>
-  <div id="authMessage" class="message"></div>
- </div>
-</section>
-
-<section id="app" class="hidden">
- <header>
-  <h2>⚔ GRAND BATTLE</h2>
-  <div class="coins">🪙 0 Coins</div>
+  <div class="coins">🪙 <span id="coinBalance">0</span> Coins</div>
  </header>
 
- <main>
-  <div id="playPanel">
-   <section class="welcome">
-    <h2>Welcome, <span id="welcomeName">Player</span>!</h2>
-    <p>Join tournaments and prove your skills.</p>
-    <div class="status">● Account Connected</div>
-   </section>
+ <section class="welcome">
+  <h2>Welcome, <span id="playerName">Player</span>!</h2>
+  <p>Join tournaments and prove your skills.</p>
+ </section>
 
-   <div class="section">
-    <h3 class="section-title">📢 Latest Announcements</h3>
-    <div class="banner">
-     <strong>Welcome to GRAND BATTLE!</strong>
-     <p>Stay updated with upcoming Free Fire tournaments and events.</p>
-    </div>
-   </div>
+ <section class="banner">
+  <b>📢 Latest Announcements</b>
+  <p>Welcome to GRAND BATTLE! Stay updated with upcoming Free Fire tournaments and events.</p>
+ </section>
 
-   <div class="section">
-    <h3 class="section-title">🎮 My Matches</h3>
-    <div class="match-grid">
-     <div class="match"><strong>Upcoming</strong><p>0 Matches</p></div>
-     <div class="match"><strong>Ongoing</strong><p>0 Matches</p></div>
-     <div class="match"><strong>Completed</strong><p>0 Matches</p></div>
-    </div>
-   </div>
-
-   <div class="section">
-    <h3 class="section-title">🔥 Free Fire Tournaments</h3>
-    <div class="game-grid">
-     <div class="game">
-      <h3>Free Tournament</h3>
-      <p>Entry Fee: FREE</p>
-      <button onclick="showNotice()">View Matches</button>
-     </div>
-     <div class="game">
-      <h3>Squad Battle</h3>
-      <p>Coming Soon</p>
-      <button onclick="showNotice()">View Matches</button>
-     </div>
-    </div>
-   </div>
-
-   <div class="section support">
-    <h3>🎧 Customer Support</h3>
-    <p>Need help? Contact our support team.</p>
-    <button onclick="contactSupport()">Contact Support</button>
-   </div>
-  </div>
-
-  <div id="earnPanel" class="hidden">
-   <h3>💰 Earn</h3>
-   <p>Rewards and earning features will be available soon.</p>
-   <p>Coin Balance: 0</p>
-  </div>
-
-  <div id="accountPanel" class="hidden">
-   <h3>👤 My Account</h3>
-   <p>Player: <span id="accountName"></span></p>
-   <p>Email: <span id="accountEmail"></span></p>
-   <p>UID: <span id="accountUID"></span></p>
-   <button class="logout" onclick="logout()">LOGOUT</button>
-  </div>
- </main>
-
- <nav class="bottom-nav">
-  <button id="earnNav" onclick="openPanel('earn')">💰<br>Earn</button>
-  <button id="playNav" class="active" onclick="openPanel('play')">🎮<br>Play</button>
-  <button id="accountNav" onclick="openPanel('account')">👤<br>Account</button>
- </nav>
-</section>
-
-<div id="notice" class="hidden" style="position:fixed;inset:0;background:#000b;display:flex;align-items:center;justify-content:center;padding:20px">
- <div style="background:#21142f;padding:25px;border-radius:15px;text-align:center;max-width:320px">
-  <h3>Coming Soon!</h3>
-  <p style="margin:12px 0;color:#ccc">Tournament matches are not published yet.</p>
-  <button class="primary" onclick="document.getElementById('notice').classList.add('hidden')">OK</button>
+ <div class="section-head">
+  <h3>🎮 My Matches</h3>
+  <span>YOUR ACTIVITY</span>
  </div>
-</div>
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js";
-import {
- getAuth, GoogleAuthProvider, signInWithPopup,
- createUserWithEmailAndPassword, signInWithEmailAndPassword,
- sendPasswordResetEmail, signOut, onAuthStateChanged,
- updateProfile
-} from "https://www.gstatic.com/firebasejs/13.1.0/firebase-auth.js";
+ <section class="stats">
+  <div class="stat"><b>0</b><span>Upcoming</span></div>
+  <div class="stat"><b>0</b><span>Ongoing</span></div>
+  <div class="stat"><b>0</b><span>Completed</span></div>
+ </section>
 
+ <div class="section-head">
+  <h3>🔥 Free Fire Tournaments</h3>
+  <span>SELECT A BATTLE</span>
+ </div>
+
+ <section class="games">
+  <article class="tile">
+   <span class="emoji">🆓</span>
+   <div><b>Free Tournament</b><br><small>Entry Fee: FREE</small></div>
+  </article>
+
+  <article class="tile">
+   <span class="emoji">👥</span>
+   <div><b>Squad Battle</b><br><small>Coming Soon</small></div>
+  </article>
+
+  <article class="tile">
+   <span class="emoji">⚡</span>
+   <div><b>Clash Squad</b><br><small>Coming Soon</small></div>
+  </article>
+
+  <article class="tile">
+   <span class="emoji">🏆</span>
+   <div><b>Custom Room</b><br><small>Coming Soon</small></div>
+  </article>
+ </section>
+
+ <section class="support">
+  <b>💬 Need Help?</b>
+  <p>Contact GRAND BATTLE support for account or tournament assistance.</p>
+ </section>
+
+ <div style="display:flex;justify-content:space-between;align-items:center;margin-top:20px">
+  <small id="accountStatus" style="color:#aaa;font-size:11px">● Account Connected</small>
+  <button id="signOut" class="signout">Sign out</button>
+ </div>
+
+</main>
+
+<nav id="bottomNav" class="bottom hidden">
+ <div class="bottom-inner">
+  <div class="nav"><b>🪙</b>Earn</div>
+  <div class="nav active"><b>🎮</b>Play</div>
+  <div class="nav"><b>👤</b>Account</div>
+ </div>
+</nav>
+
+<!-- FIREBASE SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+
+<script>
+
+// FIREBASE CONFIGURATION
 const firebaseConfig = {
  apiKey: "AIzaSyBJ9qWnOPX7qL0sOqjlvclR64XSZC_G93U",
  authDomain: "grand-battle-f4fa8.firebaseapp.com",
@@ -267,108 +268,101 @@ const firebaseConfig = {
  measurementId: "G-12BSTFFDRV"
 };
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const provider = new GoogleAuthProvider();
+firebase.initializeApp(firebaseConfig);
 
-let mode = "login";
-const $ = id => document.getElementById(id);
+const auth = firebase.auth();
+const db = firebase.firestore();
+const provider = new firebase.auth.GoogleAuthProvider();
 
-window.showMode = function(nextMode){
- mode = nextMode;
- $("loginTab").classList.toggle("active",mode==="login");
- $("registerTab").classList.toggle("active",mode==="register");
- $("nameField").classList.toggle("hidden",mode!=="register");
- $("forgotBtn").classList.toggle("hidden",mode!=="login");
- $("submitBtn").textContent = mode==="login"?"LOGIN":"CREATE ACCOUNT";
- $("authMessage").textContent="";
-};
+const loginScreen = document.getElementById("loginScreen");
+const appScreen = document.getElementById("appScreen");
+const bottomNav = document.getElementById("bottomNav");
+const loginButton = document.getElementById("googleLogin");
+const loginError = document.getElementById("loginError");
 
-function message(text){
- $("authMessage").textContent=text;
-}
+// SAVE LOGIN SESSION
+auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+.catch(error => console.error(error));
 
-$("authForm").addEventListener("submit",async e=>{
- e.preventDefault();
- const email=$("email").value.trim();
- const password=$("password").value;
- const name=$("playerName").value.trim();
+// GOOGLE LOGIN
+loginButton.addEventListener("click", async () => {
+ loginError.textContent = "";
+ loginButton.disabled = true;
+ loginButton.textContent = "Opening Google...";
 
- $("submitBtn").disabled=true;
- message("Please wait...");
-
- try{
-  if(mode==="register"){
-   if(!name) throw new Error("Please enter your player name.");
-   const result=await createUserWithEmailAndPassword(auth,email,password);
-   await updateProfile(result.user,{displayName:name});
-  }else{
-   await signInWithEmailAndPassword(auth,email,password);
-  }
- }catch(error){
-  message(error.message);
- }finally{
-  $("submitBtn").disabled=false;
+ try {
+  await auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+  await auth.signInWithRedirect(provider);
+ } catch(error) {
+  console.error(error);
+  loginError.textContent = error.message;
+  loginButton.disabled = false;
+  loginButton.textContent = "Continue with Google";
  }
 });
 
-window.googleLogin=async function(){
- message("Connecting to Google...");
- $("googleBtn").disabled=true;
- try{
-  await signInWithPopup(auth,provider);
- }catch(error){
-  message(error.message);
- }finally{
-  $("googleBtn").disabled=false;
+// HANDLE GOOGLE REDIRECT
+auth.getRedirectResult().catch(error => {
+ console.error(error);
+ loginError.textContent = error.message;
+ loginButton.disabled = false;
+ loginButton.textContent = "Continue with Google";
+});
+
+// LOGIN STATE
+auth.onAuthStateChanged(async user => {
+
+ if(!user) {
+  loginScreen.classList.remove("hidden");
+  appScreen.classList.add("hidden");
+  bottomNav.classList.add("hidden");
+  return;
  }
-};
 
-window.forgotPassword=async function(){
- const email=$("email").value.trim();
- if(!email){message("Enter your email address first.");return;}
- try{
-  await sendPasswordResetEmail(auth,email);
-  message("Password reset email sent. Check your inbox.");
- }catch(error){message(error.message);}
-};
+ loginScreen.classList.add("hidden");
+ appScreen.classList.remove("hidden");
+ bottomNav.classList.remove("hidden");
 
-onAuthStateChanged(auth,user=>{
- if(user){
-  $("authScreen").classList.add("hidden");
-  $("app").classList.remove("hidden");
-  const name=user.displayName || user.email.split("@")[0] || "Player";
-  $("welcomeName").textContent=name;
-  $("accountName").textContent=name;
-  $("accountEmail").textContent=user.email || "Not available";
-  $("accountUID").textContent=user.uid;
-  openPanel("play");
- }else{
-  $("app").classList.add("hidden");
-  $("authScreen").classList.remove("hidden");
+ document.getElementById("playerName").textContent =
+  user.displayName || "Player";
+
+ try {
+  const userRef = db.collection("users").doc(user.uid);
+
+  await userRef.set({
+   uid:user.uid,
+   Name:user.displayName || "Player",
+   Email:user.email || "",
+   photoURL:user.photoURL || "",
+   provider:"google",
+   lastLoginAt:firebase.firestore.FieldValue.serverTimestamp()
+  },{merge:true});
+
+  const userDoc = await userRef.get();
+  const userData = userDoc.data() || {};
+
+  document.getElementById("coinBalance").textContent =
+   Number(userData.coins) || 0;
+
+  document.getElementById("accountStatus").textContent =
+   "● Account Connected";
+
+ } catch(error) {
+  console.error("Firestore error:",error);
+  document.getElementById("accountStatus").textContent =
+   "● Profile save failed";
  }
 });
 
-window.logout=async function(){
- try{await signOut(auth);}
- catch(error){alert(error.message);}
-};
+// LOGOUT
+document.getElementById("signOut").addEventListener("click",async()=>{
+ try {
+  await auth.signOut();
+ } catch(error) {
+  alert(error.message);
+ }
+});
 
-window.openPanel=function(panel){
- ["playPanel","earnPanel","accountPanel"].forEach(id=>$(id).classList.add("hidden"));
- ["playNav","earnNav","accountNav"].forEach(id=>$(id).classList.remove("active"));
- $(panel+"Panel").classList.remove("hidden");
- $(panel+"Nav").classList.add("active");
-};
-
-window.showNotice=function(){
- $("notice").classList.remove("hidden");
-};
-
-window.contactSupport=function(){
- window.location.href="mailto:oarfcreator@gmail.com?subject=GRAND%20BATTLE%20Support";
-};
 </script>
 </body>
 </html>
-
