@@ -1,139 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#100b1d">
-<title>RYZO ESPORTS</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GRAND BATTLE</title>
 <style>
-:root{--bg:#0b0812;--panel:#151020;--panel2:#1c142b;--purple:#9b5cff;--pink:#d65cff;--text:#f7f2ff;--muted:#a99bbd;--line:#302340;--green:#5ee0a0}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% -10%,#32164d 0,transparent 35%),var(--bg);color:var(--text);font:15px/1.5 Inter,system-ui,Arial,sans-serif}
-header{position:sticky;top:0;z-index:5;background:#0d0915eF;border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
-.nav{max-width:1120px;margin:auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px}
-.brand{font-weight:950;letter-spacing:1.2px;font-size:20px}.brand span{color:var(--purple)}
-nav{display:flex;gap:18px;align-items:center}a{color:var(--muted);text-decoration:none}a:hover{color:white}
-button{border:0;border-radius:12px;padding:11px 16px;font-weight:800;cursor:pointer;color:white;background:linear-gradient(110deg,var(--purple),#7138cb)}button:hover{filter:brightness(1.12)}
-.wrap{max-width:1120px;margin:auto;padding:28px 20px 60px}
-.hero{padding:42px 28px;border:1px solid #56327b;border-radius:24px;background:linear-gradient(115deg,#241336,#120d1d 65%);position:relative;overflow:hidden}
-.hero:after{content:"";position:absolute;width:260px;height:260px;border-radius:50%;right:-70px;top:-70px;background:#9b5cff30;filter:blur(3px)}
-.eyebrow{color:#c5a2ff;font-size:12px;font-weight:900;letter-spacing:2px}.hero h1{font-size:clamp(34px,6vw,58px);line-height:1.03;margin:12px 0}.hero p{color:#c1b4d0;max-width:550px}.hero button{margin-top:10px}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0 34px}.stat,.card,.sectionbox{background:var(--panel);border:1px solid var(--line);border-radius:17px;padding:16px}.stat strong{display:block;font-size:23px}.stat small,.muted{color:var(--muted)}
-.sectionhead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:30px 0 14px}.sectionhead h2{margin:0;font-size:23px}
-.filters{display:flex;gap:8px;flex-wrap:wrap}.filter{background:#21172f;color:#c9b9dd;border:1px solid var(--line);padding:8px 13px;border-radius:99px}.filter.active{background:#6d3ab0;color:white;border-color:#a56aff}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{padding:0;overflow:hidden}.cardtop{padding:16px;background:linear-gradient(130deg,#2c1942,#181021);border-bottom:1px solid var(--line)}.tag{font-size:11px;font-weight:900;color:#d8bcff;background:#55317d;padding:5px 9px;border-radius:99px}.cardbody{padding:16px}.card h3{margin:9px 0 4px;font-size:18px}.details{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}.details small{display:block;color:var(--muted);font-size:11px}.details b{font-size:14px}.cardfoot{display:flex;justify-content:space-between;align-items:center;gap:8px}.price{font-weight:900;color:#d6b7ff}
-.notice{border:1px solid #684b23;background:#241b11;color:#e7c994;padding:13px 15px;border-radius:13px;margin-top:22px;font-size:13px}
-footer{border-top:1px solid var(--line);color:var(--muted);padding:22px;text-align:center;font-size:12px}
-.modal{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;padding:18px;z-index:10}.modal.show{display:flex}.dialog{width:min(440px,100%);background:#171020;border:1px solid #63428a;border-radius:20px;padding:22px;box-shadow:0 20px 80px #000}.dialog h2{margin:0 0 5px}.dialog p{color:var(--muted);font-size:13px}
-label{display:block;font-size:12px;color:#c8b8d8;margin:12px 0 5px}select{font:inherit}input{width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:#0e0a15;color:white;font:inherit}
-.actions{display:flex;gap:9px;margin-top:17px}.secondary{background:#2a2035}.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#21172f;border:1px solid #8051bd;padding:12px 18px;border-radius:12px;display:none;z-index:20}
-.empty{padding:25px;text-align:center;color:var(--muted);grid-column:1/-1}
-@media(max-width:760px){nav{gap:10px}nav a{display:none}.grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}.hero{padding:30px 20px}.wrap{padding:20px 14px 45px}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+background:#090611;color:white;
+font-family:Arial,sans-serif;
+}
+header{
+padding:22px;background:#160c25;
+border-bottom:2px solid #8b35ff;
+text-align:center;
+}
+header h1{color:#b66aff}
+.container{padding:20px}
+.card{
+background:#1b1029;
+padding:20px;margin:15px 0;
+border:1px solid #7131a9;
+border-radius:14px;
+}
+button{
+background:#8b35ff;color:white;
+border:0;padding:13px 20px;
+border-radius:9px;font-weight:bold;
+width:100%;margin-top:12px;
+}
+h2{color:#c28aff;margin-bottom:12px}
+nav{
+position:fixed;bottom:0;width:100%;
+background:#160c25;padding:16px;
+display:flex;justify-content:space-around;
+border-top:1px solid #8b35ff;
+}
+nav a{color:white;text-decoration:none}
 </style>
 </head>
 <body>
-<header><div class="nav"><div class="brand">RYZO <span>ESPORTS</span></div><nav><a href="#tournaments">Tournaments</a><a href="#how">How it works</a><button class="secondary" onclick="openAdmin()">Admin demo</button><button onclick="showToast('Google login needs Supabase + Google OAuth setup. It is not active in this prototype.')">Google login</button></nav></div></header>
-<main class="wrap">
-<section class="hero"><div class="eyebrow">FREE FIRE COMMUNITY • COMPETE • WIN</div><h1>PLAY BOLD.<br><span style="color:#b889ff">WIN BIG.</span></h1><p>Find your next Free Fire match, join a room and track tournament details in one place.</p><button onclick="document.querySelector('#tournaments').scrollIntoView({behavior:'smooth'})">Explore tournaments ↓</button></section>
-<section class="stats"><div class="stat"><strong id="tourCount">3</strong><small>Open tournaments</small></div><div class="stat"><strong>Free Fire</strong><small>Supported game</small></div><div class="stat"><strong>24/7</strong><small>Community access</small></div></section>
-<section id="tournaments">
- <div class="sectionhead"><h2>Upcoming tournaments</h2><div class="filters"><button class="filter active" data-filter="All">All</button><button class="filter" data-filter="Free">Free</button><button class="filter" data-filter="Paid">Paid</button></div></div>
- <div class="grid" id="cards"></div>
-</section>
-<section id="how" class="sectionbox" style="margin-top:28px"><h2 style="margin-top:0">How it works</h2><div class="grid" style="grid-template-columns:repeat(3,1fr)"><div><b>01 · Choose</b><p class="muted">Pick a tournament that matches your mode and schedule.</p></div><div><b>02 · Register</b><p class="muted">Submit your in-game name and UID. This demo does not collect payments.</p></div><div><b>03 · Compete</b><p class="muted">Room details and results will be published by the tournament admin.</p></div></div></section>
 
-<section id="adminPanel" class="sectionbox" style="margin-top:28px;display:none">
- <div class="sectionhead" style="margin-top:0"><div><div class="eyebrow">OWNER / MODERATOR WORKSPACE</div><h2>Admin dashboard</h2></div><button class="secondary" onclick="closeAdmin()">Close</button></div>
- <div class="notice" style="margin:0 0 18px"><b>Demo security warning:</b> This dashboard uses a local demo role selector, not real authentication. Anyone with this prototype can access it. Do not use it to manage real money, real player data or private room credentials.</div>
- <div class="filters" style="margin-bottom:16px">
-  <label style="margin:0;align-self:center">Demo role</label>
-  <select id="demoRole" onchange="renderAdmin()" style="background:#0e0a15;color:white;border:1px solid var(--line);border-radius:10px;padding:9px"><option value="Owner">Owner</option><option value="Moderator">Moderator</option></select>
-  <span class="muted" style="align-self:center;font-size:12px">Role switch is for preview only</span>
- </div>
- <div class="stats" style="margin:0 0 20px">
-  <div class="stat"><strong id="adminTourCount">3</strong><small>Total tournaments</small></div>
-  <div class="stat"><strong id="adminEntryCount">0</strong><small>Demo registrations</small></div>
-  <div class="stat"><strong id="adminModCount">0</strong><small>Moderator emails</small></div>
- </div>
- <div id="ownerTools">
-  <h3>Create tournament</h3>
-  <form id="createTournament" class="cardbody" style="padding:0;max-width:650px">
-   <label>Tournament name</label><input id="newTitle" required maxlength="48" placeholder="e.g. Ryzo Night Cup">
-   <div class="grid" style="grid-template-columns:repeat(2,1fr);margin-top:6px">
-    <div><label>Mode</label><select id="newMode" style="width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:#0e0a15;color:white"><option>Solo</option><option>Duo</option><option>Squad</option><option>Clash Squad</option></select></div>
-    <div><label>Entry type</label><select id="newType" style="width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:#0e0a15;color:white"><option value="Free">Free</option><option value="Paid">Paid (display only)</option></select></div>
-    <div><label>Entry fee (₹)</label><input id="newFee" type="number" min="0" max="100000" value="0" required></div>
-    <div><label>Prize pool (₹)</label><input id="newPrize" type="number" min="0" max="1000000" value="0" required></div>
-    <div><label>Start date & time</label><input id="newDate" required placeholder="e.g. 15 Nov · 8:00 PM"></div>
-    <div><label>Slots</label><input id="newSlots" required placeholder="0 / 48 players"></div>
-   </div>
-   <div class="actions"><button type="submit">Create tournament</button></div>
-  </form>
-  <div style="margin-top:24px;max-width:650px">
-   <h3>Moderator access list</h3><p class="muted">Add email addresses to this local demo list. This does not grant real account permissions until backend authentication and role checks are implemented.</p>
-   <form id="addModerator" class="actions"><input id="moderatorEmail" type="email" required placeholder="moderator@example.com"><button type="submit">Add email</button></form>
-   <div id="moderatorList" class="muted" style="margin-top:10px"></div>
-  </div>
- </div>
- <div id="moderatorTools" style="display:none"><h3>Moderator tools</h3><p class="muted">In the real app, moderators will be able to review registrations and update match status. Owner-only settings stay hidden in this demo role view.</p></div>
- <div style="margin-top:24px"><h3>Player registrations</h3><div id="adminEntries" class="muted">No registrations yet.</div></div>
-</section>
+<header>
+<h1>GRAND BATTLE</h1>
+<p>Welcome to the Ultimate Esports Arena</p>
+</header>
 
-<div class="notice"><b>Prototype notice:</b> This is a front-end demo. Tournament entries, payments, wallet balances, room credentials and results are not connected to a live server. Do not pay anyone through this demo.</div>
-</main>
-<footer>© 2026 RYZO ESPORTS · Community tournament platform · Unofficial fan platform, not affiliated with Garena.</footer>
-<div class="modal" id="joinModal"><div class="dialog"><h2>Join tournament</h2><p id="modalInfo">Enter your player details to register in this demo.</p><form id="joinForm"><label>In-game name</label><input id="playerName" required maxlength="24" placeholder="Your Free Fire name"><label>Free Fire UID</label><input id="playerUid" required inputmode="numeric" pattern="[0-9]{5,20}" placeholder="Your numeric UID"><div class="actions"><button type="submit" style="flex:1">Submit registration</button><button type="button" class="secondary" onclick="closeModal()">Cancel</button></div></form></div></div>
-<div class="toast" id="toast"></div>
-<script>
-const defaultTournaments=[
-{id:1,title:"Night Clash · Squad",mode:"Squad",type:"Free",fee:0,prize:"₹500",date:"Today · 8:30 PM",slots:"8 / 12 teams"},
-{id:2,title:"Purple Rush · Solo",mode:"Solo",type:"Paid",fee:20,prize:"₹1,000",date:"Tomorrow · 7:00 PM",slots:"18 / 48 players"},
-{id:3,title:"Weekend Showdown · CS",mode:"Clash Squad",type:"Free",fee:0,prize:"₹300",date:"Sunday · 6:00 PM",slots:"5 / 16 teams"}
-];
-let tournaments=JSON.parse(localStorage.getItem("ryzoTournaments")||"null")||defaultTournaments;
-let selected=null, filter="All";
-const readEntries=()=>JSON.parse(localStorage.getItem("ryzoDemoEntries")||"[]");
-const readMods=()=>JSON.parse(localStorage.getItem("ryzoDemoModerators")||"[]");
-const saveTournaments=()=>localStorage.setItem("ryzoTournaments",JSON.stringify(tournaments));
-function render(){
- const list=tournaments.filter(t=>filter==="All"||t.type===filter);
- document.getElementById("cards").innerHTML=list.map(t=>`<article class="card"><div class="cardtop"><span class="tag">${t.type.toUpperCase()} ENTRY</span><h3>${escapeHtml(t.title)}</h3><span class="muted">${escapeHtml(t.mode)} · Free Fire</span></div><div class="cardbody"><div class="details"><div><small>PRIZE POOL</small><b>${escapeHtml(t.prize)}</b></div><div><small>ENTRY FEE</small><b>${t.fee===0?"FREE":"₹"+t.fee}</b></div><div><small>STARTS</small><b>${escapeHtml(t.date)}</b></div><div><small>SLOTS</small><b>${escapeHtml(t.slots)}</b></div></div><div class="cardfoot"><span class="price">${t.type} match</span><button onclick="openJoin(${t.id})">Join now</button></div></div></article>`).join("")||'<div class="empty">No tournaments in this filter.</div>';
- document.getElementById("tourCount").textContent=tournaments.length;
-}
-function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
-document.querySelectorAll(".filter").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".filter").forEach(x=>x.classList.remove("active"));b.classList.add("active");filter=b.dataset.filter;render()}));
-function openJoin(id){selected=tournaments.find(t=>t.id===id);document.getElementById("modalInfo").textContent=selected.title+" · "+(selected.fee===0?"Free entry":"₹"+selected.fee+" entry (payment not enabled in demo)")+". This submits a local demo registration only.";document.getElementById("joinModal").classList.add("show")}
-function closeModal(){document.getElementById("joinModal").classList.remove("show")}
-document.getElementById("joinForm").addEventListener("submit",e=>{
- e.preventDefault();const n=document.getElementById("playerName").value.trim(),u=document.getElementById("playerUid").value.trim();
- let entries=readEntries();entries.push({tournament:selected.title,tournamentId:selected.id,name:n,uid:u,submitted:new Date().toISOString()});
- localStorage.setItem("ryzoDemoEntries",JSON.stringify(entries));closeModal();e.target.reset();showToast("Demo registration saved on this device. No real entry or payment was made.");renderAdmin();
-});
-function openAdmin(){const p=document.getElementById("adminPanel");p.style.display="block";p.scrollIntoView({behavior:"smooth"});renderAdmin()}
-function closeAdmin(){document.getElementById("adminPanel").style.display="none"}
-function renderAdmin(){
- const role=document.getElementById("demoRole").value,owner=role==="Owner";
- document.getElementById("ownerTools").style.display=owner?"block":"none";
- document.getElementById("moderatorTools").style.display=owner?"none":"block";
- document.getElementById("adminTourCount").textContent=tournaments.length;
- document.getElementById("adminEntryCount").textContent=readEntries().length;
- const mods=readMods();document.getElementById("adminModCount").textContent=mods.length;
- document.getElementById("moderatorList").innerHTML=mods.length?mods.map(m=>`<div style="padding:8px 0;border-bottom:1px solid var(--line)">${escapeHtml(m)}</div>`).join(""):"No moderators added.";
- const entries=readEntries();
- document.getElementById("adminEntries").innerHTML=entries.length?`<div style="overflow:auto"><table style="width:100%;border-collapse:collapse;text-align:left"><thead><tr><th style="padding:9px;border-bottom:1px solid var(--line)">Player</th><th style="padding:9px;border-bottom:1px solid var(--line)">UID</th><th style="padding:9px;border-bottom:1px solid var(--line)">Tournament</th></tr></thead><tbody>${entries.map(e=>`<tr><td style="padding:9px;border-bottom:1px solid var(--line)">${escapeHtml(e.name)}</td><td style="padding:9px;border-bottom:1px solid var(--line)">${escapeHtml(e.uid)}</td><td style="padding:9px;border-bottom:1px solid var(--line)">${escapeHtml(e.tournament)}</td></tr>`).join("")}</tbody></table></div>`:"No registrations yet.";
-}
-document.getElementById("createTournament").addEventListener("submit",e=>{
- e.preventDefault();
- const type=document.getElementById("newType").value,fee=Number(document.getElementById("newFee").value),prize=Number(document.getElementById("newPrize").value);
- if(type==="Free"&&fee!==0){showToast("Free tournaments must have ₹0 entry fee.");return}
- if(type==="Paid"&&fee<=0){showToast("Paid demo tournaments need an entry fee above ₹0.");return}
- const t={id:Date.now(),title:document.getElementById("newTitle").value.trim(),mode:document.getElementById("newMode").value,type,fee,prize:"₹"+prize,date:document.getElementById("newDate").value.trim(),slots:document.getElementById("newSlots").value.trim()};
- tournaments.unshift(t);saveTournaments();render();renderAdmin();e.target.reset();showToast("Tournament created in this browser demo. It is not published to a server.");
-});
-document.getElementById("addModerator").addEventListener("submit",e=>{
- e.preventDefault();const email=document.getElementById("moderatorEmail").value.trim().toLowerCase();let mods=readMods();
- if(mods.includes(email)){showToast("That email is already in the demo list.");return}
- mods.push(email);localStorage.setItem("ryzoDemoModerators",JSON.stringify(mods));e.target.reset();renderAdmin();showToast("Moderator email added to local demo list only.");
-});
-function showToast(s){const t=document.getElementById("toast");t.textContent=s;t.style.display="block";setTimeout(()=>t.style.display="none",4000)}
-render();renderAdmin();
-</script>
-</body></html>
+<div class="container">
+
+<div class="card">
+<h2>Welcome Player!</h2>
+<p>Join tournaments and prove your skills.</p>
+<button onclick="alert('Google Login setup required')">
+Google Login
+</button>
+</div>
+
+<div class="card">
+<h2>Latest Announcements</h2>
+<p>Stay updated with GRAND BATTLE tournaments.</p>
+</div>
+
+<div class="card">
+<h2>My Matches</h2>
+<p>No matches joined yet.</p>
+</div>
+
+<div class="card">
+<h2>Free Fire Tournaments</h2>
+<p>Free Tournament</p>
+<button>View Matches</button>
+</div>
+
+<div class="card">
+<h2>Customer Support</h2>
+<p>Need help? Contact our support team.</p>
+<button onclick="alert('Support coming soon')">Contact Support</button>
+</div>
+
+</div>
+
+<nav>
+<a href="#">Earn</a>
+<a href="#">Play</a>
+<a href="#">Account</a>
+</nav>
+
+</body>
+</html>
