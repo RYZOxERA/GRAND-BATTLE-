@@ -8,270 +8,189 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:Arial;background:#090914;color:white;padding-bottom:85px}
-header{padding:18px;background:#151326;display:flex;justify-content:space-between;align-items:center}
-.logo{font-size:22px;font-weight:bold;color:#b56cff}
-.coins{background:#292044;padding:9px 13px;border-radius:20px;color:#ffd65a}
-main{padding:16px}
-h2{margin:20px 0 12px}
-.card{background:#19162b;border:1px solid #30264b;padding:16px;border-radius:14px;margin-bottom:14px}
-.banner{background:linear-gradient(120deg,#5420a5,#17122d);padding:22px;border-radius:15px;margin-bottom:18px}
-button{background:#8b45e8;color:white;border:0;padding:11px 16px;border-radius:9px;font-weight:bold;margin-top:10px;cursor:pointer}
-.navbar{position:fixed;bottom:0;left:0;width:100%;background:#151326;display:flex;justify-content:space-around;padding:13px 5px;border-top:1px solid #493267}
-.nav{color:#aaa;text-align:center;cursor:pointer;font-size:13px}
-.nav b{display:block;font-size:20px;margin-bottom:4px}
-.nav.active{color:#bd80ff}
-.page{display:none}
+body{background:#090b18;color:white;font-family:Arial,sans-serif;padding-bottom:85px}
+header{padding:18px;background:#11152b;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:21px;font-weight:bold;color:#b58cff}
+.coins{background:#24183d;padding:9px 13px;border-radius:20px;color:#e0c7ff}
+.page{display:none;padding:15px}
 .page.active{display:block}
-.tile{background:#211a35;padding:18px;border-radius:12px;margin:10px 0}
-.small{color:#aaa;font-size:13px;line-height:1.6}
-.refcode{background:#100e1d;border:1px dashed #a66aff;padding:15px;border-radius:10px;text-align:center;font-size:23px;color:#ffd65a;font-weight:bold;letter-spacing:2px;margin:15px 0}
-.share{display:flex;gap:8px;flex-wrap:wrap}
-.share button{flex:1;min-width:90px}
-.reward{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #30264b}
-.reward:last-child{border:0}
+.banner{background:linear-gradient(120deg,#482080,#171b43);padding:20px;border-radius:14px;margin-bottom:15px}
+.banner h2{margin-bottom:7px}
+.section-title{font-size:18px;margin:20px 0 12px}
+.announcement{background:#171c32;padding:14px;border-radius:12px;color:#ddd}
+.match-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.stat{background:#171c32;padding:15px 5px;text-align:center;border-radius:12px}
+.stat b{display:block;font-size:22px;color:#c39aff;margin-bottom:5px}
+.games{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.game{background:#171c32;border:1px solid #292344;border-radius:12px;padding:17px 5px;text-align:center;cursor:pointer}
+.game span{display:block;font-size:27px;margin-bottom:8px}
+.game p{font-size:12px}
+.card{background:#171c32;padding:16px;border-radius:12px;margin-bottom:13px}
+button{background:#8b45db;color:white;border:0;padding:11px 15px;border-radius:9px;font-weight:bold;cursor:pointer}
+input{width:100%;padding:12px;border:1px solid #39304f;background:#0c1020;color:white;border-radius:8px;margin:10px 0}
+.navbar{position:fixed;bottom:0;left:0;width:100%;background:#11152b;display:flex;justify-content:space-around;padding:12px 5px;border-top:1px solid #292344}
+.nav{color:#9292a8;text-align:center;font-size:12px;cursor:pointer;flex:1}
+.nav b{display:block;font-size:21px;margin-bottom:4px}
+.nav.active{color:#c99aff}
+.small{font-size:12px;color:#aaa;margin-top:7px}
 </style>
 </head>
 
 <body>
 
 <header>
-  <div class="logo">GRAND BATTLE</div>
-  <div class="coins">🪙 <span id="coinBalance">0</span></div>
+ <div>
+  <div class="logo">⚔ GRAND BATTLE</div>
+  <small>Welcome, Player</small>
+ </div>
+ <div class="coins">🪙 <span id="coinBalance">0</span></div>
 </header>
 
-<main>
-
+<!-- HOME PAGE -->
 <section id="playPage" class="page active">
-  <div class="banner">
-    <h2>WELCOME TO GRAND BATTLE</h2>
-    <p>Play • Compete • Win</p>
-  </div>
 
-  <div class="card">
-    <h3>📢 Latest Announcements</h3>
-    <p class="small">Stay updated with upcoming tournaments.</p>
-  </div>
+ <div class="banner">
+  <h2>🔥 GRAND BATTLE</h2>
+  <p>Play • Compete • Earn Coins</p>
+ </div>
 
-  <h2>My Matches</h2>
-  <div class="card">
-    <p>Upcoming: <b>0</b></p>
-    <p>Ongoing: <b>0</b></p>
-    <p>Completed: <b>0</b></p>
-  </div>
+ <div class="section-title">📢 Latest Announcements</div>
+ <div class="announcement">
+  Welcome to GRAND BATTLE! Stay tuned for upcoming tournaments.
+ </div>
 
-  <h2>Esport Games</h2>
-  <div class="tile">
-    <h3>🔥 Free Fire Solo</h3>
-    <p class="small">Free tournament</p>
-    <button onclick="alert('Tournament coming soon!')">View Matches</button>
-  </div>
+ <div class="banner" style="margin-top:15px">
+  <h2>🎧 Need Help?</h2>
+  <p>Contact our support team for assistance.</p>
+ </div>
 
-  <div class="tile">
-    <h3>🔥 Free Fire Duo</h3>
-    <p class="small">Free tournament</p>
-    <button onclick="alert('Tournament coming soon!')">View Matches</button>
-  </div>
+ <div class="section-title">🏆 My Matches</div>
+ <div class="match-stats">
+  <div class="stat"><b>0</b>Upcoming</div>
+  <div class="stat"><b>0</b>Ongoing</div>
+  <div class="stat"><b>0</b>Completed</div>
+ </div>
 
-  <div class="tile">
-    <h3>🔥 Free Fire Squad</h3>
-    <p class="small">Free tournament</p>
-    <button onclick="alert('Tournament coming soon!')">View Matches</button>
-  </div>
+ <div class="section-title">🎮 Esport Games</div>
+ <div class="games">
+  <div class="game" onclick="openMatches('Full Map')"><span>🗺️</span><p>Full Map</p></div>
+  <div class="game" onclick="openMatches('BR Survival')"><span>🏆</span><p>BR Survival</p></div>
+  <div class="game" onclick="openMatches('LW Head')"><span>🎯</span><p>LW Head</p></div>
+  <div class="game" onclick="openMatches('FF Squad')"><span>👥</span><p>FF Squad</p></div>
+  <div class="game" onclick="openMatches('CS 1v1')"><span>⚔️</span><p>CS 1v1</p></div>
+  <div class="game" onclick="openMatches('LW 1v1')"><span>🔥</span><p>LW 1v1</p></div>
+  <div class="game" onclick="openMatches('CS 2v2')"><span>🥊</span><p>CS 2v2</p></div>
+  <div class="game" onclick="openMatches('LW 2v2')"><span>💥</span><p>LW 2v2</p></div>
+  <div class="game" onclick="openMatches('CS 4v4')"><span>🛡️</span><p>CS 4v4</p></div>
+ </div>
 </section>
 
-<!-- REFER & EARN -->
-
+<!-- EARN PAGE -->
 <section id="earnPage" class="page">
+ <div class="section-title">🪙 Earn Coins</div>
 
-  <h2>👥 Refer & Earn</h2>
+ <div class="card">
+  <h3>Invite & Earn</h3>
+  <p class="small">Invite friends. Invite alone gives 0 coins.</p>
+  <p style="margin-top:12px">Your Referral Code:</p>
+  <input id="referralCode" readonly value="GRANDBATTLE">
+  <button onclick="copyReferral()">Copy Code</button>
+  <button onclick="shareReferral()">Share</button>
+ </div>
 
-  <div class="banner">
-    <h2>Refer your friend and Earn!</h2>
-    <p class="small">Invite your friends to GRAND BATTLE and earn coins.</p>
-  </div>
+ <div class="card">
+  <h3>🎮 First Match Reward</h3>
+  <p class="small">Complete your first match to earn 11 coins after verification.</p>
+  <h2 style="color:#c99aff;margin-top:12px">+11 Coins</h2>
+ </div>
 
-  <div class="card">
-    <div class="reward">
-      <span>👥 You refer a friend</span>
-      <b style="color:#ffd65a">+4 Coins</b>
-    </div>
+ <div class="card">
+  <h3>My Coin Balance</h3>
+  <h2>🪙 <span id="earnBalance">0</span></h2>
+  <p class="small">Coins are added after admin approval.</p>
+ </div>
 
-    <div class="reward">
-      <span>🎁 Friend registers</span>
-      <b style="color:#ffd65a">+2 Coins</b>
-    </div>
-
-    <h3 style="margin-top:15px">Total Reward: 6 Coins</h3>
-    <p class="small">Your friend gets 2 coins and you get 4 coins after a successful verified referral.</p>
-  </div>
-
-  <div class="card">
-    <h3>🔑 Your Referral Code</h3>
-
-    <div class="refcode" id="refCode">LOGIN REQUIRED</div>
-
-    <button style="width:100%" onclick="copyReferral()">
-      📋 Copy Referral Code
-    </button>
-
-    <p class="small" style="margin-top:12px">
-      Your referral code is generated using your GRAND BATTLE User ID.
-    </p>
-  </div>
-
-  <div class="card">
-    <h3>Share your referral code via</h3>
-
-    <div class="share">
-      <button onclick="shareTelegram()">Telegram</button>
-      <button onclick="shareFacebook()">Facebook</button>
-      <button onclick="shareWhatsApp()">WhatsApp</button>
-    </div>
-  </div>
-
-  <div class="card">
-    <h3>🪙 My Coin Balance</h3>
-    <h2>🪙 <span id="earnCoins">0</span></h2>
-    <p class="small">Your approved coin balance.</p>
-  </div>
-
-  <div class="card">
-    <h3>📜 Referral History</h3>
-    <p class="small">No referrals yet.</p>
-  </div>
-
+ <div class="card">
+  <h3>Daily Task</h3>
+  <p class="small">Complete tasks and submit for admin approval.</p>
+  <button onclick="alert('Task submission will be available after backend integration.')">Submit Task</button>
+ </div>
 </section>
 
-<!-- ACCOUNT -->
-
+<!-- ACCOUNT PAGE -->
 <section id="accountPage" class="page">
-  <h2>👤 My Account</h2>
+ <div class="section-title">👤 My Account</div>
 
-  <div class="card">
-    <p>Name: <span id="userName">Guest</span></p>
-    <p>Email: <span id="userEmail">Not logged in</span></p>
-    <p>UID: <span id="userUID">-</span></p>
-  </div>
+ <div class="card">
+  <h2>Guest Player</h2>
+  <p class="small">Not logged in</p>
+  <p style="margin-top:12px">UID: -</p>
+ </div>
 
-  <div class="card">
-    <h3>Wallet</h3>
-    <h2>🪙 <span id="accountCoins">0</span></h2>
-  </div>
+ <div class="card">
+  <h3>🪙 My Wallet</h3>
+  <h2 id="accountBalance">0 Coins</h2>
+ </div>
 
-  <button onclick="logout()">Logout</button>
+ <div class="card">
+  <h3>Account Settings</h3>
+  <button onclick="alert('Google login will work after Firebase integration.')">Login with Google</button>
+  <p class="small">Login system is not connected yet.</p>
+ </div>
 </section>
 
-</main>
-
+<!-- BOTTOM NAVIGATION -->
 <nav class="navbar">
-  <div class="nav" onclick="showPage('earnPage',this)">
-    <b>🪙</b>Earn
-  </div>
-  <div class="nav active" onclick="showPage('playPage',this)">
-    <b>🎮</b>Play
-  </div>
-  <div class="nav" onclick="showPage('accountPage',this)">
-    <b>👤</b>Account
-  </div>
+ <div class="nav" onclick="showPage('earnPage',this)">
+  <b>🪙</b>Earn
+ </div>
+
+ <div class="nav active" onclick="showPage('playPage',this)">
+  <b>🏠</b>Home
+ </div>
+
+ <div class="nav" onclick="showPage('accountPage',this)">
+  <b>👤</b>Account
+ </div>
 </nav>
 
 <script>
+function showPage(pageId,button){
+ document.querySelectorAll('.page').forEach(page=>{
+  page.classList.remove('active');
+ });
+ document.getElementById(pageId).classList.add('active');
 
-function showPage(page,element){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById(page).classList.add('active');
-
-  document.querySelectorAll('.nav').forEach(n=>n.classList.remove('active'));
-  element.classList.add('active');
+ document.querySelectorAll('.nav').forEach(nav=>{
+  nav.classList.remove('active');
+ });
+ button.classList.add('active');
 }
 
-// Referral code from actual user UID
-function getReferralCode(){
-  const uid=document.getElementById('userUID').textContent.trim();
-
-  if(!uid || uid==='-'){
-    return '';
-  }
-
-  return 'GB'+uid;
+function openMatches(category){
+ alert(category+' matches will appear here when the admin adds them.');
 }
 
-function updateReferralCode(){
-  const code=getReferralCode();
-  document.getElementById('refCode').textContent=code || 'LOGIN REQUIRED';
+function copyReferral(){
+ const code=document.getElementById('referralCode').value;
+ if(navigator.clipboard){
+  navigator.clipboard.writeText(code)
+  .then(()=>alert('Referral code copied!'))
+  .catch(()=>alert('Copy failed. Please copy manually.'));
+ }else{
+  alert('Your referral code: '+code);
+ }
 }
 
-function getReferralLink(){
-  const code=getReferralCode();
-
-  if(!code){
-    alert('Please login first!');
-    return '';
-  }
-
-  return window.location.origin+
-    window.location.pathname+
-    '?ref='+encodeURIComponent(code);
+function shareReferral(){
+ const code=document.getElementById('referralCode').value;
+ const message='Join GRAND BATTLE! My referral code: '+code;
+ if(navigator.share){
+  navigator.share({title:'GRAND BATTLE',text:message});
+ }else{
+  copyReferral();
+ }
 }
-
-function getShareMessage(){
-  const code=getReferralCode();
-  const link=getReferralLink();
-
-  if(!code || !link) return '';
-
-  return 'Join GRAND BATTLE! Use my referral code: '+
-    code+' and get 2 bonus coins!\n'+link;
-}
-
-async function copyReferral(){
-  const code=getReferralCode();
-
-  if(!code){
-    alert('Please login first!');
-    return;
-  }
-
-  try{
-    await navigator.clipboard.writeText(code);
-    alert('Referral code copied: '+code);
-  }catch(e){
-    alert('Unable to copy code.');
-  }
-}
-
-function shareWhatsApp(){
-  const msg=getShareMessage();
-  if(msg) window.open(
-    'https://wa.me/?text='+encodeURIComponent(msg),'_blank'
-  );
-}
-
-function shareTelegram(){
-  const msg=getShareMessage();
-  if(msg) window.open(
-    'https://t.me/share/url?url='+
-    encodeURIComponent(getReferralLink())+
-    '&text='+encodeURIComponent('Join GRAND BATTLE! My referral code: '+getReferralCode()),
-    '_blank'
-  );
-}
-
-function shareFacebook(){
-  const link=getReferralLink();
-  if(link) window.open(
-    'https://www.facebook.com/sharer/sharer.php?u='+
-    encodeURIComponent(link),'_blank'
-  );
-}
-
-function logout(){
-  alert('Firebase logout is not connected in this version.');
-}
-
-updateReferralCode();
-
 </script>
 
 </body>
