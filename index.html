@@ -17,7 +17,6 @@ h2{margin:20px 0 12px}
 .card{background:#19162b;border:1px solid #30264b;padding:16px;border-radius:14px;margin-bottom:14px}
 .banner{background:linear-gradient(120deg,#5420a5,#17122d);padding:22px;border-radius:15px;margin-bottom:18px}
 button{background:#8b45e8;color:white;border:0;padding:11px 16px;border-radius:9px;font-weight:bold;margin-top:10px;cursor:pointer}
-input{width:100%;padding:12px;margin:8px 0;background:#100e1d;color:white;border:1px solid #59427d;border-radius:8px}
 .navbar{position:fixed;bottom:0;left:0;width:100%;background:#151326;display:flex;justify-content:space-around;padding:13px 5px;border-top:1px solid #493267}
 .nav{color:#aaa;text-align:center;cursor:pointer;font-size:13px}
 .nav b{display:block;font-size:20px;margin-bottom:4px}
@@ -25,9 +24,12 @@ input{width:100%;padding:12px;margin:8px 0;background:#100e1d;color:white;border
 .page{display:none}
 .page.active{display:block}
 .tile{background:#211a35;padding:18px;border-radius:12px;margin:10px 0}
-.small{color:#aaa;font-size:13px;line-height:1.5}
-.reward{color:#ffd65a;font-size:25px;font-weight:bold;margin:10px 0}
-.history{padding:12px;background:#100e1d;border-radius:9px;color:#aaa;font-size:13px}
+.small{color:#aaa;font-size:13px;line-height:1.6}
+.refcode{background:#100e1d;border:1px dashed #a66aff;padding:15px;border-radius:10px;text-align:center;font-size:23px;color:#ffd65a;font-weight:bold;letter-spacing:2px;margin:15px 0}
+.share{display:flex;gap:8px;flex-wrap:wrap}
+.share button{flex:1;min-width:90px}
+.reward{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #30264b}
+.reward:last-child{border:0}
 </style>
 </head>
 
@@ -78,33 +80,54 @@ input{width:100%;padding:12px;margin:8px 0;background:#100e1d;color:white;border
   </div>
 </section>
 
-<!-- EARN PAGE -->
+<!-- REFER & EARN -->
 
 <section id="earnPage" class="page">
 
-  <h2>🪙 Earn Coins</h2>
+  <h2>👥 Refer & Earn</h2>
 
-  <div class="card">
-    <h3>👥 Invite & Earn</h3>
-    <div class="reward">0 Coins / Invite</div>
-    <p class="small">
-      Invite your friends to GRAND BATTLE.
-      Currently, invites carry no coin reward.
-    </p>
-    <button onclick="inviteFriends()">Share GRAND BATTLE</button>
+  <div class="banner">
+    <h2>Refer your friend and Earn!</h2>
+    <p class="small">Invite your friends to GRAND BATTLE and earn coins.</p>
   </div>
 
   <div class="card">
-    <h3>🎮 First Match Bonus</h3>
-    <div class="reward">🪙 11 Coins</div>
-    <p class="small">
-      Complete your first tournament match and
-      become eligible for 11 bonus coins.
+    <div class="reward">
+      <span>👥 You refer a friend</span>
+      <b style="color:#ffd65a">+4 Coins</b>
+    </div>
+
+    <div class="reward">
+      <span>🎁 Friend registers</span>
+      <b style="color:#ffd65a">+2 Coins</b>
+    </div>
+
+    <h3 style="margin-top:15px">Total Reward: 6 Coins</h3>
+    <p class="small">Your friend gets 2 coins and you get 4 coins after a successful verified referral.</p>
+  </div>
+
+  <div class="card">
+    <h3>🔑 Your Referral Code</h3>
+
+    <div class="refcode" id="refCode">LOGIN REQUIRED</div>
+
+    <button style="width:100%" onclick="copyReferral()">
+      📋 Copy Referral Code
+    </button>
+
+    <p class="small" style="margin-top:12px">
+      Your referral code is generated using your GRAND BATTLE User ID.
     </p>
-    <p class="small" style="margin-top:10px">
-      Coins will be credited after match completion
-      verification and admin approval.
-    </p>
+  </div>
+
+  <div class="card">
+    <h3>Share your referral code via</h3>
+
+    <div class="share">
+      <button onclick="shareTelegram()">Telegram</button>
+      <button onclick="shareFacebook()">Facebook</button>
+      <button onclick="shareWhatsApp()">WhatsApp</button>
+    </div>
   </div>
 
   <div class="card">
@@ -114,15 +137,13 @@ input{width:100%;padding:12px;margin:8px 0;background:#100e1d;color:white;border
   </div>
 
   <div class="card">
-    <h3>📜 Coin Transaction History</h3>
-    <div class="history">
-      No transactions yet.
-    </div>
+    <h3>📜 Referral History</h3>
+    <p class="small">No referrals yet.</p>
   </div>
 
 </section>
 
-<!-- ACCOUNT PAGE -->
+<!-- ACCOUNT -->
 
 <section id="accountPage" class="page">
   <h2>👤 My Account</h2>
@@ -147,11 +168,9 @@ input{width:100%;padding:12px;margin:8px 0;background:#100e1d;color:white;border
   <div class="nav" onclick="showPage('earnPage',this)">
     <b>🪙</b>Earn
   </div>
-
   <div class="nav active" onclick="showPage('playPage',this)">
     <b>🎮</b>Play
   </div>
-
   <div class="nav" onclick="showPage('accountPage',this)">
     <b>👤</b>Account
   </div>
@@ -167,38 +186,91 @@ function showPage(page,element){
   element.classList.add('active');
 }
 
-async function inviteFriends(){
+// Referral code from actual user UID
+function getReferralCode(){
+  const uid=document.getElementById('userUID').textContent.trim();
 
-  const inviteLink = window.location.origin + window.location.pathname;
-
-  const message =
-    "Join GRAND BATTLE! Play Free Fire tournaments with us.\n" +
-    inviteLink;
-
-  if(navigator.share){
-    try{
-      await navigator.share({
-        title:"GRAND BATTLE",
-        text:message
-      });
-    }catch(error){
-      console.log("Sharing cancelled");
-    }
-  }else if(navigator.clipboard){
-    try{
-      await navigator.clipboard.writeText(message);
-      alert("Invite link copied!");
-    }catch(error){
-      alert("Unable to copy link.");
-    }
-  }else{
-    alert(message);
+  if(!uid || uid==='-'){
+    return '';
   }
+
+  return 'GB'+uid;
+}
+
+function updateReferralCode(){
+  const code=getReferralCode();
+  document.getElementById('refCode').textContent=code || 'LOGIN REQUIRED';
+}
+
+function getReferralLink(){
+  const code=getReferralCode();
+
+  if(!code){
+    alert('Please login first!');
+    return '';
+  }
+
+  return window.location.origin+
+    window.location.pathname+
+    '?ref='+encodeURIComponent(code);
+}
+
+function getShareMessage(){
+  const code=getReferralCode();
+  const link=getReferralLink();
+
+  if(!code || !link) return '';
+
+  return 'Join GRAND BATTLE! Use my referral code: '+
+    code+' and get 2 bonus coins!\n'+link;
+}
+
+async function copyReferral(){
+  const code=getReferralCode();
+
+  if(!code){
+    alert('Please login first!');
+    return;
+  }
+
+  try{
+    await navigator.clipboard.writeText(code);
+    alert('Referral code copied: '+code);
+  }catch(e){
+    alert('Unable to copy code.');
+  }
+}
+
+function shareWhatsApp(){
+  const msg=getShareMessage();
+  if(msg) window.open(
+    'https://wa.me/?text='+encodeURIComponent(msg),'_blank'
+  );
+}
+
+function shareTelegram(){
+  const msg=getShareMessage();
+  if(msg) window.open(
+    'https://t.me/share/url?url='+
+    encodeURIComponent(getReferralLink())+
+    '&text='+encodeURIComponent('Join GRAND BATTLE! My referral code: '+getReferralCode()),
+    '_blank'
+  );
+}
+
+function shareFacebook(){
+  const link=getReferralLink();
+  if(link) window.open(
+    'https://www.facebook.com/sharer/sharer.php?u='+
+    encodeURIComponent(link),'_blank'
+  );
 }
 
 function logout(){
   alert('Firebase logout is not connected in this version.');
 }
+
+updateReferralCode();
 
 </script>
 
