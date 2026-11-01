@@ -33,15 +33,39 @@ input{width:100%;padding:12px;border:1px solid #39304f;background:#0c1020;color:
 .nav b{display:block;font-size:21px;margin-bottom:4px}
 .nav.active{color:#c99aff}
 .small{font-size:12px;color:#aaa;margin-top:7px}
+#loginScreen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.login-card{background:#171c32;border:1px solid #39304f;border-radius:18px;padding:28px;width:100%;max-width:400px;text-align:center}
+.login-card h1{color:#c39aff;margin-bottom:12px}
+.login-card p{color:#aaa;margin:12px 0 22px}
+.google-btn{width:100%;padding:15px;font-size:15px}
+#errorMessage{color:#ff7777;font-size:13px;margin-top:15px;overflow-wrap:anywhere}
+#appShell{display:none}
+#accountName{overflow-wrap:anywhere}
 </style>
 </head>
 
 <body>
 
+<!-- LOGIN SCREEN -->
+<div id="loginScreen">
+ <div class="login-card">
+  <h1>⚔ GRAND BATTLE</h1>
+  <p>Welcome to GRAND BATTLE!<br>Sign in to continue.</p>
+  <button class="google-btn" id="loginBtn">
+   🌐 Continue with Google
+  </button>
+  <div id="errorMessage"></div>
+  <p class="small">Secure Google Authentication</p>
+ </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="appShell">
+
 <header>
  <div>
   <div class="logo">⚔ GRAND BATTLE</div>
-  <small>Welcome, Player</small>
+  <small id="welcomeText">Welcome, Player</small>
  </div>
  <div class="coins">🪙 <span id="coinBalance">0</span></div>
 </header>
@@ -122,9 +146,11 @@ input{width:100%;padding:12px;border:1px solid #39304f;background:#0c1020;color:
  <div class="section-title">👤 My Account</div>
 
  <div class="card">
-  <h2>Guest Player</h2>
-  <p class="small">Not logged in</p>
-  <p style="margin-top:12px">UID: -</p>
+  <h2 id="accountName">Player</h2>
+  <p class="small" id="accountEmail"></p>
+  <p style="margin-top:12px;overflow-wrap:anywhere">
+   UID: <span id="accountUID"></span>
+  </p>
  </div>
 
  <div class="card">
@@ -134,8 +160,10 @@ input{width:100%;padding:12px;border:1px solid #39304f;background:#0c1020;color:
 
  <div class="card">
   <h3>Account Settings</h3>
-  <button onclick="alert('Google login will work after Firebase integration.')">Login with Google</button>
-  <p class="small">Login system is not connected yet.</p>
+  <p class="small">Google account connected successfully.</p>
+  <button id="logoutBtn" style="margin-top:15px;background:#a83245">
+   Logout
+  </button>
  </div>
 </section>
 
@@ -144,15 +172,15 @@ input{width:100%;padding:12px;border:1px solid #39304f;background:#0c1020;color:
  <div class="nav" onclick="showPage('earnPage',this)">
   <b>🪙</b>Earn
  </div>
-
  <div class="nav active" onclick="showPage('playPage',this)">
   <b>🏠</b>Home
  </div>
-
  <div class="nav" onclick="showPage('accountPage',this)">
   <b>👤</b>Account
  </div>
 </nav>
+
+</div>
 
 <script>
 function showPage(pageId,button){
@@ -191,6 +219,92 @@ function shareReferral(){
   copyReferral();
  }
 }
+</script>
+
+<!-- FIREBASE GOOGLE AUTHENTICATION -->
+<script type="module">
+import { initializeApp } from
+"https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
+
+import {
+ getAuth,
+ GoogleAuthProvider,
+ signInWithRedirect,
+ getRedirectResult,
+ onAuthStateChanged,
+ signOut
+} from
+"https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
+
+const firebaseConfig = {
+ apiKey: "AIzaSyBJ9qWnOPX7qL0sOqjlvclR64XSZC_G93U",
+ authDomain: "grand-battle-f4fa8.firebaseapp.com",
+ projectId: "grand-battle-f4fa8",
+ storageBucket: "grand-battle-f4fa8.firebasestorage.app",
+ messagingSenderId: "303776963749",
+ appId: "1:303776963749:web:62aad8a109f61d5f9b814c",
+ measurementId: "G-12BSTFFDRV"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+
+const loginScreen = document.getElementById("loginScreen");
+const appShell = document.getElementById("appShell");
+const loginBtn = document.getElementById("loginBtn");
+const logoutBtn = document.getElementById("logoutBtn");
+const errorMessage = document.getElementById("errorMessage");
+
+loginBtn.addEventListener("click", async () => {
+ try {
+  loginBtn.disabled = true;
+  loginBtn.textContent = "Connecting...";
+  errorMessage.textContent = "";
+  await signInWithRedirect(auth, provider);
+ } catch(error) {
+  errorMessage.textContent = error.message;
+  loginBtn.disabled = false;
+  loginBtn.textContent = "🌐 Continue with Google";
+ }
+});
+
+logoutBtn.addEventListener("click", async () => {
+ try {
+  await signOut(auth);
+ } catch(error) {
+  alert("Logout error: " + error.message);
+ }
+});
+
+getRedirectResult(auth).catch(error => {
+ errorMessage.textContent = error.message;
+ loginBtn.disabled = false;
+ loginBtn.textContent = "🌐 Continue with Google";
+});
+
+onAuthStateChanged(auth, user => {
+ if(user) {
+  loginScreen.style.display = "none";
+  appShell.style.display = "block";
+
+  document.getElementById("welcomeText").textContent =
+   "Welcome, " + (user.displayName || "Player");
+
+  document.getElementById("accountName").textContent =
+   user.displayName || "Player";
+
+  document.getElementById("accountEmail").textContent =
+   user.email || "";
+
+  document.getElementById("accountUID").textContent =
+   user.uid;
+
+ } else {
+  appShell.style.display = "none";
+  loginScreen.style.display = "flex";
+ }
+});
 </script>
 
 </body>
