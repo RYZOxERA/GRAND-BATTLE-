@@ -5,22 +5,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>GRAND BATTLE</title>
+
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:#090b18;color:white;font-family:Arial,sans-serif;padding-bottom:75px}
-header{background:#11152b;padding:16px;display:flex;justify-content:space-between;align-items:center}
-.logo{font-size:20px;color:#c39aff;font-weight:bold}
+body{background:#090b18;color:white;font-family:Arial,sans-serif;padding-bottom:80px}
+header{background:#11152b;padding:16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:5}
+.logo{font-size:21px;color:#c39aff;font-weight:bold}
 .coins{background:#281b42;padding:10px;border-radius:20px}
 .page{display:none;padding:15px}
 .page.active{display:block}
 .banner{background:linear-gradient(120deg,#55258a,#171b43);padding:20px;border-radius:14px;margin-bottom:15px}
+.banner h2{margin-bottom:8px}
 .title{margin:22px 0 12px;font-size:18px}
 .card{background:#171c32;border:1px solid #292344;padding:15px;border-radius:12px;margin-bottom:12px}
 .small{font-size:12px;color:#aaa;margin-top:7px}
 button{background:#914be0;color:white;border:0;border-radius:8px;padding:11px 15px;font-weight:bold;margin-top:10px;cursor:pointer}
 button:disabled{opacity:.5}
 input,select{width:100%;padding:12px;margin:8px 0;background:#0c1020;color:white;border:1px solid #39304f;border-radius:8px}
-.navbar{position:fixed;bottom:0;left:0;width:100%;background:#11152b;display:flex;justify-content:space-around;padding:12px;border-top:1px solid #292344}
+.navbar{position:fixed;bottom:0;left:0;width:100%;background:#11152b;display:flex;justify-content:space-around;padding:12px;border-top:1px solid #292344;z-index:10}
 .nav{color:#aaa;text-align:center;font-size:12px;flex:1;cursor:pointer}
 .nav b{display:block;font-size:20px}
 .nav.active{color:#c39aff}
@@ -33,464 +35,498 @@ input,select{width:100%;padding:12px;margin:8px 0;background:#0c1020;color:white
 #errorMessage{color:#ff7777;font-size:13px;margin-top:12px;overflow-wrap:anywhere}
 #appShell{display:none}
 .hidden{display:none!important}
-.match-actions button{margin-right:5px}
-hr{border:0;border-top:1px solid #333;margin:12px 0}
+.tabs{display:flex;gap:8px;margin:12px 0}
+.tabs button{flex:1;background:#25203a}
+.tabs button.active{background:#914be0}
+.match-status{color:#c39aff;font-size:12px;font-weight:bold}
 </style>
 </head>
+
 <body>
 
-<div id="loginScreen">
- <div class="login-card">
-  <h1>⚔ GRAND BATTLE</h1>
-  <p>Play • Compete • Earn</p>
-  <p class="small">Sign in to continue</p>
-  <button id="loginBtn" style="width:100%">🌐 Continue with Google</button>
-  <div id="errorMessage"></div>
- </div>
-</div>
+<!-- LOGIN SCREEN -->
+<section id="loginScreen">
+<div class="login-card">
+<h1>GRAND BATTLE</h1>
+<p style="color:#aaa;margin-bottom:20px">Free Fire Esports Tournament Platform</p>
 
+<button onclick="googleLogin()" style="width:100%">
+Continue with Google
+</button>
+
+<div style="margin:20px 0;color:#888">OR</div>
+
+<input id="email" type="email" placeholder="Email address">
+<input id="password" type="password" placeholder="Password">
+
+<button onclick="emailLogin()" style="width:100%">
+Login with Email
+</button>
+
+<button onclick="emailSignup()" style="width:100%;background:#292344">
+Create Account
+</button>
+
+<p id="errorMessage"></p>
+</div>
+</section>
+
+<!-- MAIN APP -->
 <div id="appShell">
+
 <header>
- <div>
-  <div class="logo">⚔ GRAND BATTLE</div>
-  <small id="welcomeText">Welcome Player</small>
- </div>
- <div class="coins">🪙 <span id="coinBalance">0</span></div>
+<div class="logo">GRAND BATTLE</div>
+<div class="coins">🪙 <span id="coinBalance">0</span></div>
 </header>
 
+<!-- HOME -->
 <section id="homePage" class="page active">
- <div class="banner">
-  <h2>🔥 GRAND BATTLE</h2>
-  <p>Play • Compete • Earn Coins</p>
- </div>
 
- <h3 class="title">📢 Announcements</h3>
- <div class="card" id="announcement">Welcome to GRAND BATTLE!</div>
-
- <h3 class="title">🏆 My Matches</h3>
- <div class="grid">
-  <div class="stat"><b id="upcomingCount">0</b>Upcoming</div>
-  <div class="stat"><b id="completedCount">0</b>Completed</div>
- </div>
-
- <h3 class="title">🎮 Tournament Categories</h3>
- <div class="grid">
-  <button onclick="filterMatches('Full Map')">🗺️ Full Map</button>
-  <button onclick="filterMatches('BR Survival')">🏆 BR Survival</button>
-  <button onclick="filterMatches('LW Head')">🎯 LW Head</button>
-  <button onclick="filterMatches('FF Squad')">👥 FF Squad</button>
-  <button onclick="filterMatches('CS 1v1')">⚔️ CS 1v1</button>
-  <button onclick="filterMatches('LW 1v1')">🔥 LW 1v1</button>
-  <button onclick="filterMatches('CS 2v2')">🥊 CS 2v2</button>
-  <button onclick="filterMatches('LW 2v2')">💥 LW 2v2</button>
-  <button onclick="filterMatches('CS 4v4')">🛡️ CS 4v4</button>
- </div>
- <h3 class="title">🔥 Available Matches</h3>
- <div id="homeMatches"></div>
-</section>
-
-<section id="matchesPage" class="page">
- <h2>🏆 Tournaments</h2>
- <button onclick="filterMatches('All')">All Matches</button>
- <div id="matchList" style="margin-top:15px"></div>
-</section>
-
-<section id="earnPage" class="page">
- <h2>🪙 Earn Coins</h2>
- <div class="card">
-  <h3>My Wallet</h3>
-  <h1 style="color:#c39aff;margin-top:12px">🪙 <span id="earnBalance">0</span></h1>
-  <p class="small">Coins are credited after admin approval.</p>
- </div>
- <div class="card">
-  <h3>🎮 First Match Reward</h3>
-  <h2 style="color:#c39aff">+11 Coins</h2>
-  <p class="small">Reward subject to match completion and admin verification.</p>
- </div>
- <div class="card">
-  <h3>Invite & Earn</h3>
-  <p class="small">Referral rewards will be activated after referral verification integration.</p>
- </div>
-</section>
-
-<section id="accountPage" class="page">
- <h2>👤 My Account</h2>
- <div class="card">
-  <h3 id="accountName">Player</h3>
-  <p class="small" id="accountEmail"></p>
-  <p style="margin-top:12px">UID: <span id="accountUID"></span></p>
- </div>
- <div class="card">
-  <h3>My Wallet</h3>
-  <h2>🪙 <span id="accountBalance">0</span></h2>
- </div>
- <button id="logoutBtn" style="background:#a83245">Logout</button>
-</section>
-
-<section id="adminPage" class="page hidden">
- <h2>🛡️ Admin Panel</h2>
-
- <div class="card">
-  <h3>Create Tournament</h3>
-  <input id="matchTitle" placeholder="Match Name">
-  <select id="matchCategory">
-   <option>Full Map</option>
-   <option>BR Survival</option>
-   <option>LW Head</option>
-   <option>FF Squad</option>
-   <option>CS 1v1</option>
-   <option>LW 1v1</option>
-   <option>CS 2v2</option>
-   <option>LW 2v2</option>
-   <option>CS 4v4</option>
-  </select>
-  <select id="matchType">
-   <option value="Free">Free</option>
-   <option value="Paid">Paid</option>
-  </select>
-  <input id="entryFee" type="number" min="0" placeholder="Entry Fee (Coins)" value="0">
-  <input id="prize" placeholder="Prize (e.g. ₹100)">
-  <input id="matchTime" type="datetime-local">
-  <input id="maxPlayers" type="number" min="1" placeholder="Maximum Players">
-  <button onclick="createMatch()">Create Match</button>
- </div>
-
- <div class="card">
-  <h3>Publish Room Details</h3>
-  <input id="roomMatchId" placeholder="Match Document ID">
-  <input id="roomID" placeholder="Room ID">
-  <input id="roomPassword" placeholder="Room Password">
-  <button onclick="publishRoom()">Publish Room</button>
- </div>
-
- <div class="card">
-  <h3>Add Player Coins</h3>
-  <input id="playerUID" placeholder="Player Firebase UID">
-  <input id="addCoins" type="number" min="1" placeholder="Coins to Add">
-  <button onclick="addPlayerCoins()">Add Coins</button>
- </div>
-
- <div class="card">
-  <h3>Manage Matches</h3>
-  <div id="adminMatches"></div>
- </div>
-</section>
-
-<nav class="navbar">
- <div class="nav active" onclick="showPage('homePage',this)"><b>🏠</b>Home</div>
- <div class="nav" onclick="showPage('matchesPage',this)"><b>🏆</b>Matches</div>
- <div class="nav" onclick="showPage('earnPage',this)"><b>🪙</b>Earn</div>
- <div class="nav" onclick="showPage('accountPage',this)"><b>👤</b>Account</div>
- <div class="nav hidden" id="adminNav" onclick="showPage('adminPage',this)"><b>🛡️</b>Admin</div>
-</nav>
+<div class="banner">
+<h2>WELCOME TO GRAND BATTLE</h2>
+<p>Compete. Win. Become a Champion!</p>
+<p class="small" id="welcomeName"></p>
 </div>
 
-<script>
-let currentMatches=[];
-let currentUser=null;
-let myRegistrations=[];
-let currentCategory='All';
+<div class="card">
+<h3>📢 Latest Announcements</h3>
+<p class="small" id="announcementText">
+Welcome to GRAND BATTLE! Stay tuned for upcoming tournaments.
+</p>
+</div>
 
-function showPage(id,button){
- document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
- document.getElementById(id).classList.add('active');
- document.querySelectorAll('.nav').forEach(n=>n.classList.remove('active'));
- button.classList.add('active');
-}
+<div class="banner">
+<h3>🎧 Customer Support</h3>
+<p class="small">Need help? Contact our support team.</p>
+<button onclick="contactSupport()">Contact Support</button>
+</div>
 
-function filterMatches(category){
- currentCategory=category;
- const nav=document.querySelectorAll('.nav');
- showPage('matchesPage',nav[1]);
- renderMatches();
-}
+<h3 class="title">MY MATCHES</h3>
 
-function escapeHTML(value){
- return String(value??'').replace(/[&<>"']/g,c=>({
- '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
- })[c]);
-}
-</script>
+<div class="tabs">
+<button class="active" onclick="showMatchTab('upcoming',this)">Upcoming</button>
+<button onclick="showMatchTab('ongoing',this)">Ongoing</button>
+<button onclick="showMatchTab('completed',this)">Completed</button>
+</div>
+
+<div id="myMatches">
+<p class="small">Login to view your matches.</p>
+</div>
+
+<h3 class="title">ESPORT GAMES</h3>
+
+<div class="grid">
+<div class="card" onclick="showPage('playPage')">
+<h3>🔥 FREE FIRE</h3>
+<p class="small">Battle Royale Tournaments</p>
+</div>
+<div class="card" onclick="showPage('playPage')">
+<h3>⚔️ CUSTOM ROOM</h3>
+<p class="small">Custom Matches</p>
+</div>
+</div>
+</section>
+
+<!-- PLAY -->
+<section id="playPage" class="page">
+<h2>TOURNAMENTS</h2>
+<p class="small">Available tournaments and matches</p>
+
+<div class="tabs">
+<button class="active" onclick="filterMatches('all',this)">All</button>
+<button onclick="filterMatches('free',this)">Free</button>
+<button onclick="filterMatches('paid',this)">Paid</button>
+</div>
+
+<div id="tournamentList">
+<p class="small">Loading tournaments...</p>
+</div>
+</section>
+
+<!-- EARN -->
+<section id="earnPage" class="page">
+<h2>REWARDS</h2>
+<div class="card">
+<h3>🪙 My Coins</h3>
+<p class="small">Your current coin balance</p>
+<h2 id="earnCoins">0</h2>
+</div>
+<div class="card">
+<h3>🏆 Win Rewards</h3>
+<p class="small">Participate in tournaments and win prizes.</p>
+</div>
+</section>
+
+<!-- ACCOUNT -->
+<section id="accountPage" class="page">
+<h2>MY ACCOUNT</h2>
+
+<div class="card" style="text-align:center">
+<img id="profilePhoto" src="" alt="" style="width:75px;height:75px;border-radius:50%;object-fit:cover;display:none;margin:auto">
+<h3 id="profileName" style="margin-top:12px">Player</h3>
+<p class="small" id="profileEmail"></p>
+<p class="small" id="profileUID"></p>
+</div>
+
+<div class="card">
+<h3>Account Information</h3>
+<p class="small">Your account is connected with Firebase Authentication.</p>
+</div>
+
+<button onclick="logoutUser()" style="width:100%;background:#a83248">
+Logout
+</button>
+</section>
+
+<!-- BOTTOM NAVIGATION -->
+<nav class="navbar">
+<div class="nav active" onclick="showPage('homePage',this)">
+<b>⌂</b>Home
+</div>
+<div class="nav" onclick="showPage('earnPage',this)">
+<b>🪙</b>Earn
+</div>
+<div class="nav" onclick="showPage('playPage',this)">
+<b>🎮</b>Play
+</div>
+<div class="nav" onclick="showPage('accountPage',this)">
+<b>👤</b>Account
+</div>
+</nav>
+
+</div>
 
 <script type="module">
-import {initializeApp} from
-"https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
 
 import {
- getAuth,GoogleAuthProvider,signInWithRedirect,
- getRedirectResult,onAuthStateChanged,signOut
-} from
-"https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
+getAuth,
+GoogleAuthProvider,
+signInWithPopup,
+signInWithEmailAndPassword,
+createUserWithEmailAndPassword,
+signOut,
+onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
 
 import {
- getFirestore,doc,getDoc,setDoc,updateDoc,
- collection,addDoc,deleteDoc,onSnapshot,
- query,where,serverTimestamp,runTransaction
-} from
-"https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js";
+getFirestore,
+doc,
+setDoc,
+collection,
+onSnapshot,
+query,
+where,
+serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js";
 
-/* REPLACE THIS WITH YOUR ADMIN GMAIL */
-const ADMIN_EMAIL="YOUR_ADMIN_GMAIL@gmail.com";
-
-const firebaseConfig={
- apiKey:"AIzaSyBJ9qWnOPX7qL0sOqjlvclR64XSZC_G93U",
- authDomain:"grand-battle-f4fa8.firebaseapp.com",
- projectId:"grand-battle-f4fa8",
- storageBucket:"grand-battle-f4fa8.firebasestorage.app",
- messagingSenderId:"303776963749",
- appId:"1:303776963749:web:62aad8a109f61d5f9b814c",
- measurementId:"G-12BSTFFDRV"
+// FIREBASE CONFIG
+const firebaseConfig = {
+apiKey: "AIzaSyBJ9qWnOP7XqL0sOqjlvclR64XSZC_G93U",
+authDomain: "grand-battle-f4fa8.firebaseapp.com",
+projectId: "grand-battle-f4fa8",
+storageBucket: "grand-battle-f4fa8.firebasestorage.app",
+messagingSenderId: "303776963749",
+appId: "1:303776963749:web:62aad8a109f61d5f9b814c",
+measurementId: "G-12BSTFFDRV"
 };
 
-const app=initializeApp(firebaseConfig);
-const auth=getAuth(app);
-const db=getFirestore(app);
-const provider=new GoogleAuthProvider();
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const provider = new GoogleAuthProvider();
 
-const $=id=>document.getElementById(id);
-let stopMatches=null;
-let stopUser=null;
-let stopRegistrations=null;
-let isAdmin=false;
+let currentUser = null;
+let allMatches = [];
+let currentFilter = "all";
+let currentMatchTab = "upcoming";
 
-$('loginBtn').onclick=async()=>{
- try{
-  $('loginBtn').disabled=true;
-  $('loginBtn').textContent='Connecting...';
-  $('errorMessage').textContent='';
-  await signInWithRedirect(auth,provider);
- }catch(e){
-  $('errorMessage').textContent=e.message;
-  $('loginBtn').disabled=false;
-  $('loginBtn').textContent='🌐 Continue with Google';
- }
-};
-
-$('logoutBtn').onclick=async()=>{
- await signOut(auth);
-};
-
-getRedirectResult(auth).catch(e=>{
- $('errorMessage').textContent=e.message;
- $('loginBtn').disabled=false;
- $('loginBtn').textContent='🌐 Continue with Google';
-});
-
-onAuthStateChanged(auth,async user=>{
- currentUser=user;
- if(stopMatches)stopMatches();
- if(stopUser)stopUser();
- if(stopRegistrations)stopRegistrations();
-
- if(!user){
-  $('appShell').style.display='none';
-  $('loginScreen').style.display='flex';
-  return;
- }
-
- $('loginScreen').style.display='none';
- $('appShell').style.display='block';
-
- isAdmin=user.email===ADMIN_EMAIL;
- $('welcomeText').textContent='Welcome, '+(user.displayName||'Player');
- $('accountName').textContent=user.displayName||'Player';
- $('accountEmail').textContent=user.email||'';
- $('accountUID').textContent=user.uid;
-
- $('adminNav').classList.toggle('hidden',!isAdmin);
- $('adminPage').classList.toggle('hidden',!isAdmin);
-
- const userRef=doc(db,'users',user.uid);
- const userSnap=await getDoc(userRef);
-
- if(!userSnap.exists()){
-  await setDoc(userRef,{
-   name:user.displayName||'Player',
-   email:user.email||'',
-   coins:0,
-   createdAt:serverTimestamp()
-  });
- }
-
- stopUser=onSnapshot(userRef,snap=>{
-  const data=snap.data()||{};
-  const balance=Number(data.coins||0);
-  $('coinBalance').textContent=balance;
-  $('earnBalance').textContent=balance;
-  $('accountBalance').textContent=balance;
- });
-
- stopMatches=onSnapshot(collection(db,'matches'),snap=>{
-  currentMatches=snap.docs.map(d=>({id:d.id,...d.data()}));
-  renderMatches();
-  renderAdminMatches();
-  updateStats();
- });
-
- stopRegistrations=onSnapshot(
-  query(collection(db,'registrations'),where('uid','==',user.uid)),
-  snap=>{
-   myRegistrations=snap.docs.map(d=>d.data());
-   renderMatches();
-  }
- );
-});
-
-function updateStats(){
- const active=currentMatches.filter(m=>m.status==='Upcoming').length;
- const completed=currentMatches.filter(m=>m.status==='Completed').length;
- $('upcomingCount').textContent=active;
- $('completedCount').textContent=completed;
+// ERROR DISPLAY
+function showError(message){
+document.getElementById("errorMessage").textContent = message;
 }
 
+// SAVE PLAYER
+async function saveUser(user){
+await setDoc(doc(db,"users",user.uid),{
+uid:user.uid,
+name:user.displayName || user.email.split("@")[0],
+email:user.email,
+photo:user.photoURL || "",
+lastLogin:serverTimestamp()
+},{merge:true});
+}
+
+// GOOGLE LOGIN
+window.googleLogin = async function(){
+try{
+const result = await signInWithPopup(auth,provider);
+try{
+await saveUser(result.user);
+}catch(e){
+console.error("Profile save failed:",e);
+}
+}catch(error){
+showError(error.message);
+}
+};
+
+// EMAIL LOGIN
+window.emailLogin = async function(){
+const email=document.getElementById("email").value.trim();
+const password=document.getElementById("password").value;
+
+if(!email || !password){
+showError("Enter email and password.");
+return;
+}
+
+try{
+const result=await signInWithEmailAndPassword(auth,email,password);
+try{await saveUser(result.user)}catch(e){console.error(e)}
+}catch(error){
+showError(error.message);
+}
+};
+
+// EMAIL SIGNUP
+window.emailSignup = async function(){
+const email=document.getElementById("email").value.trim();
+const password=document.getElementById("password").value;
+
+if(!email || !password){
+showError("Enter email and password.");
+return;
+}
+
+if(password.length<6){
+showError("Password must contain at least 6 characters.");
+return;
+}
+
+try{
+const result=await createUserWithEmailAndPassword(auth,email,password);
+try{await saveUser(result.user)}catch(e){console.error(e)}
+}catch(error){
+showError(error.message);
+}
+};
+
+// LOGOUT
+window.logoutUser = async function(){
+try{
+await signOut(auth);
+location.reload();
+}catch(error){
+alert(error.message);
+}
+};
+
+// AUTH STATE
+onAuthStateChanged(auth,async(user)=>{
+currentUser=user;
+
+if(user){
+document.getElementById("loginScreen").style.display="none";
+document.getElementById("appShell").style.display="block";
+
+document.getElementById("welcomeName").textContent=
+"Welcome, "+(user.displayName || user.email);
+
+document.getElementById("profileName").textContent=
+user.displayName || "Player";
+
+document.getElementById("profileEmail").textContent=user.email;
+document.getElementById("profileUID").textContent="UID: "+user.uid;
+
+if(user.photoURL){
+const photo=document.getElementById("profilePhoto");
+photo.src=user.photoURL;
+photo.style.display="block";
+}
+
+loadMatches();
+}else{
+document.getElementById("loginScreen").style.display="flex";
+document.getElementById("appShell").style.display="none";
+}
+});
+
+// NAVIGATION
+window.showPage=function(pageId,element){
+document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+document.getElementById(pageId).classList.add("active");
+
+document.querySelectorAll(".nav").forEach(n=>n.classList.remove("active"));
+
+if(element){
+element.classList.add("active");
+}else{
+const navs=document.querySelectorAll(".nav");
+const pages=["homePage","earnPage","playPage","accountPage"];
+const index=pages.indexOf(pageId);
+if(index>=0)navs[index].classList.add("active");
+}
+};
+
+// MATCH FILTER
+window.filterMatches=function(filter,button){
+currentFilter=filter;
+document.querySelectorAll("#playPage .tabs button").forEach(b=>b.classList.remove("active"));
+button.classList.add("active");
+renderMatches();
+};
+
+// MY MATCH TABS
+window.showMatchTab=function(tab,button){
+currentMatchTab=tab;
+document.querySelectorAll("#homePage .tabs button").forEach(b=>b.classList.remove("active"));
+button.classList.add("active");
+
+const filtered=allMatches.filter(m=>(m.status||"upcoming").toLowerCase()===tab);
+renderMyMatches(filtered);
+};
+
+// LOAD MATCHES
+let unsubscribeMatches=null;
+
+function loadMatches(){
+if(unsubscribeMatches)unsubscribeMatches();
+
+unsubscribeMatches=onSnapshot(
+collection(db,"matches"),
+(snapshot)=>{
+allMatches=snapshot.docs.map(d=>({id:d.id,...d.data()}));
+renderMatches();
+renderMyMatches(allMatches.filter(m=>(m.status||"upcoming").toLowerCase()===currentMatchTab));
+},
+(error)=>{
+console.error("Match loading error:",error);
+document.getElementById("tournamentList").innerHTML=
+'<div class="card">Unable to load tournaments. Check Firestore permissions.</div>';
+}
+);
+}
+
+// RENDER TOURNAMENTS
 function renderMatches(){
- const html=currentMatches
- .filter(m=>currentCategory==='All'||m.category===currentCategory)
- .map(m=>{
-  const registered=myRegistrations.some(r=>r.matchId===m.id);
-  const full=m.maxPlayers>0&&m.playersCount>=m.maxPlayers;
-  const room=registered&&m.roomID
-   ?`<p>Room ID: ${escapeHTML(m.roomID)}</p><p>Password: ${escapeHTML(m.roomPassword||'')}</p>`:'';
+const container=document.getElementById("tournamentList");
+let matches=allMatches;
 
-  return `<div class="card">
-   <h3>${escapeHTML(m.title)}</h3>
-   <p class="small">${escapeHTML(m.category)} • ${escapeHTML(m.type)}</p>
-   <hr>
-   <p>Entry Fee: ${Number(m.entryFee||0)} Coins</p>
-   <p>Prize: ${escapeHTML(m.prize||'Not announced')}</p>
-   <p>Players: ${Number(m.playersCount||0)}/${Number(m.maxPlayers||0)}</p>
-   <p>Status: ${escapeHTML(m.status||'Upcoming')}</p>
-   <p class="small">Time: ${escapeHTML(m.matchTime||'To be announced')}</p>
-   ${room}
-   ${m.status==='Upcoming'&&!registered
-    ?`<button ${full?'disabled':''} onclick="registerMatch('${m.id}')">${full?'Match Full':'Register Now'}</button>`
-    :registered?'<p>✅ Registered</p>':''}
-  </div>`;
- }).join('');
-
- $('matchList').innerHTML=html||'<p class="small">No matches available.</p>';
- $('homeMatches').innerHTML=currentMatches
- .filter(m=>m.status==='Upcoming')
- .slice(0,4)
- .map(m=>`<div class="card"><h3>${escapeHTML(m.title)}</h3><p class="small">${escapeHTML(m.category)} • ${escapeHTML(m.type)}</p><button onclick="filterMatches('${escapeHTML(m.category)}')">View Matches</button></div>`)
- .join('')||'<p class="small">No upcoming matches.</p>';
+if(currentFilter==="free"){
+matches=matches.filter(m=>Number(m.entryFee||0)===0);
 }
 
-window.registerMatch=async id=>{
- try{
-  const matchRef=doc(db,'matches',id);
-  const regRef=doc(db,'registrations',id+'_'+currentUser.uid);
-  const userRef=doc(db,'users',currentUser.uid);
-
-  await runTransaction(db,async tx=>{
-   const ms=await tx.get(matchRef);
-   const us=await tx.get(userRef);
-   const rs=await tx.get(regRef);
-
-   if(!ms.exists()||!us.exists())throw Error('Match or user not found.');
-   if(rs.exists())throw Error('Already registered.');
-
-   const m=ms.data();
-   const u=us.data();
-   const fee=Number(m.entryFee||0);
-
-   if(m.status!=='Upcoming')throw Error('Registration is closed.');
-   if(m.maxPlayers>0&&Number(m.playersCount||0)>=m.maxPlayers)
-    throw Error('Match is full.');
-   if(Number(u.coins||0)<fee)throw Error('Not enough coins.');
-
-   tx.update(userRef,{coins:Number(u.coins||0)-fee});
-   tx.update(matchRef,{playersCount:Number(m.playersCount||0)+1});
-   tx.set(regRef,{
-    uid:currentUser.uid,
-    playerName:currentUser.displayName||'Player',
-    matchId:id,
-    createdAt:serverTimestamp()
-   });
-  });
-  alert('Registration successful!');
- }catch(e){alert(e.message);}
-};
-
-window.createMatch=async()=>{
- if(!isAdmin)return alert('Admin only.');
- try{
-  const title=$('matchTitle').value.trim();
-  const max=Number($('maxPlayers').value);
-  const fee=Number($('entryFee').value);
-  if(!title||!max||fee<0)throw Error('Enter valid match details.');
-
-  await addDoc(collection(db,'matches'),{
-   title,
-   category:$('matchCategory').value,
-   type:$('matchType').value,
-   entryFee:fee,
-   prize:$('prize').value.trim(),
-   matchTime:$('matchTime').value,
-   maxPlayers:max,
-   playersCount:0,
-   status:'Upcoming',
-   roomID:'',
-   roomPassword:'',
-   createdAt:serverTimestamp()
-  });
-  alert('Match created!');
-  $('matchTitle').value='';
- }catch(e){alert(e.message);}
-};
-
-window.publishRoom=async()=>{
- if(!isAdmin)return;
- try{
-  const id=$('roomMatchId').value.trim();
-  if(!id)throw Error('Enter Match ID.');
-  await updateDoc(doc(db,'matches',id),{
-   roomID:$('roomID').value.trim(),
-   roomPassword:$('roomPassword').value.trim()
-  });
-  alert('Room details published!');
- }catch(e){alert(e.message);}
-};
-
-window.addPlayerCoins=async()=>{
- if(!isAdmin)return;
- try{
-  const uid=$('playerUID').value.trim();
-  const amount=Number($('addCoins').value);
-  if(!uid||!Number.isSafeInteger(amount)||amount<=0)
-   throw Error('Enter valid UID and coin amount.');
-
-  const ref=doc(db,'users',uid);
-  await runTransaction(db,async tx=>{
-   const snap=await tx.get(ref);
-   if(!snap.exists())throw Error('Player not found.');
-   tx.update(ref,{coins:Number(snap.data().coins||0)+amount});
-  });
-  alert('Coins added successfully!');
- }catch(e){alert(e.message);}
-};
-
-function renderAdminMatches(){
- if(!isAdmin)return;
- $('adminMatches').innerHTML=currentMatches.map(m=>`
- <div class="card">
- <b>${escapeHTML(m.title)}</b>
- <p class="small">ID: ${escapeHTML(m.id)}</p>
- <p>Status: ${escapeHTML(m.status||'Upcoming')}</p>
- <button onclick="changeStatus('${m.id}','Completed')">Complete</button>
- <button style="background:#a83245" onclick="changeStatus('${m.id}','Cancelled')">Cancel</button>
- </div>`).join('')||'No matches.';
+if(currentFilter==="paid"){
+matches=matches.filter(m=>Number(m.entryFee||0)>0);
 }
 
-window.changeStatus=async(id,status)=>{
- if(!isAdmin)return;
- if(!confirm('Change match status to '+status+'?'))return;
- try{
-  await updateDoc(doc(db,'matches',id),{status});
-  alert('Match updated.');
- }catch(e){alert(e.message);}
+if(!matches.length){
+container.innerHTML='<div class="card">No tournaments available right now.</div>';
+return;
+}
+
+container.innerHTML="";
+
+matches.forEach(match=>{
+const card=document.createElement("div");
+card.className="card";
+
+const title=document.createElement("h3");
+title.textContent=match.title || "Free Fire Tournament";
+
+const details=document.createElement("p");
+details.className="small";
+details.textContent=
+"Mode: "+(match.mode||"BR")+
+" | Entry: ₹"+(match.entryFee||0)+
+" | Prize: ₹"+(match.prize||0);
+
+const date=document.createElement("p");
+date.className="small";
+date.textContent="Date: "+(match.date||"To be announced")+
+" | Time: "+(match.time||"To be announced");
+
+const status=document.createElement("p");
+status.className="match-status";
+status.textContent=(match.status||"upcoming").toUpperCase();
+
+card.append(title,details,date,status);
+
+if(match.roomId && match.roomPassword &&
+currentUser && match.registeredUsers?.includes(currentUser.uid)){
+const room=document.createElement("p");
+room.className="small";
+room.textContent="Room ID: "+match.roomId+" | Password: "+match.roomPassword;
+card.append(room);
+}
+
+const register=document.createElement("button");
+register.textContent="Register";
+register.onclick=()=>registerMatch(match.id);
+card.append(register);
+
+container.append(card);
+});
+}
+
+// MY MATCHES
+function renderMyMatches(matches){
+const container=document.getElementById("myMatches");
+const mine=matches.filter(m=>(m.registeredUsers||[]).includes(currentUser?.uid));
+
+if(!mine.length){
+container.innerHTML='<div class="card">You have no matches in this category.</div>';
+return;
+}
+
+container.innerHTML="";
+mine.forEach(m=>{
+const card=document.createElement("div");
+card.className="card";
+
+const title=document.createElement("h3");
+title.textContent=m.title||"Tournament";
+
+const info=document.createElement("p");
+info.className="small";
+info.textContent="Date: "+(m.date||"TBA")+" | Prize: ₹"+(m.prize||0);
+
+card.append(title,info);
+container.append(card);
+});
+}
+
+// REGISTER MATCH
+async function registerMatch(matchId){
+if(!currentUser)return;
+
+try{
+await setDoc(
+doc(db,"matches",matchId,"registrations",currentUser.uid),
+{
+uid:currentUser.uid,
+name:currentUser.displayName||currentUser.email,
+email:currentUser.email,
+registeredAt:serverTimestamp()
+}
+);
+
+alert("Registration submitted!");
+}catch(error){
+alert("Registration failed: "+error.message);
+}
+}
+
+// SUPPORT
+window.contactSupport=function(){
+window.open("mailto:oarfcreator@gmail.com","_blank");
 };
+
+console.log("GRAND BATTLE Firebase initialized");
+
 </script>
 </body>
- </html>
- 
+</html>
