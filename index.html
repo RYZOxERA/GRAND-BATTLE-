@@ -5,81 +5,71 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>GRAND BATTLE</title>
-
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:#090b18;color:white;font-family:Arial,sans-serif;padding-bottom:80px}
-header{background:#11152b;padding:16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:5}
+body{background:#090b18;color:white;font-family:Arial,sans-serif;padding-bottom:85px}
+header{background:#11152b;padding:15px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:5;border-bottom:1px solid #292344}
 .logo{font-size:21px;color:#c39aff;font-weight:bold}
-.coins{background:#281b42;padding:10px;border-radius:20px}
+.coins{background:#281b42;padding:10px 15px;border-radius:25px;border:1px solid #914be0;color:white;cursor:pointer;font-weight:bold}
 .page{display:none;padding:15px}
 .page.active{display:block}
-.banner{background:linear-gradient(120deg,#55258a,#171b43);padding:20px;border-radius:14px;margin-bottom:15px}
+.banner{background:linear-gradient(120deg,#55258a,#171b43);padding:20px;border-radius:14px;margin-bottom:15px;border:1px solid #49316b}
 .banner h2{margin-bottom:8px}
 .title{margin:22px 0 12px;font-size:18px}
 .card{background:#171c32;border:1px solid #292344;padding:15px;border-radius:12px;margin-bottom:12px}
 .small{font-size:12px;color:#aaa;margin-top:7px}
 button{background:#914be0;color:white;border:0;border-radius:8px;padding:11px 15px;font-weight:bold;margin-top:10px;cursor:pointer}
-button:disabled{opacity:.5}
-input,select{width:100%;padding:12px;margin:8px 0;background:#0c1020;color:white;border:1px solid #39304f;border-radius:8px}
+input{width:100%;padding:12px;margin:8px 0;background:#0c1020;color:white;border:1px solid #39304f;border-radius:8px}
 .navbar{position:fixed;bottom:0;left:0;width:100%;background:#11152b;display:flex;justify-content:space-around;padding:12px;border-top:1px solid #292344;z-index:10}
 .nav{color:#aaa;text-align:center;font-size:12px;flex:1;cursor:pointer}
 .nav b{display:block;font-size:20px}
 .nav.active{color:#c39aff}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.stat{background:#171c32;padding:15px;text-align:center;border-radius:10px}
-.stat b{display:block;color:#c39aff;font-size:22px}
+.tabs{display:flex;gap:7px;margin:12px 0}
+.tabs button{flex:1;background:#25203a;padding:11px 4px;font-size:12px}
+.tabs button.active{background:#914be0}
+.match-status{color:#c39aff;font-size:12px;font-weight:bold;margin-top:8px}
+.support{display:grid;grid-template-columns:1fr 1fr;gap:10px;text-align:center}
+.support button{width:100%}
+.tournament-banner{background:linear-gradient(110deg,#a20c43,#35116f,#101c50);border:1px solid #8c45ef;border-radius:14px;padding:35px 12px;text-align:center;margin:18px 0;min-height:170px;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+.tournament-banner h2{font-size:27px;font-weight:900;text-shadow:0 2px 8px #000}
+.tournament-banner p{color:#ffe34c;font-weight:bold;margin-top:10px}
+.wallet-action{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.wallet-action button{width:100%;padding:14px 5px}
+.wallet-balance{background:linear-gradient(120deg,#55258a,#171b43);padding:25px;border-radius:15px;text-align:center;margin-bottom:15px}
+.wallet-balance h1{font-size:32px;color:#d4a8ff;margin-top:10px}
 #loginScreen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
 .login-card{background:#171c32;padding:28px;border-radius:18px;width:100%;max-width:400px;text-align:center}
 .login-card h1{color:#c39aff;margin-bottom:12px}
 #errorMessage{color:#ff7777;font-size:13px;margin-top:12px;overflow-wrap:anywhere}
 #appShell{display:none}
-.hidden{display:none!important}
-.tabs{display:flex;gap:8px;margin:12px 0}
-.tabs button{flex:1;background:#25203a}
-.tabs button.active{background:#914be0}
-.match-status{color:#c39aff;font-size:12px;font-weight:bold}
 </style>
 </head>
-
 <body>
 
-<!-- LOGIN SCREEN -->
 <section id="loginScreen">
 <div class="login-card">
 <h1>GRAND BATTLE</h1>
 <p style="color:#aaa;margin-bottom:20px">Free Fire Esports Tournament Platform</p>
-
-<button onclick="googleLogin()" style="width:100%">
-Continue with Google
-</button>
-
+<button onclick="googleLogin()" style="width:100%">Continue with Google</button>
 <div style="margin:20px 0;color:#888">OR</div>
-
 <input id="email" type="email" placeholder="Email address">
 <input id="password" type="password" placeholder="Password">
-
-<button onclick="emailLogin()" style="width:100%">
-Login with Email
-</button>
-
-<button onclick="emailSignup()" style="width:100%;background:#292344">
-Create Account
-</button>
-
+<button onclick="emailLogin()" style="width:100%">Login with Email</button>
+<button onclick="emailSignup()" style="width:100%;background:#292344">Create Account</button>
 <p id="errorMessage"></p>
 </div>
 </section>
 
-<!-- MAIN APP -->
 <div id="appShell">
 
 <header>
 <div class="logo">GRAND BATTLE</div>
-<div class="coins">🪙 <span id="coinBalance">0</span></div>
+<button class="coins" onclick="showPage('walletPage')">
+🪙 <span id="coinBalance">0</span>　⌄
+</button>
 </header>
 
-<!-- HOME -->
+<!-- HOME PAGE -->
 <section id="homePage" class="page active">
 
 <div class="banner">
@@ -96,13 +86,21 @@ Welcome to GRAND BATTLE! Stay tuned for upcoming tournaments.
 </div>
 
 <div class="banner">
-<h3>🎧 Customer Support</h3>
+<h3>🎧 CUSTOMER SUPPORT</h3>
 <p class="small">Need help? Contact our support team.</p>
-<button onclick="contactSupport()">Contact Support</button>
+<div class="support">
+<div>
+<button onclick="openTelegram()">✈️ Telegram</button>
+<p class="small">@GRAND_BATTLE_CUSTOMER_SUPPORT</p>
+</div>
+<div>
+<button onclick="whatsappComingSoon()">🟢 WhatsApp</button>
+<p class="small">Coming Soon</p>
+</div>
+</div>
 </div>
 
 <h3 class="title">MY MATCHES</h3>
-
 <div class="tabs">
 <button class="active" onclick="showMatchTab('upcoming',this)">Upcoming</button>
 <button onclick="showMatchTab('ongoing',this)">Ongoing</button>
@@ -110,40 +108,58 @@ Welcome to GRAND BATTLE! Stay tuned for upcoming tournaments.
 </div>
 
 <div id="myMatches">
-<p class="small">Login to view your matches.</p>
+<p class="small">Loading your matches...</p>
 </div>
 
-<h3 class="title">ESPORT GAMES</h3>
-
-<div class="grid">
-<div class="card" onclick="showPage('playPage')">
-<h3>🔥 FREE FIRE</h3>
-<p class="small">Battle Royale Tournaments</p>
-</div>
-<div class="card" onclick="showPage('playPage')">
-<h3>⚔️ CUSTOM ROOM</h3>
-<p class="small">Custom Matches</p>
-</div>
-</div>
-</section>
-
-<!-- PLAY -->
-<section id="playPage" class="page">
+<div class="tournament-banner">
+<h2>🔥 FREE FIRE</h2>
 <h2>TOURNAMENTS</h2>
-<p class="small">Available tournaments and matches</p>
-
-<div class="tabs">
-<button class="active" onclick="filterMatches('all',this)">All</button>
-<button onclick="filterMatches('free',this)">Free</button>
-<button onclick="filterMatches('paid',this)">Paid</button>
+<p>PLAY • COMPETE • WIN</p>
 </div>
 
+<h3 class="title">AVAILABLE TOURNAMENTS</h3>
 <div id="tournamentList">
 <p class="small">Loading tournaments...</p>
 </div>
+
 </section>
 
-<!-- EARN -->
+<!-- WALLET PAGE -->
+<section id="walletPage" class="page">
+<button onclick="showPage('homePage')" style="background:#292344">← Back to Home</button>
+<h2 class="title">MY WALLET</h2>
+
+<div class="wallet-balance">
+<p>AVAILABLE BALANCE</p>
+<h1>🪙 <span id="walletCoins">0</span></h1>
+</div>
+
+<div class="wallet-action">
+<div class="card">
+<h3>💰 Deposit</h3>
+<p class="small">Add coins to your wallet.</p>
+<button onclick="walletComingSoon('Deposit')">Deposit</button>
+</div>
+<div class="card">
+<h3>💸 Withdrawal</h3>
+<p class="small">Withdraw eligible coins.</p>
+<button onclick="walletComingSoon('Withdrawal')">Withdraw</button>
+</div>
+</div>
+
+<div class="card">
+<h3>🪙 Balance</h3>
+<h2 id="walletBalance">0 Coins</h2>
+<p class="small">Your current wallet balance.</p>
+</div>
+
+<h3 class="title">WALLET HISTORY</h3>
+<div id="walletHistory">
+<div class="card"><p class="small">No transactions yet.</p></div>
+</div>
+</section>
+
+<!-- EARN PAGE -->
 <section id="earnPage" class="page">
 <h2>REWARDS</h2>
 <div class="card">
@@ -157,175 +173,114 @@ Welcome to GRAND BATTLE! Stay tuned for upcoming tournaments.
 </div>
 </section>
 
-<!-- ACCOUNT -->
+<!-- ACCOUNT PAGE -->
 <section id="accountPage" class="page">
 <h2>MY ACCOUNT</h2>
-
 <div class="card" style="text-align:center">
 <img id="profilePhoto" src="" alt="" style="width:75px;height:75px;border-radius:50%;object-fit:cover;display:none;margin:auto">
 <h3 id="profileName" style="margin-top:12px">Player</h3>
 <p class="small" id="profileEmail"></p>
 <p class="small" id="profileUID"></p>
 </div>
-
 <div class="card">
 <h3>Account Information</h3>
 <p class="small">Your account is connected with Firebase Authentication.</p>
 </div>
-
-<button onclick="logoutUser()" style="width:100%;background:#a83248">
-Logout
-</button>
+<button onclick="logoutUser()" style="width:100%;background:#a83248">Logout</button>
 </section>
 
-<!-- BOTTOM NAVIGATION -->
 <nav class="navbar">
-<div class="nav active" onclick="showPage('homePage',this)">
-<b>⌂</b>Home
-</div>
-<div class="nav" onclick="showPage('earnPage',this)">
-<b>🪙</b>Earn
-</div>
-<div class="nav" onclick="showPage('playPage',this)">
-<b>🎮</b>Play
-</div>
-<div class="nav" onclick="showPage('accountPage',this)">
-<b>👤</b>Account
-</div>
+<div class="nav" onclick="showPage('earnPage',this)"><b>🪙</b>Earn</div>
+<div class="nav active" onclick="showPage('homePage',this)"><b>⌂</b>Home</div>
+<div class="nav" onclick="showPage('accountPage',this)"><b>👤</b>Account</div>
 </nav>
 
 </div>
 
 <script type="module">
-
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
+import {initializeApp} from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
 
 import {
-getAuth,
-GoogleAuthProvider,
-signInWithPopup,
-signInWithEmailAndPassword,
-createUserWithEmailAndPassword,
-signOut,
-onAuthStateChanged
+getAuth,GoogleAuthProvider,signInWithPopup,
+signInWithEmailAndPassword,createUserWithEmailAndPassword,
+signOut,onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
 
 import {
-getFirestore,
-doc,
-setDoc,
-collection,
-onSnapshot,
-query,
-where,
-serverTimestamp
+getFirestore,doc,setDoc,collection,onSnapshot,
+getDoc,serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js";
 
-// FIREBASE CONFIG
-const firebaseConfig = {
-apiKey: "AIzaSyCP1b12XseeZgYOuiA8fas60A9XLgOiE2U",
-authDomain: "grand-battle-f4fa8.firebaseapp.com",
-projectId: "grand-battle-f4fa8",
-storageBucket: "grand-battle-f4fa8.firebasestorage.app",
-messagingSenderId: "303776963749",
-appId: "1:303776963749:web:62aad8a109f61d5f9b814c",
-measurementId: "G-12BSTFFDRV"
+const firebaseConfig={
+apiKey:"AIzaSyCP1b12XseeZgYOuiA8fas60A9XLgOiE2U",
+authDomain:"grand-battle-f4fa8.firebaseapp.com",
+projectId:"grand-battle-f4fa8",
+storageBucket:"grand-battle-f4fa8.firebasestorage.app",
+messagingSenderId:"303776963749",
+appId:"1:303776963749:web:62aad8a109f61d5f9b814c",
+measurementId:"G-12BSTFFDRV"
 };
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-const provider = new GoogleAuthProvider();
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
+const db=getFirestore(app);
+const provider=new GoogleAuthProvider();
 
-let currentUser = null;
-let allMatches = [];
-let currentFilter = "all";
-let currentMatchTab = "upcoming";
+let currentUser=null;
+let allMatches=[];
+let registeredMatchIds=new Set();
+let currentMatchTab="upcoming";
+let unsubscribeMatches=null;
+let unsubscribeWallet=null;
 
-// ERROR DISPLAY
 function showError(message){
-document.getElementById("errorMessage").textContent = message;
+document.getElementById("errorMessage").textContent=message;
 }
 
-// SAVE PLAYER
 async function saveUser(user){
 await setDoc(doc(db,"users",user.uid),{
 uid:user.uid,
-name:user.displayName || user.email.split("@")[0],
+name:user.displayName||user.email.split("@")[0],
 email:user.email,
-photo:user.photoURL || "",
+photo:user.photoURL||"",
 lastLogin:serverTimestamp()
 },{merge:true});
 }
 
-// GOOGLE LOGIN
-window.googleLogin = async function(){
+window.googleLogin=async function(){
 try{
-const result = await signInWithPopup(auth,provider);
-try{
-await saveUser(result.user);
-}catch(e){
-console.error("Profile save failed:",e);
-}
-}catch(error){
-showError(error.message);
-}
+const result=await signInWithPopup(auth,provider);
+try{await saveUser(result.user)}catch(e){console.error("Profile save failed:",e)}
+}catch(error){showError(error.message)}
 };
 
-// EMAIL LOGIN
-window.emailLogin = async function(){
+window.emailLogin=async function(){
 const email=document.getElementById("email").value.trim();
 const password=document.getElementById("password").value;
-
-if(!email || !password){
-showError("Enter email and password.");
-return;
-}
-
+if(!email||!password){showError("Enter email and password.");return}
 try{
 const result=await signInWithEmailAndPassword(auth,email,password);
 try{await saveUser(result.user)}catch(e){console.error(e)}
-}catch(error){
-showError(error.message);
-}
+}catch(error){showError(error.message)}
 };
 
-// EMAIL SIGNUP
-window.emailSignup = async function(){
+window.emailSignup=async function(){
 const email=document.getElementById("email").value.trim();
 const password=document.getElementById("password").value;
-
-if(!email || !password){
-showError("Enter email and password.");
-return;
-}
-
-if(password.length<6){
-showError("Password must contain at least 6 characters.");
-return;
-}
-
+if(!email||!password){showError("Enter email and password.");return}
+if(password.length<6){showError("Password must contain at least 6 characters.");return}
 try{
 const result=await createUserWithEmailAndPassword(auth,email,password);
 try{await saveUser(result.user)}catch(e){console.error(e)}
-}catch(error){
-showError(error.message);
-}
+}catch(error){showError(error.message)}
 };
 
-// LOGOUT
-window.logoutUser = async function(){
-try{
-await signOut(auth);
-location.reload();
-}catch(error){
-alert(error.message);
-}
+window.logoutUser=async function(){
+try{await signOut(auth);location.reload()}
+catch(error){alert(error.message)}
 };
 
-// AUTH STATE
-onAuthStateChanged(auth,async(user)=>{
+onAuthStateChanged(auth,user=>{
 currentUser=user;
 
 if(user){
@@ -333,11 +288,9 @@ document.getElementById("loginScreen").style.display="none";
 document.getElementById("appShell").style.display="block";
 
 document.getElementById("welcomeName").textContent=
-"Welcome, "+(user.displayName || user.email);
+"Welcome, "+(user.displayName||user.email);
 
-document.getElementById("profileName").textContent=
-user.displayName || "Player";
-
+document.getElementById("profileName").textContent=user.displayName||"Player";
 document.getElementById("profileEmail").textContent=user.email;
 document.getElementById("profileUID").textContent="UID: "+user.uid;
 
@@ -348,13 +301,15 @@ photo.style.display="block";
 }
 
 loadMatches();
+loadWallet();
 }else{
+if(unsubscribeMatches)unsubscribeMatches();
+if(unsubscribeWallet)unsubscribeWallet();
 document.getElementById("loginScreen").style.display="flex";
 document.getElementById("appShell").style.display="none";
 }
 });
 
-// NAVIGATION
 window.showPage=function(pageId,element){
 document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
 document.getElementById(pageId).classList.add("active");
@@ -364,78 +319,92 @@ document.querySelectorAll(".nav").forEach(n=>n.classList.remove("active"));
 if(element){
 element.classList.add("active");
 }else{
-const navs=document.querySelectorAll(".nav");
-const pages=["homePage","earnPage","playPage","accountPage"];
+const pages=["earnPage","homePage","accountPage"];
 const index=pages.indexOf(pageId);
-if(index>=0)navs[index].classList.add("active");
+if(index>=0)document.querySelectorAll(".nav")[index].classList.add("active");
 }
 };
 
-// MATCH FILTER
-window.filterMatches=function(filter,button){
-currentFilter=filter;
-document.querySelectorAll("#playPage .tabs button").forEach(b=>b.classList.remove("active"));
-button.classList.add("active");
-renderMatches();
+window.openTelegram=function(){
+window.open("https://t.me/GRAND_BATTLE_CUSTOMER_SUPPORT","_blank");
 };
 
-// MY MATCH TABS
-window.showMatchTab=function(tab,button){
-currentMatchTab=tab;
-document.querySelectorAll("#homePage .tabs button").forEach(b=>b.classList.remove("active"));
-button.classList.add("active");
-
-const filtered=allMatches.filter(m=>(m.status||"upcoming").toLowerCase()===tab);
-renderMyMatches(filtered);
+window.whatsappComingSoon=function(){
+alert("WhatsApp Support - Coming Soon!");
 };
 
-// LOAD MATCHES
-let unsubscribeMatches=null;
+window.walletComingSoon=function(type){
+alert(type+" feature is coming soon. Payment system is not connected yet.");
+};
 
+// WALLET
+function loadWallet(){
+if(unsubscribeWallet)unsubscribeWallet();
+
+unsubscribeWallet=onSnapshot(doc(db,"users",currentUser.uid),snapshot=>{
+const data=snapshot.data()||{};
+const coins=Number(data.coins||0);
+
+document.getElementById("coinBalance").textContent=coins;
+document.getElementById("walletCoins").textContent=coins;
+document.getElementById("walletBalance").textContent=coins+" Coins";
+document.getElementById("earnCoins").textContent=coins;
+},error=>console.error("Wallet error:",error));
+}
+
+// MATCHES
 function loadMatches(){
 if(unsubscribeMatches)unsubscribeMatches();
 
-unsubscribeMatches=onSnapshot(
-collection(db,"matches"),
-(snapshot)=>{
+unsubscribeMatches=onSnapshot(collection(db,"matches"),snapshot=>{
 allMatches=snapshot.docs.map(d=>({id:d.id,...d.data()}));
+loadMyRegistrations();
 renderMatches();
-renderMyMatches(allMatches.filter(m=>(m.status||"upcoming").toLowerCase()===currentMatchTab));
-},
-(error)=>{
+},error=>{
 console.error("Match loading error:",error);
 document.getElementById("tournamentList").innerHTML=
 '<div class="card">Unable to load tournaments. Check Firestore permissions.</div>';
-}
-);
+});
 }
 
-// RENDER TOURNAMENTS
+// Get this player's registrations from the allowed subcollection
+async function loadMyRegistrations(){
+if(!currentUser)return;
+
+const ids=new Set();
+
+await Promise.all(allMatches.map(async match=>{
+try{
+const registration=await getDoc(
+doc(db,"matches",match.id,"registrations",currentUser.uid)
+);
+if(registration.exists())ids.add(match.id);
+}catch(error){
+console.error("Registration read error:",error);
+}
+}));
+
+registeredMatchIds=ids;
+renderMatches();
+renderMyMatches();
+}
+
 function renderMatches(){
 const container=document.getElementById("tournamentList");
-let matches=allMatches;
 
-if(currentFilter==="free"){
-matches=matches.filter(m=>Number(m.entryFee||0)===0);
-}
-
-if(currentFilter==="paid"){
-matches=matches.filter(m=>Number(m.entryFee||0)>0);
-}
-
-if(!matches.length){
+if(!allMatches.length){
 container.innerHTML='<div class="card">No tournaments available right now.</div>';
 return;
 }
 
 container.innerHTML="";
 
-matches.forEach(match=>{
+allMatches.forEach(match=>{
 const card=document.createElement("div");
 card.className="card";
 
 const title=document.createElement("h3");
-title.textContent=match.title || "Free Fire Tournament";
+title.textContent=match.title||"Free Fire Tournament";
 
 const details=document.createElement("p");
 details.className="small";
@@ -446,8 +415,8 @@ details.textContent=
 
 const date=document.createElement("p");
 date.className="small";
-date.textContent="Date: "+(match.date||"To be announced")+
-" | Time: "+(match.time||"To be announced");
+date.textContent="Date: "+(match.date||"TBA")+
+" | Time: "+(match.time||"TBA");
 
 const status=document.createElement("p");
 status.className="match-status";
@@ -455,8 +424,7 @@ status.textContent=(match.status||"upcoming").toUpperCase();
 
 card.append(title,details,date,status);
 
-if(match.roomId && match.roomPassword &&
-currentUser && match.registeredUsers?.includes(currentUser.uid)){
+if(match.roomId&&match.roomPassword&&registeredMatchIds.has(match.id)){
 const room=document.createElement("p");
 room.className="small";
 room.textContent="Room ID: "+match.roomId+" | Password: "+match.roomPassword;
@@ -464,44 +432,82 @@ card.append(room);
 }
 
 const register=document.createElement("button");
+
+if(registeredMatchIds.has(match.id)){
+register.textContent="Registered";
+register.disabled=true;
+}else{
 register.textContent="Register";
 register.onclick=()=>registerMatch(match.id);
-card.append(register);
+}
 
+card.append(register);
 container.append(card);
 });
 }
 
-// MY MATCHES
-function renderMyMatches(matches){
-const container=document.getElementById("myMatches");
-const mine=matches.filter(m=>(m.registeredUsers||[]).includes(currentUser?.uid));
+window.showMatchTab=function(tab,button){
+currentMatchTab=tab;
+document.querySelectorAll("#homePage .tabs button").forEach(b=>b.classList.remove("active"));
+button.classList.add("active");
+renderMyMatches();
+};
 
-if(!mine.length){
-container.innerHTML='<div class="card">You have no matches in this category.</div>';
+function renderMyMatches(){
+const container=document.getElementById("myMatches");
+
+let matches=allMatches.filter(m=>registeredMatchIds.has(m.id));
+
+matches=matches.filter(m=>
+(m.status||"upcoming").toLowerCase()===currentMatchTab
+);
+
+if(!matches.length){
+container.innerHTML='<div class="card">No registered matches in this category.</div>';
 return;
 }
 
 container.innerHTML="";
-mine.forEach(m=>{
+
+matches.forEach(match=>{
 const card=document.createElement("div");
 card.className="card";
 
 const title=document.createElement("h3");
-title.textContent=m.title||"Tournament";
+title.textContent=match.title||"Tournament";
 
 const info=document.createElement("p");
 info.className="small";
-info.textContent="Date: "+(m.date||"TBA")+" | Prize: ₹"+(m.prize||0);
+info.textContent=
+"Date: "+(match.date||"TBA")+
+" | Time: "+(match.time||"TBA")+
+" | Prize: ₹"+(match.prize||0);
 
-card.append(title,info);
+const status=document.createElement("p");
+status.className="match-status";
+status.textContent=(match.status||"upcoming").toUpperCase();
+
+card.append(title,info,status);
+
+if(match.roomId&&match.roomPassword){
+const room=document.createElement("p");
+room.className="small";
+room.textContent="Room ID: "+match.roomId+" | Password: "+match.roomPassword;
+card.append(room);
+}
+
 container.append(card);
 });
 }
 
-// REGISTER MATCH
+// REGISTER
 async function registerMatch(matchId){
 if(!currentUser)return;
+
+if(registeredMatchIds.has(matchId)){
+alert("You are already registered.");
+return;
+}
 
 try{
 await setDoc(
@@ -514,19 +520,16 @@ registeredAt:serverTimestamp()
 }
 );
 
-alert("Registration submitted!");
+registeredMatchIds.add(matchId);
+renderMatches();
+renderMyMatches();
+alert("Registration submitted successfully!");
 }catch(error){
 alert("Registration failed: "+error.message);
 }
 }
 
-// SUPPORT
-window.contactSupport=function(){
-window.open("mailto:oarfcreator@gmail.com","_blank");
-};
-
-console.log("GRAND BATTLE Firebase initialized");
-
+console.log("GRAND BATTLE initialized");
 </script>
 </body>
 </html>
