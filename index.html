@@ -670,3 +670,35 @@ container.append(card);
 
 // REGISTER
 async functi
+// REGISTER
+async function registerMatch(matchId){
+if(!currentUser)return;
+
+if(registeredMatchIds.has(matchId)){
+alert("You are already registered.");
+return;
+}
+
+try{
+await setDoc(
+doc(db,"matches",matchId,"registrations",currentUser.uid),
+{
+uid:currentUser.uid,
+name:currentUser.displayName||currentUser.email,
+email:currentUser.email,
+registeredAt:serverTimestamp()
+}
+);
+
+registeredMatchIds.add(matchId);
+renderTournamentCategory();
+alert("Registration submitted successfully!");
+}catch(error){
+alert("Registration failed: "+error.message);
+}
+}
+
+console.log("GRAND BATTLE initialized");
+</script>
+</body>
+</html>
