@@ -3,309 +3,494 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>GRAND BATTLE</title>
-
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#090b18;color:white;font-family:Arial,sans-serif;padding-bottom:85px}
-header{padding:18px;background:#11152b;display:flex;justify-content:space-between;align-items:center}
-.logo{font-size:21px;font-weight:bold;color:#b58cff}
-.coins{background:#24183d;padding:9px 13px;border-radius:20px;color:#e0c7ff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#090b18;color:white;font-family:Arial,sans-serif;padding-bottom:75px}
+header{background:#11152b;padding:16px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:20px;color:#c39aff;font-weight:bold}
+.coins{background:#281b42;padding:10px;border-radius:20px}
 .page{display:none;padding:15px}
 .page.active{display:block}
-.banner{background:linear-gradient(120deg,#482080,#171b43);padding:20px;border-radius:14px;margin-bottom:15px}
-.banner h2{margin-bottom:7px}
-.section-title{font-size:18px;margin:20px 0 12px}
-.announcement{background:#171c32;padding:14px;border-radius:12px;color:#ddd}
-.match-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
-.stat{background:#171c32;padding:15px 5px;text-align:center;border-radius:12px}
-.stat b{display:block;font-size:22px;color:#c39aff;margin-bottom:5px}
-.games{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.game{background:#171c32;border:1px solid #292344;border-radius:12px;padding:17px 5px;text-align:center;cursor:pointer}
-.game span{display:block;font-size:27px;margin-bottom:8px}
-.game p{font-size:12px}
-.card{background:#171c32;padding:16px;border-radius:12px;margin-bottom:13px}
-button{background:#8b45db;color:white;border:0;padding:11px 15px;border-radius:9px;font-weight:bold;cursor:pointer}
-input{width:100%;padding:12px;border:1px solid #39304f;background:#0c1020;color:white;border-radius:8px;margin:10px 0}
-.navbar{position:fixed;bottom:0;left:0;width:100%;background:#11152b;display:flex;justify-content:space-around;padding:12px 5px;border-top:1px solid #292344}
-.nav{color:#9292a8;text-align:center;font-size:12px;cursor:pointer;flex:1}
-.nav b{display:block;font-size:21px;margin-bottom:4px}
-.nav.active{color:#c99aff}
+.banner{background:linear-gradient(120deg,#55258a,#171b43);padding:20px;border-radius:14px;margin-bottom:15px}
+.title{margin:22px 0 12px;font-size:18px}
+.card{background:#171c32;border:1px solid #292344;padding:15px;border-radius:12px;margin-bottom:12px}
 .small{font-size:12px;color:#aaa;margin-top:7px}
+button{background:#914be0;color:white;border:0;border-radius:8px;padding:11px 15px;font-weight:bold;margin-top:10px;cursor:pointer}
+button:disabled{opacity:.5}
+input,select{width:100%;padding:12px;margin:8px 0;background:#0c1020;color:white;border:1px solid #39304f;border-radius:8px}
+.navbar{position:fixed;bottom:0;left:0;width:100%;background:#11152b;display:flex;justify-content:space-around;padding:12px;border-top:1px solid #292344}
+.nav{color:#aaa;text-align:center;font-size:12px;flex:1;cursor:pointer}
+.nav b{display:block;font-size:20px}
+.nav.active{color:#c39aff}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.stat{background:#171c32;padding:15px;text-align:center;border-radius:10px}
+.stat b{display:block;color:#c39aff;font-size:22px}
 #loginScreen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
-.login-card{background:#171c32;border:1px solid #39304f;border-radius:18px;padding:28px;width:100%;max-width:400px;text-align:center}
+.login-card{background:#171c32;padding:28px;border-radius:18px;width:100%;max-width:400px;text-align:center}
 .login-card h1{color:#c39aff;margin-bottom:12px}
-.login-card p{color:#aaa;margin:12px 0 22px}
-.google-btn{width:100%;padding:15px;font-size:15px}
-#errorMessage{color:#ff7777;font-size:13px;margin-top:15px;overflow-wrap:anywhere}
+#errorMessage{color:#ff7777;font-size:13px;margin-top:12px;overflow-wrap:anywhere}
 #appShell{display:none}
-#accountName{overflow-wrap:anywhere}
+.hidden{display:none!important}
+.match-actions button{margin-right:5px}
+hr{border:0;border-top:1px solid #333;margin:12px 0}
 </style>
 </head>
-
 <body>
 
-<!-- LOGIN SCREEN -->
 <div id="loginScreen">
  <div class="login-card">
   <h1>⚔ GRAND BATTLE</h1>
-  <p>Welcome to GRAND BATTLE!<br>Sign in to continue.</p>
-  <button class="google-btn" id="loginBtn">
-   🌐 Continue with Google
-  </button>
+  <p>Play • Compete • Earn</p>
+  <p class="small">Sign in to continue</p>
+  <button id="loginBtn" style="width:100%">🌐 Continue with Google</button>
   <div id="errorMessage"></div>
-  <p class="small">Secure Google Authentication</p>
  </div>
 </div>
 
-<!-- MAIN APP -->
 <div id="appShell">
-
 <header>
  <div>
   <div class="logo">⚔ GRAND BATTLE</div>
-  <small id="welcomeText">Welcome, Player</small>
+  <small id="welcomeText">Welcome Player</small>
  </div>
  <div class="coins">🪙 <span id="coinBalance">0</span></div>
 </header>
 
-<!-- HOME PAGE -->
-<section id="playPage" class="page active">
-
+<section id="homePage" class="page active">
  <div class="banner">
   <h2>🔥 GRAND BATTLE</h2>
   <p>Play • Compete • Earn Coins</p>
  </div>
 
- <div class="section-title">📢 Latest Announcements</div>
- <div class="announcement">
-  Welcome to GRAND BATTLE! Stay tuned for upcoming tournaments.
+ <h3 class="title">📢 Announcements</h3>
+ <div class="card" id="announcement">Welcome to GRAND BATTLE!</div>
+
+ <h3 class="title">🏆 My Matches</h3>
+ <div class="grid">
+  <div class="stat"><b id="upcomingCount">0</b>Upcoming</div>
+  <div class="stat"><b id="completedCount">0</b>Completed</div>
  </div>
 
- <div class="banner" style="margin-top:15px">
-  <h2>🎧 Need Help?</h2>
-  <p>Contact our support team for assistance.</p>
+ <h3 class="title">🎮 Tournament Categories</h3>
+ <div class="grid">
+  <button onclick="filterMatches('Full Map')">🗺️ Full Map</button>
+  <button onclick="filterMatches('BR Survival')">🏆 BR Survival</button>
+  <button onclick="filterMatches('LW Head')">🎯 LW Head</button>
+  <button onclick="filterMatches('FF Squad')">👥 FF Squad</button>
+  <button onclick="filterMatches('CS 1v1')">⚔️ CS 1v1</button>
+  <button onclick="filterMatches('LW 1v1')">🔥 LW 1v1</button>
+  <button onclick="filterMatches('CS 2v2')">🥊 CS 2v2</button>
+  <button onclick="filterMatches('LW 2v2')">💥 LW 2v2</button>
+  <button onclick="filterMatches('CS 4v4')">🛡️ CS 4v4</button>
  </div>
-
- <div class="section-title">🏆 My Matches</div>
- <div class="match-stats">
-  <div class="stat"><b>0</b>Upcoming</div>
-  <div class="stat"><b>0</b>Ongoing</div>
-  <div class="stat"><b>0</b>Completed</div>
- </div>
-
- <div class="section-title">🎮 Esport Games</div>
- <div class="games">
-  <div class="game" onclick="openMatches('Full Map')"><span>🗺️</span><p>Full Map</p></div>
-  <div class="game" onclick="openMatches('BR Survival')"><span>🏆</span><p>BR Survival</p></div>
-  <div class="game" onclick="openMatches('LW Head')"><span>🎯</span><p>LW Head</p></div>
-  <div class="game" onclick="openMatches('FF Squad')"><span>👥</span><p>FF Squad</p></div>
-  <div class="game" onclick="openMatches('CS 1v1')"><span>⚔️</span><p>CS 1v1</p></div>
-  <div class="game" onclick="openMatches('LW 1v1')"><span>🔥</span><p>LW 1v1</p></div>
-  <div class="game" onclick="openMatches('CS 2v2')"><span>🥊</span><p>CS 2v2</p></div>
-  <div class="game" onclick="openMatches('LW 2v2')"><span>💥</span><p>LW 2v2</p></div>
-  <div class="game" onclick="openMatches('CS 4v4')"><span>🛡️</span><p>CS 4v4</p></div>
- </div>
+ <h3 class="title">🔥 Available Matches</h3>
+ <div id="homeMatches"></div>
 </section>
 
-<!-- EARN PAGE -->
+<section id="matchesPage" class="page">
+ <h2>🏆 Tournaments</h2>
+ <button onclick="filterMatches('All')">All Matches</button>
+ <div id="matchList" style="margin-top:15px"></div>
+</section>
+
 <section id="earnPage" class="page">
- <div class="section-title">🪙 Earn Coins</div>
-
+ <h2>🪙 Earn Coins</h2>
  <div class="card">
-  <h3>Invite & Earn</h3>
-  <p class="small">Invite friends. Invite alone gives 0 coins.</p>
-  <p style="margin-top:12px">Your Referral Code:</p>
-  <input id="referralCode" readonly value="GRANDBATTLE">
-  <button onclick="copyReferral()">Copy Code</button>
-  <button onclick="shareReferral()">Share</button>
+  <h3>My Wallet</h3>
+  <h1 style="color:#c39aff;margin-top:12px">🪙 <span id="earnBalance">0</span></h1>
+  <p class="small">Coins are credited after admin approval.</p>
  </div>
-
  <div class="card">
   <h3>🎮 First Match Reward</h3>
-  <p class="small">Complete your first match to earn 11 coins after verification.</p>
-  <h2 style="color:#c99aff;margin-top:12px">+11 Coins</h2>
+  <h2 style="color:#c39aff">+11 Coins</h2>
+  <p class="small">Reward subject to match completion and admin verification.</p>
  </div>
-
  <div class="card">
-  <h3>My Coin Balance</h3>
-  <h2>🪙 <span id="earnBalance">0</span></h2>
-  <p class="small">Coins are added after admin approval.</p>
- </div>
-
- <div class="card">
-  <h3>Daily Task</h3>
-  <p class="small">Complete tasks and submit for admin approval.</p>
-  <button onclick="alert('Task submission will be available after backend integration.')">Submit Task</button>
+  <h3>Invite & Earn</h3>
+  <p class="small">Referral rewards will be activated after referral verification integration.</p>
  </div>
 </section>
 
-<!-- ACCOUNT PAGE -->
 <section id="accountPage" class="page">
- <div class="section-title">👤 My Account</div>
-
+ <h2>👤 My Account</h2>
  <div class="card">
-  <h2 id="accountName">Player</h2>
+  <h3 id="accountName">Player</h3>
   <p class="small" id="accountEmail"></p>
-  <p style="margin-top:12px;overflow-wrap:anywhere">
-   UID: <span id="accountUID"></span>
-  </p>
+  <p style="margin-top:12px">UID: <span id="accountUID"></span></p>
+ </div>
+ <div class="card">
+  <h3>My Wallet</h3>
+  <h2>🪙 <span id="accountBalance">0</span></h2>
+ </div>
+ <button id="logoutBtn" style="background:#a83245">Logout</button>
+</section>
+
+<section id="adminPage" class="page hidden">
+ <h2>🛡️ Admin Panel</h2>
+
+ <div class="card">
+  <h3>Create Tournament</h3>
+  <input id="matchTitle" placeholder="Match Name">
+  <select id="matchCategory">
+   <option>Full Map</option>
+   <option>BR Survival</option>
+   <option>LW Head</option>
+   <option>FF Squad</option>
+   <option>CS 1v1</option>
+   <option>LW 1v1</option>
+   <option>CS 2v2</option>
+   <option>LW 2v2</option>
+   <option>CS 4v4</option>
+  </select>
+  <select id="matchType">
+   <option value="Free">Free</option>
+   <option value="Paid">Paid</option>
+  </select>
+  <input id="entryFee" type="number" min="0" placeholder="Entry Fee (Coins)" value="0">
+  <input id="prize" placeholder="Prize (e.g. ₹100)">
+  <input id="matchTime" type="datetime-local">
+  <input id="maxPlayers" type="number" min="1" placeholder="Maximum Players">
+  <button onclick="createMatch()">Create Match</button>
  </div>
 
  <div class="card">
-  <h3>🪙 My Wallet</h3>
-  <h2 id="accountBalance">0 Coins</h2>
+  <h3>Publish Room Details</h3>
+  <input id="roomMatchId" placeholder="Match Document ID">
+  <input id="roomID" placeholder="Room ID">
+  <input id="roomPassword" placeholder="Room Password">
+  <button onclick="publishRoom()">Publish Room</button>
  </div>
 
  <div class="card">
-  <h3>Account Settings</h3>
-  <p class="small">Google account connected successfully.</p>
-  <button id="logoutBtn" style="margin-top:15px;background:#a83245">
-   Logout
-  </button>
+  <h3>Add Player Coins</h3>
+  <input id="playerUID" placeholder="Player Firebase UID">
+  <input id="addCoins" type="number" min="1" placeholder="Coins to Add">
+  <button onclick="addPlayerCoins()">Add Coins</button>
+ </div>
+
+ <div class="card">
+  <h3>Manage Matches</h3>
+  <div id="adminMatches"></div>
  </div>
 </section>
 
-<!-- BOTTOM NAVIGATION -->
 <nav class="navbar">
- <div class="nav" onclick="showPage('earnPage',this)">
-  <b>🪙</b>Earn
- </div>
- <div class="nav active" onclick="showPage('playPage',this)">
-  <b>🏠</b>Home
- </div>
- <div class="nav" onclick="showPage('accountPage',this)">
-  <b>👤</b>Account
- </div>
+ <div class="nav active" onclick="showPage('homePage',this)"><b>🏠</b>Home</div>
+ <div class="nav" onclick="showPage('matchesPage',this)"><b>🏆</b>Matches</div>
+ <div class="nav" onclick="showPage('earnPage',this)"><b>🪙</b>Earn</div>
+ <div class="nav" onclick="showPage('accountPage',this)"><b>👤</b>Account</div>
+ <div class="nav hidden" id="adminNav" onclick="showPage('adminPage',this)"><b>🛡️</b>Admin</div>
 </nav>
-
 </div>
 
 <script>
-function showPage(pageId,button){
- document.querySelectorAll('.page').forEach(page=>{
-  page.classList.remove('active');
- });
- document.getElementById(pageId).classList.add('active');
+let currentMatches=[];
+let currentUser=null;
+let myRegistrations=[];
+let currentCategory='All';
 
- document.querySelectorAll('.nav').forEach(nav=>{
-  nav.classList.remove('active');
- });
+function showPage(id,button){
+ document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+ document.querySelectorAll('.nav').forEach(n=>n.classList.remove('active'));
  button.classList.add('active');
 }
 
-function openMatches(category){
- alert(category+' matches will appear here when the admin adds them.');
+function filterMatches(category){
+ currentCategory=category;
+ const nav=document.querySelectorAll('.nav');
+ showPage('matchesPage',nav[1]);
+ renderMatches();
 }
 
-function copyReferral(){
- const code=document.getElementById('referralCode').value;
- if(navigator.clipboard){
-  navigator.clipboard.writeText(code)
-  .then(()=>alert('Referral code copied!'))
-  .catch(()=>alert('Copy failed. Please copy manually.'));
- }else{
-  alert('Your referral code: '+code);
- }
-}
-
-function shareReferral(){
- const code=document.getElementById('referralCode').value;
- const message='Join GRAND BATTLE! My referral code: '+code;
- if(navigator.share){
-  navigator.share({title:'GRAND BATTLE',text:message});
- }else{
-  copyReferral();
- }
+function escapeHTML(value){
+ return String(value??'').replace(/[&<>"']/g,c=>({
+ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+ })[c]);
 }
 </script>
 
-<!-- FIREBASE GOOGLE AUTHENTICATION -->
 <script type="module">
-import { initializeApp } from
+import {initializeApp} from
 "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
 
 import {
- getAuth,
- GoogleAuthProvider,
- signInWithRedirect,
- getRedirectResult,
- onAuthStateChanged,
- signOut
+ getAuth,GoogleAuthProvider,signInWithRedirect,
+ getRedirectResult,onAuthStateChanged,signOut
 } from
 "https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
 
-const firebaseConfig = {
- apiKey: "AIzaSyBJ9qWnOPX7qL0sOqjlvclR64XSZC_G93U",
- authDomain: "grand-battle-f4fa8.firebaseapp.com",
- projectId: "grand-battle-f4fa8",
- storageBucket: "grand-battle-f4fa8.firebasestorage.app",
- messagingSenderId: "303776963749",
- appId: "1:303776963749:web:62aad8a109f61d5f9b814c",
- measurementId: "G-12BSTFFDRV"
+import {
+ getFirestore,doc,getDoc,setDoc,updateDoc,
+ collection,addDoc,deleteDoc,onSnapshot,
+ query,where,serverTimestamp,runTransaction
+} from
+"https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js";
+
+/* REPLACE THIS WITH YOUR ADMIN GMAIL */
+const ADMIN_EMAIL="YOUR_ADMIN_GMAIL@gmail.com";
+
+const firebaseConfig={
+ apiKey:"AIzaSyBJ9qWnOPX7qL0sOqjlvclR64XSZC_G93U",
+ authDomain:"grand-battle-f4fa8.firebaseapp.com",
+ projectId:"grand-battle-f4fa8",
+ storageBucket:"grand-battle-f4fa8.firebasestorage.app",
+ messagingSenderId:"303776963749",
+ appId:"1:303776963749:web:62aad8a109f61d5f9b814c",
+ measurementId:"G-12BSTFFDRV"
 };
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const provider = new GoogleAuthProvider();
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
+const db=getFirestore(app);
+const provider=new GoogleAuthProvider();
 
-const loginScreen = document.getElementById("loginScreen");
-const appShell = document.getElementById("appShell");
-const loginBtn = document.getElementById("loginBtn");
-const logoutBtn = document.getElementById("logoutBtn");
-const errorMessage = document.getElementById("errorMessage");
+const $=id=>document.getElementById(id);
+let stopMatches=null;
+let stopUser=null;
+let stopRegistrations=null;
+let isAdmin=false;
 
-loginBtn.addEventListener("click", async () => {
- try {
-  loginBtn.disabled = true;
-  loginBtn.textContent = "Connecting...";
-  errorMessage.textContent = "";
-  await signInWithRedirect(auth, provider);
- } catch(error) {
-  errorMessage.textContent = error.message;
-  loginBtn.disabled = false;
-  loginBtn.textContent = "🌐 Continue with Google";
+$('loginBtn').onclick=async()=>{
+ try{
+  $('loginBtn').disabled=true;
+  $('loginBtn').textContent='Connecting...';
+  $('errorMessage').textContent='';
+  await signInWithRedirect(auth,provider);
+ }catch(e){
+  $('errorMessage').textContent=e.message;
+  $('loginBtn').disabled=false;
+  $('loginBtn').textContent='🌐 Continue with Google';
  }
+};
+
+$('logoutBtn').onclick=async()=>{
+ await signOut(auth);
+};
+
+getRedirectResult(auth).catch(e=>{
+ $('errorMessage').textContent=e.message;
+ $('loginBtn').disabled=false;
+ $('loginBtn').textContent='🌐 Continue with Google';
 });
 
-logoutBtn.addEventListener("click", async () => {
- try {
-  await signOut(auth);
- } catch(error) {
-  alert("Logout error: " + error.message);
+onAuthStateChanged(auth,async user=>{
+ currentUser=user;
+ if(stopMatches)stopMatches();
+ if(stopUser)stopUser();
+ if(stopRegistrations)stopRegistrations();
+
+ if(!user){
+  $('appShell').style.display='none';
+  $('loginScreen').style.display='flex';
+  return;
  }
-});
 
-getRedirectResult(auth).catch(error => {
- errorMessage.textContent = error.message;
- loginBtn.disabled = false;
- loginBtn.textContent = "🌐 Continue with Google";
-});
+ $('loginScreen').style.display='none';
+ $('appShell').style.display='block';
 
-onAuthStateChanged(auth, user => {
- if(user) {
-  loginScreen.style.display = "none";
-  appShell.style.display = "block";
+ isAdmin=user.email===ADMIN_EMAIL;
+ $('welcomeText').textContent='Welcome, '+(user.displayName||'Player');
+ $('accountName').textContent=user.displayName||'Player';
+ $('accountEmail').textContent=user.email||'';
+ $('accountUID').textContent=user.uid;
 
-  document.getElementById("welcomeText").textContent =
-   "Welcome, " + (user.displayName || "Player");
+ $('adminNav').classList.toggle('hidden',!isAdmin);
+ $('adminPage').classList.toggle('hidden',!isAdmin);
 
-  document.getElementById("accountName").textContent =
-   user.displayName || "Player";
+ const userRef=doc(db,'users',user.uid);
+ const userSnap=await getDoc(userRef);
 
-  document.getElementById("accountEmail").textContent =
-   user.email || "";
-
-  document.getElementById("accountUID").textContent =
-   user.uid;
-
- } else {
-  appShell.style.display = "none";
-  loginScreen.style.display = "flex";
+ if(!userSnap.exists()){
+  await setDoc(userRef,{
+   name:user.displayName||'Player',
+   email:user.email||'',
+   coins:0,
+   createdAt:serverTimestamp()
+  });
  }
+
+ stopUser=onSnapshot(userRef,snap=>{
+  const data=snap.data()||{};
+  const balance=Number(data.coins||0);
+  $('coinBalance').textContent=balance;
+  $('earnBalance').textContent=balance;
+  $('accountBalance').textContent=balance;
+ });
+
+ stopMatches=onSnapshot(collection(db,'matches'),snap=>{
+  currentMatches=snap.docs.map(d=>({id:d.id,...d.data()}));
+  renderMatches();
+  renderAdminMatches();
+  updateStats();
+ });
+
+ stopRegistrations=onSnapshot(
+  query(collection(db,'registrations'),where('uid','==',user.uid)),
+  snap=>{
+   myRegistrations=snap.docs.map(d=>d.data());
+   renderMatches();
+  }
+ );
 });
+
+function updateStats(){
+ const active=currentMatches.filter(m=>m.status==='Upcoming').length;
+ const completed=currentMatches.filter(m=>m.status==='Completed').length;
+ $('upcomingCount').textContent=active;
+ $('completedCount').textContent=completed;
+}
+
+function renderMatches(){
+ const html=currentMatches
+ .filter(m=>currentCategory==='All'||m.category===currentCategory)
+ .map(m=>{
+  const registered=myRegistrations.some(r=>r.matchId===m.id);
+  const full=m.maxPlayers>0&&m.playersCount>=m.maxPlayers;
+  const room=registered&&m.roomID
+   ?`<p>Room ID: ${escapeHTML(m.roomID)}</p><p>Password: ${escapeHTML(m.roomPassword||'')}</p>`:'';
+
+  return `<div class="card">
+   <h3>${escapeHTML(m.title)}</h3>
+   <p class="small">${escapeHTML(m.category)} • ${escapeHTML(m.type)}</p>
+   <hr>
+   <p>Entry Fee: ${Number(m.entryFee||0)} Coins</p>
+   <p>Prize: ${escapeHTML(m.prize||'Not announced')}</p>
+   <p>Players: ${Number(m.playersCount||0)}/${Number(m.maxPlayers||0)}</p>
+   <p>Status: ${escapeHTML(m.status||'Upcoming')}</p>
+   <p class="small">Time: ${escapeHTML(m.matchTime||'To be announced')}</p>
+   ${room}
+   ${m.status==='Upcoming'&&!registered
+    ?`<button ${full?'disabled':''} onclick="registerMatch('${m.id}')">${full?'Match Full':'Register Now'}</button>`
+    :registered?'<p>✅ Registered</p>':''}
+  </div>`;
+ }).join('');
+
+ $('matchList').innerHTML=html||'<p class="small">No matches available.</p>';
+ $('homeMatches').innerHTML=currentMatches
+ .filter(m=>m.status==='Upcoming')
+ .slice(0,4)
+ .map(m=>`<div class="card"><h3>${escapeHTML(m.title)}</h3><p class="small">${escapeHTML(m.category)} • ${escapeHTML(m.type)}</p><button onclick="filterMatches('${escapeHTML(m.category)}')">View Matches</button></div>`)
+ .join('')||'<p class="small">No upcoming matches.</p>';
+}
+
+window.registerMatch=async id=>{
+ try{
+  const matchRef=doc(db,'matches',id);
+  const regRef=doc(db,'registrations',id+'_'+currentUser.uid);
+  const userRef=doc(db,'users',currentUser.uid);
+
+  await runTransaction(db,async tx=>{
+   const ms=await tx.get(matchRef);
+   const us=await tx.get(userRef);
+   const rs=await tx.get(regRef);
+
+   if(!ms.exists()||!us.exists())throw Error('Match or user not found.');
+   if(rs.exists())throw Error('Already registered.');
+
+   const m=ms.data();
+   const u=us.data();
+   const fee=Number(m.entryFee||0);
+
+   if(m.status!=='Upcoming')throw Error('Registration is closed.');
+   if(m.maxPlayers>0&&Number(m.playersCount||0)>=m.maxPlayers)
+    throw Error('Match is full.');
+   if(Number(u.coins||0)<fee)throw Error('Not enough coins.');
+
+   tx.update(userRef,{coins:Number(u.coins||0)-fee});
+   tx.update(matchRef,{playersCount:Number(m.playersCount||0)+1});
+   tx.set(regRef,{
+    uid:currentUser.uid,
+    playerName:currentUser.displayName||'Player',
+    matchId:id,
+    createdAt:serverTimestamp()
+   });
+  });
+  alert('Registration successful!');
+ }catch(e){alert(e.message);}
+};
+
+window.createMatch=async()=>{
+ if(!isAdmin)return alert('Admin only.');
+ try{
+  const title=$('matchTitle').value.trim();
+  const max=Number($('maxPlayers').value);
+  const fee=Number($('entryFee').value);
+  if(!title||!max||fee<0)throw Error('Enter valid match details.');
+
+  await addDoc(collection(db,'matches'),{
+   title,
+   category:$('matchCategory').value,
+   type:$('matchType').value,
+   entryFee:fee,
+   prize:$('prize').value.trim(),
+   matchTime:$('matchTime').value,
+   maxPlayers:max,
+   playersCount:0,
+   status:'Upcoming',
+   roomID:'',
+   roomPassword:'',
+   createdAt:serverTimestamp()
+  });
+  alert('Match created!');
+  $('matchTitle').value='';
+ }catch(e){alert(e.message);}
+};
+
+window.publishRoom=async()=>{
+ if(!isAdmin)return;
+ try{
+  const id=$('roomMatchId').value.trim();
+  if(!id)throw Error('Enter Match ID.');
+  await updateDoc(doc(db,'matches',id),{
+   roomID:$('roomID').value.trim(),
+   roomPassword:$('roomPassword').value.trim()
+  });
+  alert('Room details published!');
+ }catch(e){alert(e.message);}
+};
+
+window.addPlayerCoins=async()=>{
+ if(!isAdmin)return;
+ try{
+  const uid=$('playerUID').value.trim();
+  const amount=Number($('addCoins').value);
+  if(!uid||!Number.isSafeInteger(amount)||amount<=0)
+   throw Error('Enter valid UID and coin amount.');
+
+  const ref=doc(db,'users',uid);
+  await runTransaction(db,async tx=>{
+   const snap=await tx.get(ref);
+   if(!snap.exists())throw Error('Player not found.');
+   tx.update(ref,{coins:Number(snap.data().coins||0)+amount});
+  });
+  alert('Coins added successfully!');
+ }catch(e){alert(e.message);}
+};
+
+function renderAdminMatches(){
+ if(!isAdmin)return;
+ $('adminMatches').innerHTML=currentMatches.map(m=>`
+ <div class="card">
+ <b>${escapeHTML(m.title)}</b>
+ <p class="small">ID: ${escapeHTML(m.id)}</p>
+ <p>Status: ${escapeHTML(m.status||'Upcoming')}</p>
+ <button onclick="changeStatus('${m.id}','Completed')">Complete</button>
+ <button style="background:#a83245" onclick="changeStatus('${m.id}','Cancelled')">Cancel</button>
+ </div>`).join('')||'No matches.';
+}
+
+window.changeStatus=async(id,status)=>{
+ if(!isAdmin)return;
+ if(!confirm('Change match status to '+status+'?'))return;
+ try{
+  await updateDoc(doc(db,'matches',id),{status});
+  alert('Match updated.');
+ }catch(e){alert(e.message);}
+};
 </script>
-
 </body>
-</html>
+ </html>
+ 
