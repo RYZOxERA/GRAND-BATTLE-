@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +16,7 @@ main{padding:16px}
 h2{margin:20px 0 12px}
 .card{background:#19162b;border:1px solid #30264b;padding:16px;border-radius:14px;margin-bottom:14px}
 .banner{background:linear-gradient(120deg,#5420a5,#17122d);padding:22px;border-radius:15px;margin-bottom:18px}
-button{background:#8b45e8;color:white;border:0;padding:11px 16px;border-radius:9px;font-weight:bold;margin-top:10px}
+button{background:#8b45e8;color:white;border:0;padding:11px 16px;border-radius:9px;font-weight:bold;margin-top:10px;cursor:pointer}
 input{width:100%;padding:12px;margin:8px 0;background:#100e1d;color:white;border:1px solid #59427d;border-radius:8px}
 .navbar{position:fixed;bottom:0;left:0;width:100%;background:#151326;display:flex;justify-content:space-around;padding:13px 5px;border-top:1px solid #493267}
 .nav{color:#aaa;text-align:center;cursor:pointer;font-size:13px}
@@ -24,7 +25,9 @@ input{width:100%;padding:12px;margin:8px 0;background:#100e1d;color:white;border
 .page{display:none}
 .page.active{display:block}
 .tile{background:#211a35;padding:18px;border-radius:12px;margin:10px 0}
-.small{color:#aaa;font-size:13px}
+.small{color:#aaa;font-size:13px;line-height:1.5}
+.reward{color:#ffd65a;font-size:25px;font-weight:bold;margin:10px 0}
+.history{padding:12px;background:#100e1d;border-radius:9px;color:#aaa;font-size:13px}
 </style>
 </head>
 
@@ -75,32 +78,66 @@ input{width:100%;padding:12px;margin:8px 0;background:#100e1d;color:white;border
   </div>
 </section>
 
+<!-- EARN PAGE -->
+
 <section id="earnPage" class="page">
+
   <h2>🪙 Earn Coins</h2>
+
   <div class="card">
-    <h3>Daily Task</h3>
-    <p class="small">Complete tasks and submit for admin approval.</p>
-    <input id="taskText" placeholder="Enter task details">
-    <button onclick="submitTask()">Submit Task</button>
+    <h3>👥 Invite & Earn</h3>
+    <div class="reward">0 Coins / Invite</div>
+    <p class="small">
+      Invite your friends to GRAND BATTLE.
+      Currently, invites carry no coin reward.
+    </p>
+    <button onclick="inviteFriends()">Share GRAND BATTLE</button>
   </div>
+
   <div class="card">
-    <h3>My Coin Balance</h3>
+    <h3>🎮 First Match Bonus</h3>
+    <div class="reward">🪙 11 Coins</div>
+    <p class="small">
+      Complete your first tournament match and
+      become eligible for 11 bonus coins.
+    </p>
+    <p class="small" style="margin-top:10px">
+      Coins will be credited after match completion
+      verification and admin approval.
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>🪙 My Coin Balance</h3>
     <h2>🪙 <span id="earnCoins">0</span></h2>
-    <p class="small">Coins are added after admin approval.</p>
+    <p class="small">Your approved coin balance.</p>
   </div>
+
+  <div class="card">
+    <h3>📜 Coin Transaction History</h3>
+    <div class="history">
+      No transactions yet.
+    </div>
+  </div>
+
 </section>
+
+<!-- ACCOUNT PAGE -->
 
 <section id="accountPage" class="page">
   <h2>👤 My Account</h2>
+
   <div class="card">
     <p>Name: <span id="userName">Guest</span></p>
     <p>Email: <span id="userEmail">Not logged in</span></p>
     <p>UID: <span id="userUID">-</span></p>
   </div>
+
   <div class="card">
     <h3>Wallet</h3>
     <h2>🪙 <span id="accountCoins">0</span></h2>
   </div>
+
   <button onclick="logout()">Logout</button>
 </section>
 
@@ -110,35 +147,59 @@ input{width:100%;padding:12px;margin:8px 0;background:#100e1d;color:white;border
   <div class="nav" onclick="showPage('earnPage',this)">
     <b>🪙</b>Earn
   </div>
+
   <div class="nav active" onclick="showPage('playPage',this)">
     <b>🎮</b>Play
   </div>
+
   <div class="nav" onclick="showPage('accountPage',this)">
     <b>👤</b>Account
   </div>
 </nav>
 
 <script>
+
 function showPage(page,element){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById(page).classList.add('active');
+
   document.querySelectorAll('.nav').forEach(n=>n.classList.remove('active'));
   element.classList.add('active');
 }
 
-function submitTask(){
-  const task=document.getElementById('taskText').value.trim();
-  if(!task){
-    alert('Please enter task details');
-    return;
+async function inviteFriends(){
+
+  const inviteLink = window.location.origin + window.location.pathname;
+
+  const message =
+    "Join GRAND BATTLE! Play Free Fire tournaments with us.\n" +
+    inviteLink;
+
+  if(navigator.share){
+    try{
+      await navigator.share({
+        title:"GRAND BATTLE",
+        text:message
+      });
+    }catch(error){
+      console.log("Sharing cancelled");
+    }
+  }else if(navigator.clipboard){
+    try{
+      await navigator.clipboard.writeText(message);
+      alert("Invite link copied!");
+    }catch(error){
+      alert("Unable to copy link.");
+    }
+  }else{
+    alert(message);
   }
-  alert('Task submitted locally. Firebase task submission is not connected yet.');
-  document.getElementById('taskText').value='';
 }
 
 function logout(){
   alert('Firebase logout is not connected in this version.');
 }
+
 </script>
 
 </body>
