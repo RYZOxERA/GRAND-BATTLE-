@@ -181,6 +181,169 @@ input{width:100%;padding:12px;margin:8px 0;background:#0c1020;color:white;border
   font-weight:bold;
 }
 .home-rules{margin-top:14px}
+ /* GRAND BATTLE HOME DESIGN */
+
+.home-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px 12px;
+  margin:-15px -15px 18px;
+  background:linear-gradient(120deg,#07518a,#06294e);
+  border-radius:0 0 22px 22px;
+  gap:8px;
+}
+
+.home-profile{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:0;
+}
+
+.profile-avatar{
+  width:58px;
+  height:58px;
+  border-radius:50%;
+  background:#1685cf;
+  display:grid;
+  place-items:center;
+  font-size:30px;
+  flex-shrink:0;
+}
+
+.home-profile h2{
+  font-size:19px;
+  font-weight:900;
+}
+
+.home-profile p{
+  font-size:11px;
+  color:#c9e8ff;
+  margin-top:4px;
+}
+
+.home-actions{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.coin-box{
+  border:2px solid #fff;
+  border-radius:10px;
+  padding:8px 10px;
+  font-weight:bold;
+  white-space:nowrap;
+}
+
+.notification-btn{
+  width:43px;
+  height:43px;
+  border:0;
+  border-radius:50%;
+  background:white;
+  font-size:21px;
+}
+
+.home-announcement{
+  margin-bottom:18px;
+}
+
+.home-section-heading{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:22px 0 12px;
+}
+
+.home-section-heading h3{
+  font-size:18px;
+  border-left:4px solid #20cfff;
+  padding-left:10px;
+}
+
+.home-section-heading span{
+  color:#36d5ff;
+  font-size:12px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.match-tabs{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:9px;
+}
+
+.match-tabs button{
+  min-height:65px;
+  border:1px solid #24547a;
+  border-radius:12px;
+  background:#10243e;
+  color:white;
+  font-weight:bold;
+}
+
+.game-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+}
+
+.game-card{
+  height:145px;
+  position:relative;
+  overflow:hidden;
+  border-radius:12px;
+  border:2px solid #21d8ee;
+  background:linear-gradient(145deg,#087b9b,#102b50 70%);
+  cursor:pointer;
+}
+
+.game-art{
+  height:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:65px;
+  background:
+    radial-gradient(circle at 50% 35%,#ffffff35,transparent 55%);
+}
+
+.game-name{
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  padding:10px 8px;
+  background:linear-gradient(transparent,#061a31ee);
+  color:white;
+  font-size:13px;
+  font-weight:bold;
+}
+
+.game-br{
+  background:linear-gradient(135deg,#a53a13,#172c55);
+}
+
+.game-cs{
+  background:linear-gradient(135deg,#5510a5,#092d60);
+}
+
+.game-survival{
+  background:linear-gradient(135deg,#087c84,#17354b);
+}
+
+.game-lw{
+  background:linear-gradient(135deg,#263c94,#071d42);
+}
+
+@media(max-width:360px){
+  .game-card{height:125px}
+  .home-profile h2{font-size:16px}
+  .coin-box{font-size:12px}
+ }
 </style>
 </head>
 
