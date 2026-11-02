@@ -53,7 +53,86 @@ input{width:100%;padding:12px;margin:8px 0;background:#0c1020;color:white;border
 #appShell{display:none}
 .match-status{color:#c39aff;font-size:12px;font-weight:bold;margin-top:8px}
 .banner:has(.support){padding:10px;margin-bottom:10px}
+/* GRAND BATTLE ESPORTS GAMES */
 
+.esports-heading{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:22px 0 14px;
+}
+
+.esports-heading h2{
+  font-size:19px;
+  color:white;
+  border-left:4px solid #c000ff;
+  padding-left:10px;
+}
+
+.esports-heading span{
+  color:#d000ff;
+  font-size:12px;
+  font-weight:bold;
+}
+
+.esports-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:13px;
+  margin-bottom:25px;
+}
+
+.esports-card{
+  height:165px;
+  overflow:hidden;
+  border:2px solid #bd00ff;
+  border-radius:15px;
+  background:#130b27;
+  cursor:pointer;
+  box-shadow:0 0 9px #a000ff55;
+}
+
+.esports-card img{
+  width:100%;
+  height:112px;
+  object-fit:cover;
+  display:block;
+}
+
+.esports-info{
+  height:49px;
+  padding:0 9px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:4px;
+  background:linear-gradient(90deg,#10051f,#1b0730);
+  color:white;
+}
+
+.esports-info b{font-size:12px}
+
+.esports-info span{
+  display:flex;
+  align-items:center;
+  gap:5px;
+  color:#00e64d;
+  font-size:16px;
+}
+
+.esports-info i{
+  width:11px;
+  height:11px;
+  border-radius:50%;
+  background:#00e64d;
+  display:inline-block;
+}
+
+@media(max-width:360px){
+  .esports-card{height:145px}
+  .esports-card img{height:94px}
+  .esports-info b{font-size:10px}
+                      }
 /* LOGIN AND REGISTRATION */
 .auth-screen{
  min-height:100vh;display:flex;align-items:center;
