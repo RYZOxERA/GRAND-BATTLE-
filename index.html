@@ -380,13 +380,29 @@ await signOut(auth);
 showAuthError("loginError","Please verify your email first. Check your inbox.");
 return;
 }
-
 await saveUser(result.user);
 }catch(error){
 showAuthError("loginError",error.message);
 }
 };
+// FORGOT PASSWORD
+window.forgotPassword=async function(){
+const email=document.getElementById("loginEmail").value.trim();
 
+showAuthError("loginError","");
+
+if(!email){
+showAuthError("loginError","Enter your email address first.");
+return;
+}
+
+try{
+await sendPasswordResetEmail(auth,email);
+showAuthError("loginError","Password reset link sent! Check your email inbox and spam folder.");
+}catch(error){
+showAuthError("loginError",error.message);
+}
+};
 // CREATE ACCOUNT
 window.emailSignup=async function(){
 const name=document.getElementById("regName").value.trim();
