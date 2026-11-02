@@ -1158,7 +1158,15 @@ alert("Registration submitted successfully!");
 alert("Registration failed: "+error.message);
 }
 }
+window.openCategory = function(category) {
+  document.getElementById("categoryTitle").innerText = category;
 
+  document.querySelectorAll(".page").forEach(page => {
+    page.classList.remove("active");
+  });
+
+  document.getElementById("categoryPage").classList.add("active");
+};
 console.log("GRAND BATTLE initialized");
 </script>
 </body>
