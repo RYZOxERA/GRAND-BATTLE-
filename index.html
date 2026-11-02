@@ -259,78 +259,114 @@ input{width:100%;padding:12px;margin:8px 0;background:#0c1020;color:white;border
 <button class="coins" onclick="showPage('walletPage')">🪙 <span id="coinBalance">0</span></button>
 </header>
 
-
 <!-- HOME -->
 <section id="homePage" class="page active">
 
-<div class="home-hero">
-  <div class="hero-top">
-    <span class="hero-tag">🔥 FREE FIRE ESPORTS</span>
-    <span class="hero-crown">👑</span>
+  <div class="home-top">
+    <div class="home-profile">
+      <div class="profile-avatar">👑</div>
+      <div>
+        <h2>GRAND BATTLE</h2>
+        <p id="welcomeName">Welcome Player</p>
+      </div>
+    </div>
+    <div class="home-actions">
+      <div class="coin-box">🪙 <span id="coinBalance">0</span></div>
+      <button class="notification-btn" onclick="showPage('accountPage')">🔔</button>
+    </div>
   </div>
-  <h2>WELCOME TO<br><span>GRAND BATTLE</span></h2>
-  <p>Compete. Fight. Become a Champion.</p>
-  <p class="small" id="welcomeName"></p>
-</div>
 
-<div class="home-announcement card">
-  <div class="announcement-icon">📢</div>
-  <div>
-    <h3>Latest Announcements</h3>
-    <p class="small" id="announcementText">
-      Welcome to GRAND BATTLE! Stay tuned for upcoming tournaments.
-    </p>
+  <div class="home-announcement card">
+    <span class="announcement-icon">📢</span>
+    <div>
+      <h3>Latest Announcements</h3>
+      <p class="small" id="announcementText">
+        Welcome to GRAND BATTLE! Stay tuned for tournaments.
+      </p>
+    </div>
   </div>
-</div>
 
-<div class="support home-support">
-  <button onclick="openTelegram()">
-    <span class="support-icon">➤</span>
-    <span class="support-label">Telegram Support</span>
-  </button>
-  <button onclick="whatsappComingSoon()">
-    <span class="support-icon whatsapp-icon">☎</span>
-    <span class="support-label">WhatsApp Support</span>
-  </button>
-</div>
-
-<div class="home-section-heading">
-  <h3>MY MATCHES</h3>
-  <span>VIEW ALL</span>
-</div>
-
-<div class="match-tabs">
-  <button onclick="showPage('upcomingPage')">UPCOMING</button>
-  <button onclick="showPage('ongoingPage')">ONGOING</button>
-  <button onclick="showPage('completedPage')">RESULT</button>
-</div>
-
-<div class="home-section-heading">
-  <h3>ESPORTS GAMES</h3>
-  <span>PLAY & WIN</span>
-</div>
-
-<div class="br-game-tile" onclick="openCategory('BR FULL MAP')">
-  <div class="br-game-overlay">
-    <span class="br-game-tag">BATTLE ROYALE</span>
-    <h2>BR FULL MAP</h2>
-    <p>DUO • SQUAD • BERMUDA</p>
-    <span class="br-game-button">EXPLORE MATCHES →</span>
+  <div class="home-section-heading">
+    <h3>MY MATCHES</h3>
+    <span onclick="showPage('upcomingPage')">VIEW ALL</span>
   </div>
-</div>
 
-<div class="card home-rules">
-  <h3>⚔️ GRAND BATTLE ARENA</h3>
-  <p class="small">
-    Join tournaments, compete with players and prove your skills.
-    Check match rules before joining.
-  </p>
-</div>
+  <div class="match-tabs">
+    <button onclick="showPage('upcomingPage')">UPCOMING</button>
+    <button onclick="showPage('ongoingPage')">ONGOING</button>
+    <button onclick="showPage('completedPage')">RESULT</button>
+  </div>
+
+  <div class="home-section-heading">
+    <h3>ESPORTS GAMES</h3>
+    <span>PLAY & WIN</span>
+  </div>
+
+  <div class="game-grid">
+
+    <div class="game-card game-br" onclick="openCategory('BR FULL MAP')">
+      <div class="game-art">🔥</div>
+      <div class="game-name">BR FULL MAP</div>
+    </div>
+
+    <div class="game-card game-cs" onclick="openCategory('CS 1V1 / 2V2')">
+      <div class="game-art">⚔️</div>
+      <div class="game-name">CS 1V1 / 2V2</div>
+    </div>
+
+    <div class="game-card game-survival" onclick="openCategory('BR SURVIVAL')">
+      <div class="game-art">🎯</div>
+      <div class="game-name">BR SURVIVAL</div>
+    </div>
+
+    <div class="game-card game-lw" onclick="openCategory('LW 1V1 / 2V2')">
+      <div class="game-art">🥷</div>
+      <div class="game-name">LW 1V1 / 2V2</div>
+    </div>
+
+    <div class="game-card game-survival" onclick="openCategory('BR SURVIVAL 2')">
+      <div class="game-art">💀</div>
+      <div class="game-name">BR SURVIVAL 2</div>
+    </div>
+
+    <div class="game-card game-cs" onclick="openCategory('CS ONETAP')">
+      <div class="game-art">🎯</div>
+      <div class="game-name">CS ONETAP</div>
+    </div>
+
+    <div class="game-card game-lw" onclick="openCategory('LW LOSE')">
+      <div class="game-art">👊</div>
+      <div class="game-name">LW LOSE</div>
+    </div>
+
+    <div class="game-card game-br" onclick="openCategory('BR RUSH FULL MAP')">
+      <div class="game-art">🔥</div>
+      <div class="game-name">BR RUSH FULL MAP</div>
+    </div>
+
+    <div class="game-card game-cs" onclick="openCategory('ONLY UMP')">
+      <div class="game-art">🔫</div>
+      <div class="game-name">ONLY UMP</div>
+    </div>
+
+    <div class="game-card game-survival" onclick="openCategory('FREE MATCH')">
+      <div class="game-art">🏆</div>
+      <div class="game-name">FREE MATCH</div>
+    </div>
+
+    <div class="game-card game-cs" onclick="openCategory('CS 4V4')">
+      <div class="game-art">⚔️</div>
+      <div class="game-name">CS 4V4</div>
+    </div>
+
+    <div class="game-card game-lw" onclick="openCategory('LW HEADSHOT')">
+      <div class="game-art">🎯</div>
+      <div class="game-name">LW HEADSHOT</div>
+    </div>
+
+  </div>
 
 </section>
- 
-
-<div class="banner">
 
 
 <!-- MATCH PAGES -->
