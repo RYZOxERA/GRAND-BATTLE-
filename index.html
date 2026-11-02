@@ -163,8 +163,77 @@ input{width:100%;padding:12px;margin:8px 0;background:#0c1020;color:white;border
 <button class="coins" onclick="showPage('walletPage')">🪙 <span id="coinBalance">0</span></button>
 </header>
 
+
 <!-- HOME -->
 <section id="homePage" class="page active">
+
+<div class="home-hero">
+  <div class="hero-top">
+    <span class="hero-tag">🔥 FREE FIRE ESPORTS</span>
+    <span class="hero-crown">👑</span>
+  </div>
+  <h2>WELCOME TO<br><span>GRAND BATTLE</span></h2>
+  <p>Compete. Fight. Become a Champion.</p>
+  <p class="small" id="welcomeName"></p>
+</div>
+
+<div class="home-announcement card">
+  <div class="announcement-icon">📢</div>
+  <div>
+    <h3>Latest Announcements</h3>
+    <p class="small" id="announcementText">
+      Welcome to GRAND BATTLE! Stay tuned for upcoming tournaments.
+    </p>
+  </div>
+</div>
+
+<div class="support home-support">
+  <button onclick="openTelegram()">
+    <span class="support-icon">➤</span>
+    <span class="support-label">Telegram Support</span>
+  </button>
+  <button onclick="whatsappComingSoon()">
+    <span class="support-icon whatsapp-icon">☎</span>
+    <span class="support-label">WhatsApp Support</span>
+  </button>
+</div>
+
+<div class="home-section-heading">
+  <h3>MY MATCHES</h3>
+  <span>VIEW ALL</span>
+</div>
+
+<div class="match-tabs">
+  <button onclick="showPage('upcomingPage')">UPCOMING</button>
+  <button onclick="showPage('ongoingPage')">ONGOING</button>
+  <button onclick="showPage('completedPage')">RESULT</button>
+</div>
+
+<div class="home-section-heading">
+  <h3>ESPORTS GAMES</h3>
+  <span>PLAY & WIN</span>
+</div>
+
+<div class="br-game-tile" onclick="openCategory('BR FULL MAP')">
+  <div class="br-game-overlay">
+    <span class="br-game-tag">BATTLE ROYALE</span>
+    <h2>BR FULL MAP</h2>
+    <p>DUO • SQUAD • BERMUDA</p>
+    <span class="br-game-button">EXPLORE MATCHES →</span>
+  </div>
+</div>
+
+<div class="card home-rules">
+  <h3>⚔️ GRAND BATTLE ARENA</h3>
+  <p class="small">
+    Join tournaments, compete with players and prove your skills.
+    Check match rules before joining.
+  </p>
+</div>
+
+</section>
+ 
+
 <div class="banner">
 <h2>WELCOME TO GRAND BATTLE</h2>
 <p>Compete. Win. Become a Champion!</p>
