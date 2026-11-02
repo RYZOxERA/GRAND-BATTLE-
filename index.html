@@ -8,201 +8,148 @@
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{
- background:#070817;color:white;font-family:Arial,sans-serif;
- padding-bottom:85px
-}
-header{
- background:#101329;padding:15px;display:flex;
- justify-content:space-between;align-items:center;
- position:sticky;top:0;z-index:5;
- border-bottom:1px solid #51228a
-}
+body{background:#070817;color:white;font-family:Arial,sans-serif;padding-bottom:85px}
+header{background:#101329;padding:15px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:5;border-bottom:1px solid #51228a}
 .logo{font-size:21px;color:#d18aff;font-weight:900}
-.coins{
- background:linear-gradient(120deg,#32105b,#17102e);
- padding:10px 15px;border-radius:25px;
- border:1px solid #bd45ff;color:white;
- cursor:pointer;font-weight:bold;font-size:16px;
- margin:0
-}
+.coins{background:linear-gradient(120deg,#32105b,#17102e);padding:10px 15px;border-radius:25px;border:1px solid #bd45ff;color:white;cursor:pointer;font-weight:bold;font-size:16px;margin:0}
 .page{display:none;padding:15px}
 .page.active{display:block}
-.banner{
- background:linear-gradient(120deg,#6513a0,#171b43);
- padding:20px;border-radius:14px;margin-bottom:15px;
- border:1px solid #a33cff;
- box-shadow:0 0 12px #7719b455
-}
+.banner{background:linear-gradient(120deg,#6513a0,#171b43);padding:20px;border-radius:14px;margin-bottom:15px;border:1px solid #a33cff;box-shadow:0 0 12px #7719b455}
 .banner h2{margin-bottom:8px}
-.title{
- margin:22px 0 12px;font-size:19px;
- border-left:5px solid #c020ff;padding-left:10px
-}
-.card{
- background:#151a32;border:1px solid #39245d;
- padding:15px;border-radius:12px;margin-bottom:12px
-}
+.title{margin:22px 0 12px;font-size:19px;border-left:5px solid #c020ff;padding-left:10px}
+.card{background:#151a32;border:1px solid #39245d;padding:15px;border-radius:12px;margin-bottom:12px}
 .small{font-size:12px;color:#aaa;margin-top:7px}
-button{
- background:#914be0;color:white;border:0;
- border-radius:8px;padding:11px 15px;
- font-weight:bold;margin-top:10px;cursor:pointer
-}
-input{
- width:100%;padding:12px;margin:8px 0;
- background:#0c1020;color:white;
- border:1px solid #39304f;border-radius:8px
-}
-.navbar{
- position:fixed;bottom:0;left:0;width:100%;
- background:#101329;display:flex;
- justify-content:space-around;padding:12px;
- border-top:1px solid #7133a9;z-index:10
-}
-.nav{
- color:#aaa;text-align:center;font-size:12px;
- flex:1;cursor:pointer
-}
+button{background:#914be0;color:white;border:0;border-radius:8px;padding:11px 15px;font-weight:bold;margin-top:10px;cursor:pointer}
+button:disabled{opacity:.55;cursor:not-allowed}
+input{width:100%;padding:12px;margin:8px 0;background:#0c1020;color:white;border:1px solid #39304f;border-radius:8px}
+.navbar{position:fixed;bottom:0;left:0;width:100%;background:#101329;display:flex;justify-content:space-around;padding:12px;border-top:1px solid #7133a9;z-index:10}
+.nav{color:#aaa;text-align:center;font-size:12px;flex:1;cursor:pointer}
 .nav b{display:block;font-size:22px}
 .nav.active{color:#d18aff}
-.support{
- display:grid;grid-template-columns:1fr 1fr;
- gap:10px;margin-top:15px
-}
-.support button{
- width:100%;height:88px;margin:0;
- background:#11152e;border:1px solid #7733bd;
- display:flex;flex-direction:column;
- align-items:center;justify-content:center;gap:7px
-}
-.support-icon{
- width:28px;height:28px;border-radius:50%;
- display:flex;align-items:center;justify-content:center;
- font-size:22px;background:#168de0;color:white;
- flex-shrink:0
-}
+.support{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px}
+.support button{width:100%;height:50px;margin:0;background:#11152e;border:1px solid #7733bd;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;padding:5px}
+.support-icon{width:25px;height:25px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;background:#168de0;color:white;flex-shrink:0}
 .whatsapp-icon{background:#13bd61}
-.support-label{font-size:14px}
-.match-tabs{
- display:grid;grid-template-columns:repeat(3,1fr);
- gap:8px;margin:14px 0
-}
-.match-tabs button{
- margin:0;padding:13px 3px;font-size:12px;
- background:#171b35;border:1px solid #49306f
-}
-.match-tabs button.active{
- background:linear-gradient(120deg,#8715db,#42108b);
- border-color:#d34bff
-}
-.no-match{
- text-align:center;padding:28px 10px;
- background:#12162d;border:1px solid #45306c;
- border-radius:12px;color:#ddd
-}
+.support-label{font-size:12px}
+.match-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}
+.match-tabs button{margin:0;padding:13px 3px;font-size:12px;background:#171b35;border:1px solid #49306f}
+.match-tabs button.active{background:linear-gradient(120deg,#8715db,#42108b);border-color:#d34bff}
+.no-match{text-align:center;padding:28px 10px;background:#12162d;border:1px solid #45306c;border-radius:12px;color:#ddd}
 .no-match .search-icon{font-size:30px;margin-bottom:8px}
-.tournament-banner{
- background:linear-gradient(110deg,#a20c43,#35116f,#101c50);
- border:1px solid #b13dff;border-radius:14px;
- padding:30px 12px;text-align:center;
- margin:20px 0;min-height:145px;
- display:flex;flex-direction:column;
- justify-content:center;overflow:hidden;
- box-shadow:0 0 15px #9c24ff55
-}
-.tournament-banner h2{
- font-size:29px;font-weight:900;
- text-shadow:0 2px 8px #000
-}
-.tournament-banner p{
- color:#ffe34c;font-weight:bold;margin-top:10px
-}
-.tournament-grid{
- display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
- gap:9px
-}
-.tournament-tile{
- min-height:105px;border-radius:11px;
- border:1px solid #c02cff;overflow:hidden;
- display:flex;align-items:flex-end;justify-content:center;
- padding:9px 4px;text-align:center;
- cursor:pointer;position:relative;
- background:linear-gradient(135deg,#53118b,#111b52 55%,#090b18);
- box-shadow:0 0 9px #7b22b855
-}
-.tournament-tile:before{
- content:"";position:absolute;inset:0;
- background:radial-gradient(circle at 25% 20%,#c13cff88,transparent 55%);
-}
-.tournament-tile:nth-child(3n+2){
- background:linear-gradient(135deg,#123e88,#141b48,#090b18)
-}
-.tournament-tile:nth-child(3n){
- background:linear-gradient(135deg,#8d143f,#27124f,#090b18)
-}
-.tournament-tile:nth-child(9){
- background:linear-gradient(135deg,#a36a08,#39200a,#090b18);
- border-color:#ffc43c
-}
+.tournament-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.tournament-tile{min-height:105px;border-radius:11px;border:1px solid #c02cff;overflow:hidden;display:flex;align-items:flex-end;justify-content:center;padding:9px 4px;text-align:center;cursor:pointer;position:relative;background:linear-gradient(135deg,#53118b,#111b52 55%,#090b18);box-shadow:0 0 9px #7b22b855}
+.tournament-tile:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 25% 20%,#c13cff88,transparent 55%)}
+.tournament-tile:nth-child(3n+2){background:linear-gradient(135deg,#123e88,#141b48,#090b18)}
+.tournament-tile:nth-child(3n){background:linear-gradient(135deg,#8d143f,#27124f,#090b18)}
+.tournament-tile:nth-child(9){background:linear-gradient(135deg,#a36a08,#39200a,#090b18);border-color:#ffc43c}
 .tile-content{position:relative;z-index:1}
 .tile-icon{font-size:31px;display:block;margin-bottom:5px}
 .tile-name{font-size:13px;font-weight:900;text-shadow:0 2px 5px #000}
 .wallet-action{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .wallet-action button{width:100%;padding:14px 5px}
-.wallet-balance{
- background:linear-gradient(120deg,#55258a,#171b43);
- padding:25px;border-radius:15px;text-align:center;margin-bottom:15px
-}
+.wallet-balance{background:linear-gradient(120deg,#55258a,#171b43);padding:25px;border-radius:15px;text-align:center;margin-bottom:15px}
 .wallet-balance h1{font-size:32px;color:#d4a8ff;margin-top:10px}
 .back-button{background:#292344;margin-bottom:15px}
-#loginScreen{
- min-height:100vh;display:flex;
- align-items:center;justify-content:center;padding:20px
-}
-.login-card{
- background:#171c32;padding:28px;border-radius:18px;
- width:100%;max-width:400px;text-align:center
-}
-.login-card h1{color:#c39aff;margin-bottom:12px}
-#errorMessage{
- color:#ff7777;font-size:13px;margin-top:12px;
- overflow-wrap:anywhere
-}
 #appShell{display:none}
 .match-status{color:#c39aff;font-size:12px;font-weight:bold;margin-top:8px}
-.banner:has(.support){
-padding:10px;
-margin-bottom:10px;
+.banner:has(.support){padding:10px;margin-bottom:10px}
+
+/* LOGIN AND REGISTRATION */
+.auth-screen{
+ min-height:100vh;display:flex;align-items:center;
+ justify-content:center;padding:20px;
+ background:radial-gradient(ellipse at top,#28104b 0%,#070817 65%);
 }
-.support button{
-height:50px;
-padding:5px;
+.auth-card{
+ width:100%;max-width:410px;padding:28px 22px;
+ background:linear-gradient(145deg,#19132e,#101329);
+ border:1px solid #a33cff;border-radius:18px;
+ box-shadow:0 0 25px #8c20ff55;text-align:center;
 }
-.support-icon{
-width:25px;
-height:25px;
-font-size:16px;
+.auth-card h1{color:#d18aff;font-size:27px;margin-bottom:8px}
+.auth-subtitle{color:#aaa;font-size:13px;margin-bottom:20px}
+.auth-card input{margin:7px 0;padding:14px}
+.auth-primary{
+ width:100%;padding:14px;
+ background:linear-gradient(100deg,#9b35e8,#5420a5);
+ box-shadow:0 0 12px #8c20ff55;
 }
-.support-label{
-font-size:12px;
+.auth-secondary{width:100%;background:#292344;padding:13px}
+.auth-link{color:#d18aff;cursor:pointer;text-decoration:underline}
+.auth-divider{color:#777;margin:16px 0}
+.auth-support{
+ display:block;margin-top:20px;padding:12px;
+ border:1px solid #7133a9;border-radius:9px;
+ color:#cba3ff;text-decoration:none;font-size:13px;
 }
+.auth-error{color:#ff7777;font-size:13px;margin-top:12px;overflow-wrap:anywhere}
+#loginScreen,#registerScreen,#verificationScreen{display:none}
+.otp-note{color:#aaa;font-size:11px;margin-top:8px}
 </style>
 </head>
 
 <body>
 
-<section id="loginScreen">
-<div class="login-card">
-<h1>GRAND BATTLE</h1>
-<p style="color:#aaa;margin-bottom:20px">Free Fire Esports Tournament Platform</p>
-<button onclick="googleLogin()" style="width:100%">Continue with Google</button>
-<div style="margin:20px 0;color:#888">OR</div>
-<input id="email" type="email" placeholder="Email address">
-<input id="password" type="password" placeholder="Password">
-<button onclick="emailLogin()" style="width:100%">Login with Email</button>
-<button onclick="emailSignup()" style="width:100%;background:#292344">Create Account</button>
-<p id="errorMessage"></p>
+<!-- LOGIN SCREEN -->
+<section id="loginScreen" class="auth-screen">
+<div class="auth-card">
+<h1>👑 GRAND BATTLE</h1>
+<p class="auth-subtitle">Free Fire Esports Tournament Platform</p>
+
+<button onclick="googleLogin()" class="auth-primary">Continue with Google</button>
+
+<div class="auth-divider">OR LOGIN WITH EMAIL</div>
+
+<input id="loginEmail" type="email" placeholder="Email address" autocomplete="email">
+<input id="loginPassword" type="password" placeholder="Password" autocomplete="current-password">
+
+<button onclick="emailLogin()" class="auth-primary">LOGIN</button>
+<button onclick="showRegister()" class="auth-secondary">CREATE ACCOUNT</button>
+
+<p id="loginError" class="auth-error"></p>
+</div>
+</section>
+
+<!-- REGISTRATION SCREEN -->
+<section id="registerScreen" class="auth-screen">
+<div class="auth-card">
+<h1>REGISTER ACCOUNT</h1>
+<p class="auth-subtitle">Join the GRAND BATTLE Arena</p>
+
+<input id="regName" type="text" placeholder="Full Name" autocomplete="name">
+<input id="regEmail" type="email" placeholder="Email Address" autocomplete="email">
+<input id="regPassword" type="password" placeholder="Create Password" autocomplete="new-password">
+<input id="regConfirmPassword" type="password" placeholder="Confirm Password" autocomplete="new-password">
+<input id="referralCode" type="text" placeholder="Referral Code (Optional)">
+
+<p class="otp-note">Email verification link will be sent after account creation. No OTP is used in this free version.</p>
+
+<button id="createAccountButton" onclick="emailSignup()" class="auth-primary">CREATE ACCOUNT</button>
+
+<p class="auth-error" id="registerError"></p>
+
+<div class="auth-divider">ALREADY HAVE AN ACCOUNT?</div>
+<p><span class="auth-link" onclick="showLogin()">Login here</span></p>
+
+<a class="auth-support" href="https://t.me/GRAND_BATTLE_CUSTOMER_SUPPORT" target="_blank" rel="noopener">➤ Telegram Customer Support</a>
+</div>
+</section>
+
+<!-- EMAIL VERIFICATION SCREEN -->
+<section id="verificationScreen" class="auth-screen">
+<div class="auth-card">
+<h1>VERIFY YOUR EMAIL</h1>
+<p class="auth-subtitle">Your account has been created. Verify your email before entering GRAND BATTLE.</p>
+
+<p id="verificationEmail" style="color:#d18aff;overflow-wrap:anywhere"></p>
+
+<p class="otp-note">Check your inbox and spam folder. Open the verification link, then return here.</p>
+
+<button onclick="checkEmailVerification()" class="auth-primary">I HAVE VERIFIED MY EMAIL</button>
+<button onclick="resendVerification()" class="auth-secondary">RESEND VERIFICATION EMAIL</button>
+<button onclick="logoutUser()" class="auth-secondary">BACK TO LOGIN</button>
+
+<p id="verificationError" class="auth-error"></p>
 </div>
 </section>
 
@@ -210,14 +157,11 @@ font-size:12px;
 
 <header>
 <div class="logo">👑 GRAND BATTLE</div>
-<button class="coins" onclick="showPage('walletPage')">
-🪙 <span id="coinBalance">0</span>
-</button>
+<button class="coins" onclick="showPage('walletPage')">🪙 <span id="coinBalance">0</span></button>
 </header>
 
 <!-- HOME -->
 <section id="homePage" class="page active">
-
 <div class="banner">
 <h2>WELCOME TO GRAND BATTLE</h2>
 <p>Compete. Win. Become a Champion!</p>
@@ -226,123 +170,64 @@ font-size:12px;
 
 <div class="card">
 <h3>📢 Latest Announcements</h3>
-<p class="small" id="announcementText">
-Welcome to GRAND BATTLE! Stay tuned for upcoming tournaments.
-</p>
+<p class="small" id="announcementText">Welcome to GRAND BATTLE! Stay tuned for upcoming tournaments.</p>
 </div>
 
 <div class="banner">
 <h3>🎧 CUSTOMER SUPPORT</h3>
 <p class="small">Need help? Contact our support team.</p>
-
 <div class="support">
-<button onclick="openTelegram()">
-<span class="support-icon">➤</span>
-<span class="support-label">Telegram</span>
-</button>
-
-<button onclick="whatsappComingSoon()">
-<span class="support-icon whatsapp-icon">☎</span>
-<span class="support-label">WhatsApp</span>
-</button>
+<button onclick="openTelegram()"><span class="support-icon">➤</span><span class="support-label">Telegram</span></button>
+<button onclick="whatsappComingSoon()"><span class="support-icon whatsapp-icon">☎</span><span class="support-label">WhatsApp</span></button>
 </div>
 </div>
 
 <h3 class="title">MY MATCHES</h3>
-
 <div class="match-tabs">
-<button onclick="showPage('upcomingPage')" >UPCOMING</button>
+<button onclick="showPage('upcomingPage')">UPCOMING</button>
 <button onclick="showPage('ongoingPage')">ONGOING</button>
 <button onclick="showPage('completedPage')">COMPLETED</button>
 </div>
 
-
-
 <h3 class="title">AVAILABLE TOURNAMENTS</h3>
-
 <div class="tournament-grid">
-
-<div class="tournament-tile" onclick="openCategory('1v1')">
-<div class="tile-content"><span class="tile-icon">⚔️</span><span class="tile-name">1V1</span></div>
-</div>
-
-<div class="tournament-tile" onclick="openCategory('2v2')">
-<div class="tile-content"><span class="tile-icon">🥷</span><span class="tile-name">2V2</span></div>
-</div>
-
-<div class="tournament-tile" onclick="openCategory('4v4')">
-<div class="tile-content"><span class="tile-icon">🛡️</span><span class="tile-name">4V4</span></div>
-</div>
-
-<div class="tournament-tile" onclick="openCategory('BR Squad')">
-<div class="tile-content"><span class="tile-icon">🪂</span><span class="tile-name">BR SQUAD</span></div>
-</div>
-
-<div class="tournament-tile" onclick="openCategory('CS 1v1')">
-<div class="tile-content"><span class="tile-icon">🎯</span><span class="tile-name">CS 1V1</span></div>
-</div>
-
-<div class="tournament-tile" onclick="openCategory('CS 2v2')">
-<div class="tile-content"><span class="tile-icon">🔫</span><span class="tile-name">CS 2V2</span></div>
-</div>
-
-<div class="tournament-tile" onclick="openCategory('Lone Wolf')">
-<div class="tile-content"><span class="tile-icon">🐺</span><span class="tile-name">LONE WOLF</span></div>
-</div>
-
-<div class="tournament-tile" onclick="openCategory('Craftland')">
-<div class="tile-content"><span class="tile-icon">🏗️</span><span class="tile-name">CRAFTLAND</span></div>
-</div>
-
-<div class="tournament-tile" onclick="openCategory('Special')">
-<div class="tile-content"><span class="tile-icon">👑</span><span class="tile-name">SPECIAL</span></div>
-</div>
-
+<div class="tournament-tile" onclick="openCategory('1v1')"><div class="tile-content"><span class="tile-icon">⚔️</span><span class="tile-name">1V1</span></div></div>
+<div class="tournament-tile" onclick="openCategory('2v2')"><div class="tile-content"><span class="tile-icon">🥷</span><span class="tile-name">2V2</span></div></div>
+<div class="tournament-tile" onclick="openCategory('4v4')"><div class="tile-content"><span class="tile-icon">🛡️</span><span class="tile-name">4V4</span></div></div>
+<div class="tournament-tile" onclick="openCategory('BR Squad')"><div class="tile-content"><span class="tile-icon">🪂</span><span class="tile-name">BR SQUAD</span></div></div>
+<div class="tournament-tile" onclick="openCategory('CS 1v1')"><div class="tile-content"><span class="tile-icon">🎯</span><span class="tile-name">CS 1V1</span></div></div>
+<div class="tournament-tile" onclick="openCategory('CS 2v2')"><div class="tile-content"><span class="tile-icon">🔫</span><span class="tile-name">CS 2V2</span></div></div>
+<div class="tournament-tile" onclick="openCategory('Lone Wolf')"><div class="tile-content"><span class="tile-icon">🐺</span><span class="tile-name">LONE WOLF</span></div></div>
+<div class="tournament-tile" onclick="openCategory('Craftland')"><div class="tile-content"><span class="tile-icon">🏗️</span><span class="tile-name">CRAFTLAND</span></div></div>
+<div class="tournament-tile" onclick="openCategory('Special')"><div class="tile-content"><span class="tile-icon">👑</span><span class="tile-name">SPECIAL</span></div></div>
 </div>
 </section>
 
-<!-- UPCOMING PAGE -->
+<!-- MATCH PAGES -->
 <section id="upcomingPage" class="page">
 <button class="back-button" onclick="showPage('homePage')">← Back to Home</button>
 <h2 class="title">UPCOMING MATCHES</h2>
-<div class="no-match">
-<div class="search-icon">🔎</div>
-<h3>No Matches Found</h3>
-<p class="small">You have no upcoming matches right now.</p>
-</div>
+<div class="no-match"><div class="search-icon">🔎</div><h3>No Matches Found</h3><p class="small">You have no upcoming matches right now.</p></div>
 </section>
 
-<!-- ONGOING PAGE -->
 <section id="ongoingPage" class="page">
 <button class="back-button" onclick="showPage('homePage')">← Back to Home</button>
 <h2 class="title">ONGOING MATCHES</h2>
-<div class="no-match">
-<div class="search-icon">🔎</div>
-<h3>No Matches Found</h3>
-<p class="small">You have no ongoing matches right now.</p>
-</div>
+<div class="no-match"><div class="search-icon">🔎</div><h3>No Matches Found</h3><p class="small">You have no ongoing matches right now.</p></div>
 </section>
 
-<!-- COMPLETED PAGE -->
 <section id="completedPage" class="page">
 <button class="back-button" onclick="showPage('homePage')">← Back to Home</button>
 <h2 class="title">COMPLETED MATCHES</h2>
-<div class="no-match">
-<div class="search-icon">🔎</div>
-<h3>No Matches Found</h3>
-<p class="small">You have no completed matches right now.</p>
-</div>
+<div class="no-match"><div class="search-icon">🔎</div><h3>No Matches Found</h3><p class="small">You have no completed matches right now.</p></div>
 </section>
 
-<!-- CATEGORY / REGISTRATION PAGE -->
+<!-- CATEGORY -->
 <section id="categoryPage" class="page">
 <button class="back-button" onclick="showPage('homePage')">← Back to Home</button>
 <h2 class="title" id="categoryTitle">TOURNAMENTS</h2>
 <div id="categoryMatches">
-<div class="no-match">
-<h3>No Matches Found</h3>
-<p class="small">No tournaments available in this category right now.</p>
-</div>
+<div class="no-match"><h3>No Matches Found</h3><p class="small">No tournaments available in this category right now.</p></div>
 </div>
 </section>
 
@@ -350,49 +235,23 @@ Welcome to GRAND BATTLE! Stay tuned for upcoming tournaments.
 <section id="walletPage" class="page">
 <button class="back-button" onclick="showPage('homePage')">← Back to Home</button>
 <h2 class="title">MY WALLET</h2>
-
-<div class="wallet-balance">
-<p>AVAILABLE BALANCE</p>
-<h1>🪙 <span id="walletCoins">0</span></h1>
-</div>
+<div class="wallet-balance"><p>AVAILABLE BALANCE</p><h1>🪙 <span id="walletCoins">0</span></h1></div>
 
 <div class="wallet-action">
-<div class="card">
-<h3>💰 Deposit</h3>
-<p class="small">Add coins to your wallet.</p>
-<button onclick="walletComingSoon('Deposit')">Deposit</button>
-</div>
-<div class="card">
-<h3>💸 Withdrawal</h3>
-<p class="small">Withdraw eligible coins.</p>
-<button onclick="walletComingSoon('Withdrawal')">Withdraw</button>
-</div>
+<div class="card"><h3>💰 Deposit</h3><p class="small">Add coins to your wallet.</p><button onclick="walletComingSoon('Deposit')">Deposit</button></div>
+<div class="card"><h3>💸 Withdrawal</h3><p class="small">Withdraw eligible coins.</p><button onclick="walletComingSoon('Withdrawal')">Withdraw</button></div>
 </div>
 
-<div class="card">
-<h3>🪙 Balance</h3>
-<h2 id="walletBalance">0 Coins</h2>
-<p class="small">Your current wallet balance.</p>
-</div>
-
+<div class="card"><h3>🪙 Balance</h3><h2 id="walletBalance">0 Coins</h2><p class="small">Your current wallet balance.</p></div>
 <h3 class="title">WALLET HISTORY</h3>
-<div id="walletHistory">
-<div class="card"><p class="small">No transactions yet.</p></div>
-</div>
+<div id="walletHistory"><div class="card"><p class="small">No transactions yet.</p></div></div>
 </section>
 
 <!-- EARN -->
 <section id="earnPage" class="page">
 <h2>REWARDS</h2>
-<div class="card">
-<h3>🪙 My Coins</h3>
-<p class="small">Your current coin balance</p>
-<h2 id="earnCoins">0</h2>
-</div>
-<div class="card">
-<h3>🏆 Win Rewards</h3>
-<p class="small">Participate in tournaments and win prizes.</p>
-</div>
+<div class="card"><h3>🪙 My Coins</h3><p class="small">Your current coin balance</p><h2 id="earnCoins">0</h2></div>
+<div class="card"><h3>🏆 Win Rewards</h3><p class="small">Participate in tournaments and win prizes.</p></div>
 </section>
 
 <!-- ACCOUNT -->
@@ -404,10 +263,7 @@ Welcome to GRAND BATTLE! Stay tuned for upcoming tournaments.
 <p class="small" id="profileEmail"></p>
 <p class="small" id="profileUID"></p>
 </div>
-<div class="card">
-<h3>Account Information</h3>
-<p class="small">Your account is connected with Firebase Authentication.</p>
-</div>
+<div class="card"><h3>Account Information</h3><p class="small">Your account is connected with Firebase Authentication.</p></div>
 <button onclick="logoutUser()" style="width:100%;background:#a83248">Logout</button>
 </section>
 
@@ -416,7 +272,6 @@ Welcome to GRAND BATTLE! Stay tuned for upcoming tournaments.
 <div class="nav active" onclick="showPage('homePage',this)"><b>⌂</b>Home</div>
 <div class="nav" onclick="showPage('accountPage',this)"><b>👤</b>Account</div>
 </nav>
-
 </div>
 
 <script type="module">
@@ -425,7 +280,8 @@ import {initializeApp} from "https://www.gstatic.com/firebasejs/12.5.0/firebase-
 import {
 getAuth,GoogleAuthProvider,signInWithPopup,
 signInWithEmailAndPassword,createUserWithEmailAndPassword,
-signOut,onAuthStateChanged
+signOut,onAuthStateChanged,sendEmailVerification,
+reload,updateProfile
 } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
 
 import {
@@ -455,83 +311,242 @@ let unsubscribeMatches=null;
 let unsubscribeWallet=null;
 let selectedCategory="";
 
-function showError(message){
-document.getElementById("errorMessage").textContent=message;
+function hideAuthScreens(){
+document.getElementById("loginScreen").style.display="none";
+document.getElementById("registerScreen").style.display="none";
+document.getElementById("verificationScreen").style.display="none";
 }
 
-async function saveUser(user){
+function showAuthError(id,message){
+document.getElementById(id).textContent=message;
+}
+
+function showLogin(){
+hideAuthScreens();
+document.getElementById("loginScreen").style.display="flex";
+}
+
+function showRegister(){
+hideAuthScreens();
+document.getElementById("registerScreen").style.display="flex";
+}
+
+window.showLogin=showLogin;
+window.showRegister=showRegister;
+
+async function saveUser(user,extraData={}){
 await setDoc(doc(db,"users",user.uid),{
 uid:user.uid,
 name:user.displayName||user.email.split("@")[0],
 email:user.email,
 photo:user.photoURL||"",
-lastLogin:serverTimestamp()
+lastLogin:serverTimestamp(),
+...extraData
 },{merge:true});
 }
 
+// GOOGLE LOGIN
 window.googleLogin=async function(){
+showAuthError("loginError","");
 try{
 const result=await signInWithPopup(auth,provider);
-try{await saveUser(result.user)}catch(e){console.error("Profile save failed:",e)}
-}catch(error){showError(error.message)}
+await saveUser(result.user);
+}catch(error){
+showAuthError("loginError",error.message);
+}
 };
 
+// EMAIL LOGIN
 window.emailLogin=async function(){
-const email=document.getElementById("email").value.trim();
-const password=document.getElementById("password").value;
-if(!email||!password){showError("Enter email and password.");return}
+const email=document.getElementById("loginEmail").value.trim();
+const password=document.getElementById("loginPassword").value;
+
+showAuthError("loginError","");
+
+if(!email||!password){
+showAuthError("loginError","Enter email and password.");
+return;
+}
+
 try{
 const result=await signInWithEmailAndPassword(auth,email,password);
-try{await saveUser(result.user)}catch(e){console.error(e)}
-}catch(error){showError(error.message)}
+await reload(result.user);
+
+if(!result.user.emailVerified){
+await signOut(auth);
+showAuthError("loginError","Please verify your email first. Check your inbox.");
+return;
+}
+
+await saveUser(result.user);
+}catch(error){
+showAuthError("loginError",error.message);
+}
 };
 
+// CREATE ACCOUNT
 window.emailSignup=async function(){
-const email=document.getElementById("email").value.trim();
-const password=document.getElementById("password").value;
-if(!email||!password){showError("Enter email and password.");return}
-if(password.length<6){showError("Password must contain at least 6 characters.");return}
+const name=document.getElementById("regName").value.trim();
+const email=document.getElementById("regEmail").value.trim();
+const password=document.getElementById("regPassword").value;
+const confirmPassword=document.getElementById("regConfirmPassword").value;
+const referralCode=document.getElementById("referralCode").value.trim();
+
+showAuthError("registerError","");
+
+if(!name||!email||!password||!confirmPassword){
+showAuthError("registerError","Please fill all required fields.");
+return;
+}
+
+if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+showAuthError("registerError","Enter a valid email address.");
+return;
+}
+
+if(password.length<6){
+showAuthError("registerError","Password must contain at least 6 characters.");
+return;
+}
+
+if(password!==confirmPassword){
+showAuthError("registerError","Passwords do not match.");
+return;
+}
+
+const createButton=document.getElementById("createAccountButton");
+createButton.disabled=true;
+createButton.textContent="CREATING ACCOUNT...";
+
 try{
 const result=await createUserWithEmailAndPassword(auth,email,password);
-try{await saveUser(result.user)}catch(e){console.error(e)}
-}catch(error){showError(error.message)}
+
+await updateProfile(result.user,{displayName:name});
+
+await saveUser(result.user,{
+name:name,
+referralCode:referralCode||"",
+referralReward:0,
+coins:0,
+emailVerified:false,
+createdAt:serverTimestamp()
+});
+
+await sendEmailVerification(result.user);
+
+document.getElementById("verificationEmail").textContent=email;
+hideAuthScreens();
+document.getElementById("verificationScreen").style.display="flex";
+
+}catch(error){
+showAuthError("registerError",error.message);
+}finally{
+createButton.disabled=false;
+createButton.textContent="CREATE ACCOUNT";
+}
 };
 
+// CHECK EMAIL VERIFICATION
+window.checkEmailVerification=async function(){
+showAuthError("verificationError","");
+
+if(!auth.currentUser){
+showLogin();
+return;
+}
+
+try{
+await reload(auth.currentUser);
+
+if(auth.currentUser.emailVerified){
+await saveUser(auth.currentUser,{emailVerified:true});
+location.reload();
+}else{
+showAuthError("verificationError","Email is not verified yet. Open the link sent to your inbox.");
+}
+}catch(error){
+showAuthError("verificationError",error.message);
+}
+};
+
+// RESEND VERIFICATION EMAIL
+window.resendVerification=async function(){
+showAuthError("verificationError","");
+
+if(!auth.currentUser){
+showLogin();
+return;
+}
+
+try{
+await sendEmailVerification(auth.currentUser);
+showAuthError("verificationError","Verification email sent again. Check your inbox and spam folder.");
+}catch(error){
+showAuthError("verificationError",error.message);
+}
+};
+
+// LOGOUT
 window.logoutUser=async function(){
-try{await signOut(auth);location.reload()}
-catch(error){alert(error.message)}
+try{
+await signOut(auth);
+location.reload()
+ 
+}catch(error){
+alert(error.message);
+}
 };
 
-onAuthStateChanged(auth,user=>{
+// AUTH STATE
+onAuthStateChanged(auth,async user=>{
 currentUser=user;
 
 if(user){
-document.getElementById("loginScreen").style.display="none";
+try{
+await reload(user);
+}catch(error){
+console.error("Auth refresh error:",error);
+}
+
+if(user.providerData.some(p=>p.providerId==="password")&&!user.emailVerified){
+document.getElementById("appShell").style.display="none";
+hideAuthScreens();
+document.getElementById("verificationEmail").textContent=user.email||"";
+document.getElementById("verificationScreen").style.display="flex";
+return;
+}
+
+hideAuthScreens();
 document.getElementById("appShell").style.display="block";
 
 document.getElementById("welcomeName").textContent=
-"Welcome, "+(user.displayName||user.email);
+"Welcome, "+(user.displayName||user.email||"Player");
 
 document.getElementById("profileName").textContent=user.displayName||"Player";
-document.getElementById("profileEmail").textContent=user.email;
+document.getElementById("profileEmail").textContent=user.email||"";
 document.getElementById("profileUID").textContent="UID: "+user.uid;
 
 if(user.photoURL){
 const photo=document.getElementById("profilePhoto");
 photo.src=user.photoURL;
 photo.style.display="block";
+}else{
+document.getElementById("profilePhoto").style.display="none";
 }
 
 loadMatches();
 loadWallet();
+
 }else{
 if(unsubscribeMatches)unsubscribeMatches();
 if(unsubscribeWallet)unsubscribeWallet();
-document.getElementById("loginScreen").style.display="flex";
+
 document.getElementById("appShell").style.display="none";
+showLogin();
 }
 });
 
+// PAGE NAVIGATION
 window.showPage=function(pageId,element){
 document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
 document.getElementById(pageId).classList.add("active");
@@ -545,6 +560,7 @@ const pages=["earnPage","homePage","accountPage"];
 const index=pages.indexOf(pageId);
 if(index>=0)document.querySelectorAll(".nav")[index].classList.add("active");
 }
+
 window.scrollTo(0,0);
 };
 
@@ -630,8 +646,7 @@ const mode=String(match.mode||"").toLowerCase();
 const category=String(match.category||"").toLowerCase();
 const title=String(match.title||"").toLowerCase();
 
-return mode===wanted||category===wanted||
-title.includes(wanted);
+return mode===wanted||category===wanted||title.includes(wanted);
 });
 
 if(!matches.length){
@@ -680,9 +695,7 @@ container.append(card);
 });
 }
 
-
-
-// REGISTER
+// REGISTER FOR MATCH
 async function registerMatch(matchId){
 if(!currentUser)return;
 
