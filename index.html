@@ -1055,10 +1055,21 @@ unsubscribeWallet=onSnapshot(doc(db,"users",currentUser.uid),snapshot=>{
 const data=snapshot.data()||{};
 const coins=Number(data.coins||0);
 
-document.getElementById("coinBalance").textContent=coins;
-document.getElementById("walletCoins").textContent=coins;
-document.getElementById("walletBalance").textContent=coins+" Coins";
-document.getElementById("earnCoins").textContent=coins;
+const isOwner = currentUser &&
+currentUser.uid === "PfUUOolC8EOQiiz1pDsYVWv818L2";
+
+document.getElementById("coinBalance").textContent =
+isOwner ? "∞" : coins;
+
+document.getElementById("walletCoins").textContent =
+isOwner ? "∞" : coins;
+
+document.getElementById("walletBalance").textContent =
+isOwner ? "Unlimited Coins" : coins+" Coins";
+
+document.getElementById("earnCoins").textContent =
+isOwner ? "∞" : coins;
+
 },error=>console.error("Wallet error:",error));
 }
 
