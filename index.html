@@ -1193,7 +1193,130 @@ alert("Registration submitted successfully!");
 alert("Registration failed: "+error.message);
 }
 }
+// ADMIN ACCESS
+let isOwner = false;
 
+async function checkAdminAccess() {
+  if (!currentUser) return;
+
+  try {
+    const adminSnap = await getDoc(
+      doc(db, "admins", currentUser.uid)
+    );
+
+    isOwner = adminSnap.exists() &&
+      adminSnap.data().role === "owner";
+
+    const adminPage = document.getElementById("adminPage");
+
+    if (isOwner) {
+      const nav = document.querySelector(".navbar");
+
+      if (!document.getElementById("adminNav")) {
+        const item = document.createElement("div");
+        item.id = "adminNav";
+        item.className = "nav";
+        item.innerHTML = "<b>👑</b>Admin";
+        item.onclick = function () {
+          showPage("adminPage", item);
+          renderAdminMatches();
+        };
+        nav.appendChild(item);
+      }
+    } else {
+      adminPage.style.display = "none";
+      document.getElementById("adminNav")?.remove();
+    }
+  } catch (error) {
+    console.error("Admin check failed:", error);
+  }
+}
+
+// CREATE MATCH
+window.createMatch = async function () {
+  const message = document.getElementById("adminMessage");
+
+  if (!currentUser || !isOwner) {
+    message.textContent = "Owner access required.";
+    return;
+  }
+
+  const title = document.getElementById("matchTitle").value.trim();
+  const category = document.getElementById("matchCategory").value.trim();
+  const mode = document.getElementById("matchMode").value;
+  const entryFee = Number(document.getElementById("matchEntry").value);
+  const prize = Number(document.getElementById("matchPrize").value);
+  const slots = Number(document.getElementById("matchSlots").value);
+  const date = document.getElementById("matchDate").value;
+  const time = document.getElementById("matchTime").value;
+  const map = document.getElementById("matchMap").value.trim();
+  const perKillReward = Number(document.getElementById("matchKill").value);
+  const roomId = document.getElementById("matchRoom").value.trim();
+  const roomPassword = document.getElementById("matchPassword").value.trim();
+
+  if (!title || !category || !date || !time ||
+      !Number.isInteger(entryFee) || entryFee < 0 ||
+      !Number.isInteger(prize) || prize < 0 ||
+      !Number.isInteger(slots) || slots < 1 ||
+      !Number.isInteger(perKillReward) || perKillReward < 0) {
+    message.textContent = "Please enter valid match details.";
+    return;
+  }
+
+  try {
+    const matchRef = doc(collection(db, "matches"));
+
+    await setDoc(matchRef, {
+      title,
+      category,
+      mode,
+      entryFee,
+      prize,
+      slots,
+      date,
+      time,
+      map,
+      perKillReward,
+      roomId,
+      roomPassword,
+      status: "upcoming",
+      createdBy: currentUser.uid,
+      createdAt: serverTimestamp()
+    });
+
+    message.textContent = "Match created successfully!";
+    document.querySelectorAll("#adminPage input").forEach(input => {
+      input.value = "";
+    });
+
+  } catch (error) {
+    message.textContent = "Error: " + error.message;
+  }
+};
+
+// ADMIN MATCH LIST
+function renderAdminMatches() {
+  const container = document.getElementById("adminMatchList");
+
+  if (!isOwner) return;
+
+  container.innerHTML = "";
+
+  allMatches.forEach(match => {
+    const card = document.createElement("div");
+    card.className = "card";
+
+    const heading = document.createElement("h3");
+    heading.textContent = match.title || "Untitled Match";
+
+    const info = document.createElement("p");
+    info.className = "small";
+    info.textContent = `${match.category || ""} | ${match.date || ""} ${match.time || ""} | ${match.status || ""}`;
+
+    card.append(heading, info);
+    container.appendChild(card);
+  });
+                        }
 console.log("GRAND BATTLE initialized");
 </script>
 </body>
