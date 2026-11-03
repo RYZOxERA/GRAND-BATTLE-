@@ -1007,7 +1007,7 @@ document.getElementById("profilePhoto").style.display="none";
 
 loadMatches();
 loadWallet();
-
+await checkAdminAccess();
 }else{
 if(unsubscribeMatches)unsubscribeMatches();
 if(unsubscribeWallet)unsubscribeWallet();
