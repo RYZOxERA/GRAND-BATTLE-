@@ -673,7 +673,42 @@ input{width:100%;padding:12px;margin:8px 0;background:#0c1020;color:white;border
 <div class="card"><h3>🪙 My Coins</h3><p class="small">Your current coin balance</p><h2 id="earnCoins">0</h2></div>
 <div class="card"><h3>🏆 Win Rewards</h3><p class="small">Participate in tournaments and win prizes.</p></div>
 </section>
+<!-- ADMIN PANEL -->
+<section id="adminPage" class="page">
+  <h2 class="title">👑 ADMIN PANEL</h2>
 
+  <div class="card">
+    <h3>Create New Match</h3>
+
+    <input id="matchTitle" placeholder="Match Title">
+    <input id="matchCategory" placeholder="Category e.g. BR FULL MAP">
+
+    <select id="matchMode">
+      <option value="Solo">Solo</option>
+      <option value="Duo">Duo</option>
+      <option value="Squad">Squad</option>
+    </select>
+
+    <input id="matchEntry" type="number" placeholder="Entry Fee Per Player">
+    <input id="matchPrize" type="number" placeholder="Prize Pool">
+    <input id="matchSlots" type="number" placeholder="Total Slots">
+    <input id="matchDate" type="date">
+    <input id="matchTime" type="time">
+    <input id="matchMap" placeholder="Map Name">
+    <input id="matchKill" type="number" placeholder="Per Kill Reward">
+    <input id="matchRoom" placeholder="Room ID (optional)">
+    <input id="matchPassword" placeholder="Room Password (optional)">
+
+    <button onclick="createMatch()" style="width:100%">
+      CREATE MATCH
+    </button>
+
+    <p id="adminMessage" class="small"></p>
+  </div>
+
+  <h3 class="title">Manage Matches</h3>
+  <div id="adminMatchList"></div>
+</section>
 <!-- ACCOUNT -->
 <section id="accountPage" class="page">
 <h2>MY ACCOUNT</h2>
