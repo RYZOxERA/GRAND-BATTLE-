@@ -1058,7 +1058,8 @@ const coins=Number(data.coins||0);
 const isOwner = currentUser &&
 currentUser.uid === "PfUUOolC8EOQiiz1pDsYVWv818L2";
 
-document.getElementById("coinBalance").textContent =
+document.getElementById("homeCoinBalance").textContent =
+isOwner ? "∞" : coins;
 isOwner ? "∞" : coins;
 
 document.getElementById("walletCoins").textContent =
