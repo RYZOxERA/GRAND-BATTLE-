@@ -10,6 +10,14 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:#070817;color:white;font-family:Arial,sans-serif;padding-bottom:85px}
 header{background:#101329;padding:15px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:5;border-bottom:1px solid #51228a}
+  header{background:linear-gradient(120deg,#07518a,#06294e);border-bottom:0;border-radius:0 0 22px 22px}
+.header-left{display:flex;align-items:center;gap:10px;min-width:0}
+.header-avatar{width:46px;height:46px;border-radius:50%;background:#1685cf;display:grid;place-items:center;font-size:26px;flex-shrink:0;overflow:hidden}
+.header-avatar img{width:100%;height:100%;object-fit:cover}
+.welcome-name{font-size:18px;font-weight:900;max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.header-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.header-right button{margin:0}
+.coins{padding:8px 12px;font-size:15px}
 .logo{font-size:21px;color:#d18aff;font-weight:900}
 .coins{background:linear-gradient(120deg,#32105b,#17102e);padding:10px 15px;border-radius:25px;border:1px solid #bd45ff;color:white;cursor:pointer;font-weight:bold;font-size:16px;margin:0}
 .page{display:none;padding:15px}
