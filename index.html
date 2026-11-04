@@ -654,7 +654,39 @@ input{width:100%;padding:12px;margin:8px 0;background:#0c1020;color:white;border
 <div class="no-match"><h3>No Matches Found</h3><p class="small">No tournaments available in this category right now.</p></div>
 </div>
 </section>
+  
+<!-- DEPOSIT -->
+<section id="depositPage" class="page">
+<button class="back-button" onclick="showPage('walletPage')">← Back to Wallet</button>
+<h2 class="title">DEPOSIT COINS</h2>
 
+<div class="card">
+<h3>Step 1: Amount chuniye</h3>
+<p class="small">Minimum 5, maximum 50000</p>
+<input id="depAmount" type="number" inputmode="numeric" placeholder="Amount (₹)">
+<button onclick="generateDepositQR()" style="width:100%">PAY QR BANAO</button>
+<p id="depMessage" class="small"></p>
+</div>
+
+<div class="card" id="qrCard" style="text-align:center;display:none">
+<p class="small">QR scan kijiye ya neeche button se seedha pay kijiye</p>
+<h2 id="qrAmountText"></h2>
+<div id="qrBox" style="background:#fff;padding:12px;border-radius:12px;display:inline-block;margin:12px 0"></div>
+<a id="payNowLink" href="#" style="display:block;background:#914be0;color:white;text-decoration:none;padding:13px;border-radius:8px;font-weight:bold">PAY NOW (UPI App)</a>
+<p class="small">UPI ID: <span id="upiId">BHARATPE2K0A0X6I2J16583@unitype</span></p>
+</div>
+
+<div class="card" id="utrCard" style="display:none">
+<h3>Step 2: Payment ke baad</h3>
+<p class="small">Payment hone ke baad 12 digit ka UTR / Transaction ID likhiye.</p>
+<input id="depUtr" type="text" inputmode="numeric" maxlength="12" placeholder="12 digit UTR">
+<button onclick="submitDeposit()" style="width:100%">SUBMIT DEPOSIT REQUEST</button>
+</div>
+
+<h3 class="title">MY DEPOSIT REQUESTS</h3>
+<div id="depositList"></div>
+</section>
+  
 <!-- WALLET -->
 <section id="walletPage" class="page">
 <button class="back-button" onclick="showPage('homePage')">← Back to Home</button>
