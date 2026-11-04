@@ -1336,6 +1336,86 @@ window.createMatch = async function () {
     message.textContent = "Error: " + error.message;
   }
 };
+  
+  // ADMIN DEPOSITS
+let unsubscribeAdminDeposits=null;
+
+function loadAdminDeposits(){
+if(unsubscribeAdminDeposits)unsubscribeAdminDeposits();
+const list=document.getElementById("adminDepositList");
+
+unsubscribeAdminDeposits=onSnapshot(
+query(collection(db,"deposits"),where("status","==","pending")),
+snapshot=>{
+list.innerHTML="";
+if(snapshot.empty){
+list.innerHTML='<div class="card"><p class="small">Koi pending deposit nahi hai.</p></div>';
+return;
+}
+snapshot.docs.forEach(d=>{
+const r=d.data();
+const card=document.createElement("div");
+card.className="card";
+
+const h=document.createElement("h3");
+h.textContent="₹"+r.amount+" - "+(r.name||"Player");
+
+const p=document.createElement("p");
+p.className="small";
+p.textContent="UTR: "+r.utr+" | "+(r.email||"");
+
+const approve=document.createElement("button");
+approve.textContent="Approve";
+approve.onclick=()=>reviewDeposit(d.id,true,approve);
+
+const reject=document.createElement("button");
+reject.textContent="Reject";
+reject.style.background="#a83248";
+reject.style.marginLeft="8px";
+reject.onclick=()=>reviewDeposit(d.id,false,reject);
+
+card.append(h,p,approve,reject);
+list.append(card);
+});
+},
+error=>console.error("Admin deposits error:",error)
+);
+}
+
+async function reviewDeposit(utr,approve,btn){
+if(!isOwner)return;
+if(!confirm(approve?"BharatPe me payment check kar liya? Approve karein?":"Ye request reject karein?"))return;
+btn.disabled=true;
+
+try{
+await runTransaction(db,async tx=>{
+const depRef=doc(db,"deposits",utr);
+const dep=await tx.get(depRef);
+
+if(!dep.exists()||dep.data().status!=="pending"){
+throw new Error("Request pehle hi process ho chuki hai.");
+}
+
+if(approve){
+const userRef=doc(db,"users",dep.data().uid);
+const user=await tx.get(userRef);
+const current=Number(user.exists()?user.data().coins||0:0);
+const amount=Number(dep.data().amount);
+
+tx.set(userRef,{coins:current+amount},{merge:true});
+tx.set(doc(collection(db,"users",dep.data().uid,"transactions")),{
+type:"deposit",amount:amount,utr:utr,createdAt:serverTimestamp()
+});
+tx.update(depRef,{status:"approved",reviewedBy:currentUser.uid,reviewedAt:serverTimestamp()});
+}else{
+tx.update(depRef,{status:"rejected",reviewedBy:currentUser.uid,reviewedAt:serverTimestamp()});
+}
+});
+}catch(error){
+alert("Error: "+error.message);
+btn.disabled=false;
+}
+}
 
 // ADMIN MATCH LIST
 function renderAdminMatches() {
