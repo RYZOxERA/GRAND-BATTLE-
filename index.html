@@ -996,7 +996,11 @@ hideAuthScreens();
 document.getElementById("appShell").style.display="block";
 
 document.getElementById("welcomeName").textContent=
-"Welcome, "+(user.displayName||user.email||"Player");
+(user.displayName||user.email||"Player");
+
+if(user.photoURL){
+document.getElementById("headerAvatar").innerHTML='<img src="'+user.photoURL+'" alt="">';
+}
 
 document.getElementById("profileName").textContent=user.displayName||"Player";
 document.getElementById("profileEmail").textContent=user.email||"";
