@@ -505,8 +505,18 @@ input{width:100%;padding:12px;margin:8px 0;background:#0c1020;color:white;border
 <div id="appShell">
 
 <header>
-<div class="logo">👑 GRAND BATTLE</div>
-<button class="coins" onclick="showPage('walletPage')">🪙 <span id="coinBalance">0</span></button>
+  <div class="logo">👑 GRAND BATTLE</div>
+
+  <div class="header-right">
+    <button class="coins" onclick="showPage('walletPage')">
+      🪙 <span id="coinBalance">0</span>
+    </button>
+
+    <span id="welcomeName" class="welcome-name">Welcome Player</span>
+
+    <button class="notification-btn"
+      onclick="showPage('accountPage')">🔔</button>
+  </div>
 </header>
 
 <!-- HOME -->
