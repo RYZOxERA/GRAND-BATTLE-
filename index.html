@@ -779,9 +779,9 @@ sendPasswordResetEmail,reload,updateProfile
 
 import {
 getFirestore,doc,setDoc,collection,onSnapshot,
-getDoc,serverTimestamp
+getDoc,serverTimestamp,query,where,runTransaction
 } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js";
-
+  
 const firebaseConfig={
 apiKey:"AIzaSyCP1b12XseeZgYOuiA8fas60A9XLgOiE2U",
 authDomain:"grand-battle-f4fa8.firebaseapp.com",
