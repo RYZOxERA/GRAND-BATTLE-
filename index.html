@@ -1024,7 +1024,7 @@ document.querySelectorAll(".nav").forEach(n=>n.classList.remove("active"));
 if(element){
 element.classList.add("active");
 }else{
-<div class="nav" onclick="showPage('walletPage',this)"><b>💰</b>Wallet</div>
+const pages=["earnPage","walletPage","homePage","accountPage"];
 const index=pages.indexOf(pageId);
 if(index>=0)document.querySelectorAll(".nav")[index].classList.add("active");
 }
