@@ -1252,6 +1252,7 @@ async function checkAdminAccess() {
     const adminPage = document.getElementById("adminPage");
 
     if (isOwner) {
+      loadAdminDeposits();
       const nav = document.querySelector(".navbar");
 
       if (!document.getElementById("adminNav")) {
