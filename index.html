@@ -1089,6 +1089,125 @@ window.walletComingSoon=function(type){
 alert(type+" feature is coming soon. Payment system is not connected yet.");
 };
 
+  // DEPOSIT
+let pendingDepositAmount=0;
+let unsubscribeDeposits=null;
+
+window.generateDepositQR=function(){
+const msg=document.getElementById("depMessage");
+const amount=Number(document.getElementById("depAmount").value);
+msg.textContent="";
+
+if(!Number.isInteger(amount)||amount<5||amount>50000){
+msg.textContent="Amount 5 se 50000 ke beech (poora number) hona chahiye.";
+return;
+}
+
+pendingDepositAmount=amount;
+
+const upiId="BHARATPE2K0A0X6I2J16583@unitype";
+const link="upi://pay?pa="+upiId+"&pn="+encodeURIComponent("GRAND BATTLE")+"&am="+amount+"&cu=INR&tn="+encodeURIComponent("Deposit");
+
+document.getElementById("qrAmountText").textContent="₹"+amount;
+document.getElementById("payNowLink").href=link;
+document.getElementById("qrCard").style.display="block";
+document.getElementById("utrCard").style.display="block";
+
+const box=document.getElementById("qrBox");
+box.innerHTML="";
+
+if(typeof QRCode==="undefined"){
+box.textContent="QR library load nahi hui. PAY NOW button use kijiye.";
+return;
+}
+
+try{
+new QRCode(box,{text:link,width:200,height:200});
+}catch(error){
+box.textContent="QR nahi bana: "+error.message;
+}
+};
+
+window.submitDeposit=async function(){
+const msg=document.getElementById("depMessage");
+const utr=document.getElementById("depUtr").value.trim();
+msg.textContent="";
+
+if(!currentUser)return;
+
+if(!pendingDepositAmount){
+msg.textContent="Pehle amount chuniye aur QR banaiye.";
+return;
+}
+
+if(!/^\d{12}$/.test(utr)){
+msg.textContent="12 digit ka sahi UTR number likhiye.";
+return;
+}
+
+try{
+await setDoc(doc(db,"deposits",utr),{
+uid:currentUser.uid,
+name:currentUser.displayName||currentUser.email||"Player",
+email:currentUser.email||"",
+amount:pendingDepositAmount,
+utr:utr,
+status:"pending",
+createdAt:serverTimestamp()
+});
+
+msg.textContent="Request bhej di gayi. Admin check karke coins add karega.";
+document.getElementById("depUtr").value="";
+document.getElementById("depAmount").value="";
+document.getElementById("qrCard").style.display="none";
+document.getElementById("utrCard").style.display="none";
+pendingDepositAmount=0;
+}catch(error){
+msg.textContent="Ye UTR pehle se use ho chuka hai ya request fail hui.";
+}
+};
+
+function loadDeposits(){
+if(unsubscribeDeposits)unsubscribeDeposits();
+
+const list=document.getElementById("depositList");
+
+unsubscribeDeposits=onSnapshot(
+query(collection(db,"deposits"),where("uid","==",currentUser.uid)),
+snapshot=>{
+list.innerHTML="";
+
+if(snapshot.empty){
+list.innerHTML='<div class="card"><p class="small">Abhi koi deposit request nahi hai.</p></div>';
+return;
+}
+
+const rows=snapshot.docs.map(d=>d.data());
+rows.sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));
+
+rows.forEach(r=>{
+const card=document.createElement("div");
+card.className="card";
+
+const h=document.createElement("h3");
+h.textContent="₹"+r.amount;
+
+const p=document.createElement("p");
+p.className="small";
+p.textContent="UTR: "+r.utr;
+
+const s=document.createElement("p");
+s.className="match-status";
+s.textContent=String(r.status||"pending").toUpperCase();
+
+card.append(h,p,s);
+list.append(card);
+});
+},
+error=>console.error("Deposit list error:",error)
+);
+}
+
 // WALLET
 function loadWallet(){
 if(unsubscribeWallet)unsubscribeWallet();
