@@ -1124,12 +1124,13 @@ return;
 try{
 new QRCode(box,{text:link,width:200,height:200});
 }catch(error){
-box.textContent="QR nahi bana: "+error.message;
+msg.textContent="Error: "+error.code+" - "+error.message;
+  }
 }
 };
 
 window.submitDeposit=async function(){
-const msg=document.getElementById("depMessage");
+const msg=document.getElementById("depMessage2");
 const utr=document.getElementById("depUtr").value.trim();
 msg.textContent="";
 
