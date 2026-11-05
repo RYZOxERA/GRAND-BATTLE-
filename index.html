@@ -1050,7 +1050,9 @@ document.getElementById("profilePhoto").style.display="none";
 
 loadMatches();
 loadWallet();
+loadDeposits();
 await checkAdminAccess();
+  
 }else{
 if(unsubscribeMatches)unsubscribeMatches();
 if(unsubscribeWallet)unsubscribeWallet();
